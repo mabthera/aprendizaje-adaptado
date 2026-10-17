@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Etapa 1 · Suma y resta de fracciones · Itinerario adaptativo</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#142b3b;background:#f4f7f6;font-size:17px;line-height:1.55}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}button,input{font:inherit}button{cursor:pointer}a{color:#14576a}a:hover{text-decoration-thickness:2px}[hidden]{display:none!important}
+    :focus-visible{outline:3px solid #d27d17;outline-offset:3px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.14;letter-spacing:-.035em}h2{font-size:1.45rem;line-height:1.25}h3{font-size:1.12rem}small,.muted{color:#4f6570}.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:.6rem;z-index:20}.skip:focus{left:8px}
+    .shell{max-width:1280px;margin:auto;padding:10px 16px 8px}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}.top-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.brand{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:#20657a}.unit-link{font-size:.82rem}.dev-toggle{border:1px solid #819aa3;background:#fff;color:#214e5c;border-radius:9px;font-size:.8rem;font-weight:800;padding:5px 10px}.dev-toggle[aria-pressed="true"]{background:#164f61;color:#fff;border-color:#164f61}
+    .hero{background:linear-gradient(130deg,#173c50,#226b72);border-radius:16px;color:#fff;padding:13px 20px;box-shadow:0 8px 22px #14384520}.eyebrow{color:#c5f1e7;font-size:.71rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.hero p{max-width:980px;margin-bottom:0;color:#e5f3f2;font-size:.88rem;line-height:1.35}.hero h1{font-size:clamp(1.55rem,2.5vw,2rem);margin:.15rem 0 .25rem}
+    .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:9px 0;list-style:none;padding:0}.steps li{background:#e5ecee;border:1px solid #d4e0e3;border-radius:9px;padding:5px 9px;color:#536972;font-size:.72rem;min-height:42px;line-height:1.18}.steps li.active{background:#e5f4ee;border-color:#479579;color:#144d3b;font-weight:800}.steps li.done{background:#daf1e8;border-color:#3c9771;color:#154b37}.steps strong{display:inline;margin-right:.35rem;font-size:.86rem}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:10px;align-items:stretch;min-height:0}.panel,.side-card{background:#fff;border:1px solid #dbe6e8;border-radius:16px;box-shadow:0 5px 15px #1b394512}.panel{padding:15px 20px;min-width:0}.side-card{padding:15px;min-width:0}.side-card h2{font-size:1.05rem;margin-bottom:8px}.side-card ul{margin:0;padding-left:1.2rem}.side-card li+li{margin-top:.4rem}.side-card p{margin-bottom:.6rem}.badge{display:inline-block;background:#e5f4ee;color:#145c42;border-radius:999px;padding:3px 9px;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px}
+    .intro{font-size:.93rem;color:#375563;line-height:1.4;margin-bottom:10px}.theory-nav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.theory-nav button{border:1px solid #bdd5d8;border-radius:9px;background:#f2f8f8;color:#24596a;font-size:.78rem;font-weight:750;padding:7px 10px}.theory-nav button[aria-pressed="true"]{background:#145d70;color:#fff;border-color:#145d70}.theory-grid{display:block;margin:8px 0}.learn-card{border:1px solid #d5e4e5;border-radius:12px;padding:12px 15px;background:#f8fbfa;min-height:124px}.learn-card h3{color:#135368;margin-bottom:5px}.learn-card p{margin-bottom:5px}.learn-card p:last-child{margin-bottom:0}.theory-extra{border:1px solid #dce7e8;border-radius:10px;padding:7px 12px;margin-top:9px;background:#fbfdfd}.theory-extra summary{cursor:pointer;font-weight:750;color:#24596a}.theory-extra p{margin:8px 0 0;font-size:.88rem}.example,.mistake{margin:7px 0;padding:8px 10px;border-radius:8px}.example{background:#eff6f9;border-left:4px solid #2b8398}.mistake{background:#fff6e8;border-left:4px solid #ce7b19}.example p,.mistake p{margin:0}
+    .frac{display:inline-grid;grid-template-rows:auto auto;vertical-align:middle;text-align:center;line-height:1.05;margin:0 .14em;font-variant-numeric:tabular-nums;min-width:1.2em}.frac>span:first-child{border-bottom:1.8px solid currentColor;padding:0 .12em .08em}.frac>span:last-child{padding:.08em .12em 0}.math{font-size:1.28rem;font-weight:650;display:block;overflow-wrap:anywhere;margin:.2rem 0}.formula{font-size:1.12rem}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:11px}.primary,.secondary,.ghost{border-radius:10px;padding:8px 13px;font-weight:750;min-height:40px}.primary{background:#145d70;border:2px solid #145d70;color:#fff}.primary:hover{background:#0e4858}.secondary{background:#e4f2ed;color:#14523e;border:2px solid #9dceb9}.secondary:hover{background:#d5ebe2}.ghost{background:#fff;color:#315565;border:2px solid #cbdde2}.ghost:hover{background:#edf4f6}button[disabled]{opacity:.5;cursor:not-allowed}.small-note{font-size:.78rem;color:#526871;margin:7px 0 0}
+    .statusline{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}.chip{border-radius:999px;background:#edf3f5;padding:3px 9px;font-size:.78rem;font-weight:700;color:#365c69}.progress{height:8px;border-radius:99px;background:#e2ebed;overflow:hidden;margin:4px 0 10px}.progress>span{display:block;height:100%;width:0;background:#2a8b78;transition:width .25s}.question-card{border:1px solid #cbdde1;background:#fbfdfd;border-radius:13px;padding:15px}.question-meta{font-size:.74rem;text-transform:uppercase;letter-spacing:.065em;font-weight:800;color:#266b7a}.question-card h2{margin:5px 0}.question-card label{display:block;font-weight:700;margin:9px 0 5px}.answer-row{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}.answer-row input{width:min(100%,260px);min-height:42px;border:2px solid #829da7;border-radius:9px;padding:6px 10px;background:#fff;color:#142b3b;font-size:1.1rem}.answer-row input:focus{border-color:#145d70;outline:3px solid #abdad4}.field-error{color:#9a351d;font-size:.82rem;min-height:1rem;margin:3px 0 0}.feedback{margin-top:9px;padding:11px;border-radius:10px;border:1px solid #b7dcc9;background:#ecf8f1}.feedback.needs-work{border-color:#eccaa5;background:#fff7eb}.feedback strong{display:block;margin-bottom:3px}.feedback p{margin-bottom:5px}.feedback p:last-child{margin-bottom:0}.hint-box{margin-top:7px;border:1px solid #d9e4e6;border-radius:10px;background:#f4f8f9;padding:8px 10px}.hint-box p{margin:0}
+    .summary-level{border-radius:12px;padding:12px;margin:8px 0;background:#eff5f6;border-left:5px solid #6b919b}.summary-level.partial{background:#fff7ea;border-color:#d7902d}.summary-level.high{background:#e8f6ee;border-color:#2e8a5c}.summary-level.low{background:#fff0ec;border-color:#b85e45}.summary-level h2{margin:0 0 3px;font-size:1.12rem}.summary-level p{margin:0 0 4px;font-size:.88rem}.key-card{border:1px solid #d7aa42;background:linear-gradient(130deg,#fff9e7,#fff);border-radius:12px;padding:8px 12px;display:flex;gap:10px;align-items:center;font-size:.87rem}.key-card p{margin:0}.key-icon{font-size:1.8rem;line-height:1}.result-columns{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:9px}.result-columns h3{font-size:.95rem;margin-bottom:4px}.review-list{padding-left:1.1rem;margin:0;font-size:.84rem}.review-list li+li{margin-top:4px}.history,.teacher{border:1px solid #d4e2e4;border-radius:10px;padding:7px 11px;margin-top:8px}.history>summary,.teacher>summary{cursor:pointer;font-weight:700;font-size:.86rem}.history details{border:1px solid #dde8e9;border-radius:9px;margin:6px 0;padding:7px 9px}.history details summary{cursor:pointer;font-weight:700}.bars{display:grid;gap:7px;margin-top:8px}.barlabel{display:flex;justify-content:space-between;gap:8px;font-size:.78rem}.bartrack{height:8px;border-radius:99px;background:#e6eeee;overflow:hidden}.bartrack span{display:block;height:100%;background:#367f95}.fineprint{font-size:.8rem;color:#526b75}.footer{border-top:1px solid #d8e5e6;margin-top:7px;padding:6px 2px;font-size:.73rem;color:#506b74}.footer a{color:#14576a}
+    .dev-metric{border-radius:10px;background:#eaf5f2;padding:8px 10px;margin-bottom:9px}.dev-metric strong{font-size:1.2rem}.dev-bars{display:grid;gap:7px}.dev-bars .bartrack span{background:#24836d}.dev-detail{border-top:1px solid #d9e6e7;padding:7px 0;font-size:.77rem}.dev-detail summary{cursor:pointer;font-weight:750;color:#24596a}.dev-detail p{margin:5px 0}.dev-table{width:100%;border-collapse:collapse;font-size:.7rem}.dev-table th,.dev-table td{padding:4px 3px;border-bottom:1px solid #dce7e8;text-align:right}.dev-table th:first-child,.dev-table td:first-child{text-align:left}.dev-table tr.chosen{background:#e5f4ee;font-weight:800}.dev-grid{display:grid;grid-template-columns:1fr auto;gap:3px 10px;font-size:.78rem}.dev-grid strong{text-align:right}.dev-empty{font-size:.78rem;color:#526871}
+    .link-button{border:0;background:none;color:#20586a;text-decoration:underline;font-size:.78rem;font-weight:750;padding:3px 5px;min-height:28px}.statusline .link-button{margin-left:auto}#view-practice>.badge,#view-exit>.badge{margin-right:10px}#practice-title,#exit-title{display:inline-block;font-size:1.18rem;margin:0 0 9px}
+    @media(min-width:900px) and (min-height:650px){.shell{height:100svh;display:flex;flex-direction:column}.layout{flex:1}.panel,.side-card{height:100%;overflow-y:auto;scrollbar-gutter:stable}.footer{flex:none}}
+    @media(min-width:900px) and (max-height:720px){:root{font-size:15px}.hero{padding:9px 16px}.hero p{display:none}.steps{margin:6px 0}.steps li{min-height:35px;padding:4px 8px}.panel,.side-card{padding:11px 15px}.learn-card{min-height:108px}.theory-extra{margin-top:5px}.footer{margin-top:4px;padding:3px 2px}}
+    @media(max-width:899px){.layout{grid-template-columns:1fr}.side-card{order:-1}.steps{grid-template-columns:repeat(5,minmax(100px,1fr));overflow-x:auto}.result-columns{grid-template-columns:1fr}}
+    @media(max-width:540px){.shell{padding:12px}.hero{border-radius:13px;padding:14px}.hero p{display:none}.panel,.side-card{border-radius:13px}.panel{padding:16px 13px}.question-card{padding:12px}.steps{margin:8px 0;gap:5px}.steps li{padding:7px;font-size:.7rem}.steps strong{font-size:.8rem}.primary,.secondary,.ghost{width:100%}.answer-row input{width:100%}.key-card{align-items:flex-start}.topline{align-items:flex-start}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress>span{transition:none}}
+    /* Neumorphic Tech Schematic: superficie mate, relieve tactil y acento reservado a acciones. */
+    :root{font-family:Roboto,"Segoe UI",Arial,sans-serif;color:#2c2c2c;background:#f4f6f8;font-size:16px;line-height:1.5;--surface:#f4f6f8;--ink:#2c2c2c;--muted:#59616c;--accent:#eb5757;--accent-dark:#ba323f;--shadow-dark:#d1d9e6;--shadow-light:#fff;--raised:10px 10px 20px var(--shadow-dark),-10px -10px 20px var(--shadow-light);--inset:inset 5px 5px 10px #d7deea,inset -5px -5px 10px #fff}
+    body{min-width:320px;background:radial-gradient(circle at 50% 42%,#fff8 0,transparent 42%),var(--surface);color:var(--ink)}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#aeb8c328 1px,transparent 1px),linear-gradient(90deg,#aeb8c328 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(90deg,#0005,transparent 28%,transparent 72%,#0005);z-index:0}
+    h1,h2,h3{color:var(--ink);letter-spacing:-.035em}small,.muted,.small-note,.fineprint{color:var(--muted)}a,.footer a{color:#85303b}a:hover{color:var(--accent-dark)}:focus-visible{outline:3px solid var(--accent-dark);outline-offset:3px}
+    .shell{position:relative;z-index:1;width:min(100%,1440px);max-width:none;min-height:100svh;height:auto;margin:auto;padding:17px clamp(16px,3.5vw,52px) 12px;display:flex;flex-direction:column;gap:0}
+    .topline{min-height:45px;margin:0 0 12px;gap:10px;border-bottom:1px solid #d8dee7;padding:0 2px 11px}
+    .brand{color:#353c45;font-size:.78rem;letter-spacing:.15em;font-weight:800}.brand::before{content:"";display:inline-block;width:8px;height:8px;margin-right:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px #eb57571a;vertical-align:middle}
+    .top-actions{gap:18px}.unit-link{color:#59616c;text-decoration:none;font-size:.79rem}.unit-link:hover{text-decoration:underline}
+    .dev-toggle{background:var(--surface);border:1px solid #dbe0e8;border-radius:20px;color:#424a54;box-shadow:4px 4px 9px #d1d9e6,-4px -4px 9px #fff;padding:7px 14px;font-size:.76rem;font-weight:700;transition:transform .2s,box-shadow .2s,background-color .2s}.dev-toggle:hover{transform:translateY(-1px)}.dev-toggle[aria-pressed="true"]{background:#fbe9e9;color:#8f2632;border-color:#e6aaaa;box-shadow:var(--inset)}
+    .hero{background:transparent;color:var(--ink);border-radius:0;padding:9px 2px 0;box-shadow:none;text-align:center}.eyebrow{color:var(--accent-dark);font-size:.68rem;letter-spacing:.18em;font-weight:800}.hero h1{font-size:clamp(1.75rem,3vw,2.55rem);margin:.25rem 0 .25rem}.hero p{max-width:620px;margin:0 auto;color:var(--muted);font-size:.88rem;line-height:1.45}
+    .steps{display:flex;justify-content:center;gap:0;margin:18px 0 17px;overflow:visible}.steps li{position:relative;min-height:0;max-width:150px;flex:1;text-align:center;border:0;border-radius:0;background:transparent;color:#737c87;padding:25px 6px 0;font-size:.7rem;line-height:1.2}.steps li::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:17px;height:17px;border-radius:50%;background:var(--surface);border:2px solid #bbc5d0;box-shadow:3px 3px 6px #d1d9e6,-3px -3px 6px #fff;z-index:1}.steps li:not(:last-child)::after{content:"";position:absolute;top:9px;left:calc(50% + 10px);width:calc(100% - 20px);height:1px;background:#c8d1dc}.steps li.active{background:transparent;border:0;color:#8e2b37;font-weight:800}.steps li.active::before,.steps li.done::before{background:var(--accent);border-color:var(--accent)}.steps strong{display:none}
+    .steps.has-key{margin-top:31px}.steps li.earned .step-key{position:absolute;z-index:2;top:-23px;left:50%;width:18px;height:18px;transform:translateX(-50%);color:#ad2939;stroke-width:2}.steps li.earned::before{background:#c34755;border-color:#c34755}.steps li.earned{color:#8e2b37;font-weight:800}
+    .layout{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:24px}.panel{width:min(100%,820px);min-width:0;height:auto;max-height:none;overflow:visible;padding:25px clamp(20px,3vw,36px);background:var(--surface);border:1px solid #e1e6ed;border-radius:28px;box-shadow:var(--raised);scrollbar-gutter:auto}.side-card{display:none;height:auto;max-height:calc(100svh - 132px);overflow-y:auto;width:340px;padding:20px;background:var(--surface);border:1px solid #e1e6ed;border-radius:24px;box-shadow:var(--raised)}.dev-open .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;align-items:center}.dev-open .panel{width:min(100%,850px);justify-self:center}.dev-open .side-card{display:block}
+    .badge{margin-bottom:9px;padding:5px 11px;background:#fbe8e8;color:#94313d;border:1px solid #edc1c1;border-radius:99px;letter-spacing:.1em;font-size:.66rem}.intro{color:#59616c;font-size:.9rem;line-height:1.5}.theory-nav{gap:9px;margin:15px 0}.theory-nav button{padding:9px 12px;border-radius:18px;border:1px solid #dbe1e9;background:var(--surface);color:#454d56;box-shadow:4px 4px 9px #d1d9e6,-4px -4px 9px #fff;font-size:.75rem}.theory-nav button[aria-pressed="true"]{color:#9b303b;background:#fceaea;border-color:#e9b7bd;box-shadow:var(--inset)}.learn-card,.theory-extra,.history,.teacher,.history details{border:1px solid #e0e5ec;border-radius:19px;background:var(--surface);box-shadow:var(--inset)}.learn-card{padding:16px 20px;min-height:130px}.learn-card h3{color:var(--ink)}.theory-extra{padding:10px 15px}.theory-extra summary,.dev-detail summary{color:#424a54}.example,.mistake{border-left:3px solid #c6cfdc;background:#f4f6f8;box-shadow:var(--inset)}.mistake{border-color:var(--accent)}.math{color:var(--ink)}
+    .primary,.secondary,.ghost{min-height:43px;border-radius:18px;padding:9px 17px;font-weight:700;transition:transform .2s,box-shadow .2s,background-color .2s}.primary{background:#ad2e3c;color:#fff;border:1px solid #9b2936;box-shadow:5px 5px 11px #d4bfc2,-5px -5px 11px #fff}.primary:hover{background:#942532;transform:translateY(-2px)}.primary:active,.secondary:active,.ghost:active{transform:translateY(1px);box-shadow:var(--inset)}.secondary,.ghost{background:var(--surface);color:#464e57;border:1px solid #c9d1dc;box-shadow:4px 4px 9px #d1d9e6,-4px -4px 9px #fff}.secondary:hover,.ghost:hover{background:#fff}.actions{gap:10px}
+    .statusline{gap:8px;margin:0 0 7px}.chip{background:#e9edf2;color:#505a64;border:1px solid #dbe2ea;padding:5px 11px;font-size:.72rem;font-weight:700;letter-spacing:.02em}.link-button{color:#6b4b51;font-size:.77rem;text-decoration:none}.link-button:hover{text-decoration:underline}.progress,.bartrack{background:#dfe5ec;box-shadow:var(--inset)}.progress{height:5px;margin:0 0 12px}.progress>span,.bartrack span,.dev-bars .bartrack span{background:var(--accent)}
+    .question-card{border:1px solid #e1e6ed;background:var(--surface);border-radius:30px;box-shadow:var(--raised);padding:clamp(22px,3vw,38px);text-align:center}.question-meta{font-size:.7rem;color:#777f89;letter-spacing:.12em}.question-card h2,.question-card h3{font-size:1.2rem;font-weight:650;color:#616a75;margin:10px 0}.question-card .math{font-size:clamp(2.8rem,6vw,5rem);font-weight:600;line-height:1.25;margin:16px auto 26px;white-space:nowrap;overflow-wrap:normal}.question-card .frac{margin:0 .17em;min-width:1.1em}.question-card .frac>span:first-child{border-bottom-width:3px;padding-bottom:.08em}.question-card label{font-size:.83rem;font-weight:700;color:#424b55;margin:0 0 10px}.answer-row{justify-content:center;gap:12px}.answer-row input{width:min(100%,250px);min-height:47px;border:1px solid #c4ceda;border-radius:17px;background:var(--surface);color:var(--ink);box-shadow:var(--inset);padding:7px 15px;font-size:1.08rem;text-align:center}.answer-row input:focus{border-color:var(--accent-dark);outline:2px solid var(--accent);outline-offset:2px}.answer-row input::placeholder{color:#838b96}.question-card small{display:block;max-width:440px;margin:10px auto 0;color:#707986;font-size:.73rem}.question-card .actions{justify-content:center;margin-top:12px}.field-error{color:#9d2534}.hint-box,.feedback{max-width:620px;margin:14px auto 0;padding:12px 16px;text-align:left;border-radius:17px;box-shadow:var(--inset)}.hint-box{background:#f4f6f8;border:1px solid #d9dfe8}.feedback{background:#f4f6f8;border:1px solid #abbac8}.feedback.needs-work{border-color:#dc9b9f}.feedback strong{color:#2c2c2c}
+    .summary-level,.key-card{border-radius:19px;background:var(--surface);box-shadow:var(--inset);border:1px solid #dce3eb}.summary-level{border-left:4px solid #9faabb}.summary-level.partial{background:#f4f6f8;border-color:#d1a1a6}.summary-level.high{background:#f4f6f8;border-color:#98b5a8}.summary-level.low{background:#f4f6f8;border-color:#d79da3}.key-card{border-color:#d7b4b7}.key-icon{width:35px;height:35px;flex:none;color:var(--accent)}.result-columns{gap:20px}.dev-metric{background:#f4f6f8;box-shadow:var(--inset);border:1px solid #dce3eb;border-radius:17px}.dev-metric strong{color:#8d2f39}.dev-detail{border-color:#dce3eb}.dev-table{font-family:"JetBrains Mono",Consolas,monospace;table-layout:fixed}.dev-table th:first-child,.dev-table td:first-child{width:52%;overflow-wrap:anywhere}.dev-table tr.chosen{background:#fbe8e8}.dev-grid strong{font-family:"JetBrains Mono",Consolas,monospace}
+    .footer{flex:none;border:0;margin:10px 0 0;padding:3px;text-align:center;color:#7b838d;font-size:.68rem}
+    .shell[data-phase="practice"] .hero,.shell[data-phase="exit"] .hero,.shell[data-phase="practice"] .steps,.shell[data-phase="exit"] .steps{display:none}.shell[data-phase="practice"] .layout,.shell[data-phase="exit"] .layout{padding:8px 0 13px}.shell[data-phase="practice"] .panel,.shell[data-phase="exit"] .panel{background:transparent;border:0;box-shadow:none;padding:0;width:min(100%,780px)}.shell[data-phase="practice"] .panel>section,.shell[data-phase="exit"] .panel>section{width:100%}.shell[data-phase="practice"] #view-practice>.badge,.shell[data-phase="exit"] #view-exit>.badge{display:none}.shell[data-phase="practice"] #practice-title,.shell[data-phase="exit"] #exit-title{display:block;text-align:center;font-size:1.22rem;margin:0 0 12px}.shell[data-phase="practice"] #focus-chip{display:none}.shell[data-phase="practice"] #view-practice>.small-note{display:none}.shell[data-phase="exit"] .intro{text-align:center;max-width:600px;margin:0 auto 12px}.shell[data-phase="practice"] .statusline,.shell[data-phase="exit"] .statusline{align-items:center}.shell[data-phase="practice"] .statusline .link-button,.shell[data-phase="exit"] .statusline .link-button{margin-left:auto}
+    @media(min-width:900px) and (min-height:650px){.shell{height:100svh}.layout{flex:1}.panel,.side-card{height:auto;overflow:visible;scrollbar-gutter:auto}.dev-open .side-card{max-height:calc(100svh - 112px);overflow-y:auto}.dev-open .panel{max-height:calc(100svh - 112px);overflow-y:auto}}
+    @media(min-width:900px) and (max-height:720px){:root{font-size:15px}.shell{padding-top:9px}.topline{margin-bottom:4px;padding-bottom:5px}.hero{padding-top:2px}.steps{margin:9px 0}.panel{padding:17px 22px}.learn-card{min-height:102px;padding:10px 16px}.question-card{padding:20px}.question-card .math{font-size:3.4rem;margin:9px auto 18px}.footer{margin-top:4px}}
+    @media(max-width:899px){.shell{height:auto;min-height:100svh}.layout,.dev-open .layout{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}.panel,.dev-open .panel{width:min(100%,820px);margin:0 auto}.side-card,.dev-open .side-card{width:min(100%,820px);max-height:none;margin:14px auto 0;order:0}.steps{overflow:visible}.steps li{min-width:0}.shell[data-phase="practice"] .layout,.shell[data-phase="exit"] .layout{justify-content:center;flex:1}}
+    @media(max-width:600px){.shell{padding:12px 13px}.topline{align-items:flex-start}.brand{font-size:.67rem}.top-actions{gap:10px}.unit-link{font-size:.73rem}.dev-toggle{font-size:.68rem;padding:6px 10px}.hero h1{font-size:1.6rem}.hero p{font-size:.79rem}.steps{gap:0;margin:16px 0}.steps li{font-size:.59rem;padding:23px 2px 0}.panel{padding:18px 15px;border-radius:22px}.theory-nav button{flex:1 1 42%}.question-card{padding:25px 16px;border-radius:25px}.question-card .math{font-size:clamp(2.25rem,10vw,3.4rem);white-space:normal;margin:25px auto}.answer-row{flex-direction:column;align-items:stretch}.answer-row input,.answer-row .primary{width:100%}.primary,.secondary,.ghost{width:auto}.result-columns{grid-template-columns:1fr}.footer{font-size:.63rem}.shell[data-phase="practice"] #practice-title,.shell[data-phase="exit"] #exit-title{font-size:1.05rem}}
+    @media(max-width:380px){.brand{max-width:150px;line-height:1.3}.question-card .math{font-size:2.1rem}.question-card{padding:20px 12px}}
+    @media(prefers-reduced-motion:reduce){.primary,.secondary,.ghost,.dev-toggle{transition:none}}
+    /* Inicio: preparación breve y teoría consultable solo antes del intento. */
+    .topline{justify-content:space-between}.top-actions{margin-left:auto}
+    .shell[data-phase="theory"] .hero p{max-width:680px}.shell[data-phase="theory"] .panel{width:min(100%,850px)}
+    .start-state{display:inline-flex;align-items:center;gap:8px;color:#85303b;font-size:.71rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.start-state::before{content:"";width:8px;height:8px;border:2px solid var(--accent);border-radius:50%;background:var(--surface)}
+    .start-intro{margin:7px 0 11px;color:#434b54;font-size:.91rem;line-height:1.45}.start-intro strong{color:#2c2c2c}.theory-heading{font-size:.9rem;font-weight:700;margin:15px 0 7px;color:#545d68}.theory-subtitle{font-size:.77rem;color:#66707a;margin:0 0 10px}
+    .theory-accordion{display:grid;gap:8px}.theory-section{border:1px solid #dbe2ea;border-radius:17px;background:var(--surface);box-shadow:4px 4px 9px #d9e0ea,-4px -4px 9px #fff;overflow:hidden}.theory-section[open]{box-shadow:var(--inset);border-color:#c9d2de}.theory-section summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:46px;padding:8px 15px;font-size:.84rem;font-weight:700;color:#343b44}.theory-section summary::-webkit-details-marker{display:none}.theory-section summary::after{content:"+";margin-left:auto;color:#9d3440;font-size:1.3rem;line-height:1;font-weight:400}.theory-section[open] summary::after{content:"−"}.theory-index{font-family:"JetBrains Mono",Consolas,monospace;color:#9b3843;font-size:.71rem;letter-spacing:.03em}.theory-content{border-top:1px solid #dce3eb;padding:12px 16px 16px}.theory-content>p{font-size:.82rem;color:#525b65;margin:0 0 8px}.theory-steps{margin:0;padding:0;list-style:none;counter-reset:theory-step;display:grid;gap:6px}.theory-steps li{position:relative;padding:5px 7px 5px 32px;font-size:.81rem;line-height:1.4;color:#3d454f;counter-increment:theory-step}.theory-steps li::before{content:counter(theory-step);position:absolute;top:4px;left:0;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:#e6eaf0;color:#7b2d37;font-family:"JetBrains Mono",Consolas,monospace;font-size:.7rem;font-weight:700}.worked-example{margin:11px 0 0;padding:10px 13px;border-radius:13px;background:#f4f6f8;box-shadow:var(--inset);border:1px solid #dde4ec}.worked-example strong{display:block;color:#4b535d;font-size:.71rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}.worked-example .math{font-size:1.12rem;line-height:1.45;margin:0;color:#2c2c2c;overflow-wrap:anywhere}.worked-example p{font-size:.77rem;color:#606a75;margin:5px 0 0}.worked-example .math+.math{margin-top:4px}.theory-tip{border-left:3px solid var(--accent);padding:6px 9px;margin:10px 0 0;color:#515963;font-size:.78rem;background:#f7f2f3}.theory-content .frac{font-size:.95em}.start-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:15px}.start-actions .primary{min-width:190px}.start-actions .small-note{margin:0;max-width:380px;line-height:1.35}.footer{font-size:.64rem;line-height:1.2;margin-top:4px;padding:2px 0}
+    @media(min-width:900px){.shell[data-phase="theory"] .layout,.shell[data-phase="theory"].dev-open .layout{align-items:flex-start;padding:20px 0 8px}.shell[data-phase="theory"] .panel{overflow-y:auto;scrollbar-gutter:stable}}
+    @media(min-width:900px) and (min-height:650px){.shell[data-phase="theory"] .layout,.shell[data-phase="theory"].dev-open .layout{align-items:stretch}.shell[data-phase="theory"] .panel,.shell[data-phase="theory"].dev-open .panel{height:100%;min-height:0;max-height:100%;overflow-y:auto}.shell[data-phase="theory"].dev-open .side-card{height:100%;min-height:0;max-height:100%;overflow-y:auto}}
+    @media(min-width:900px) and (max-height:649px){.shell[data-phase="theory"] .panel,.shell[data-phase="theory"].dev-open .panel{max-height:none}}
+    @media(max-width:600px){.theory-section summary{padding:9px 11px}.theory-content{padding:11px 12px 14px}.start-actions{align-items:stretch}.start-actions .primary{width:100%}.shell[data-phase="theory"] .panel{max-height:none;overflow:visible}}
+    .learner-tag{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#59616c;font-size:.76rem;font-weight:700}
+    .shell[data-phase="welcome"] .hero,.shell[data-phase="welcome"] .steps,.shell[data-phase="welcome"] #dev-toggle{display:none}
+    .shell[data-phase="welcome"] .layout{padding:20px 0}.shell[data-phase="welcome"] .panel{width:min(100%,530px);padding:clamp(24px,4vw,44px);max-height:none;overflow:visible}
+    .welcome-mark{display:grid;place-items:center;width:48px;height:48px;margin:0 0 22px;border-radius:50%;background:var(--surface);box-shadow:6px 6px 13px #d1d9e6,-6px -6px 13px #fff;color:#a33844;font-family:"JetBrains Mono",Consolas,monospace;font-weight:700;font-size:.83rem}
+    .welcome-kicker{display:block;color:#9b3440;font-size:.69rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin-bottom:7px}.welcome-title{font-size:clamp(1.8rem,3vw,2.4rem);line-height:1.13;margin:0 0 12px}.welcome-copy{color:#5c6570;max-width:42ch;font-size:.91rem;line-height:1.5;margin:0 0 27px}
+    .welcome-form label{display:block;color:#3e4751;font-size:.85rem;font-weight:700;margin-bottom:9px}.welcome-form input{display:block;width:100%;min-height:52px;background:var(--surface);color:var(--ink);border:1px solid #bec9d6;border-radius:17px;box-shadow:var(--inset);font-size:1rem;padding:10px 16px}.welcome-form input:focus{outline:2px solid var(--accent);outline-offset:2px;border-color:var(--accent-dark)}.welcome-form input::placeholder{color:#818a95}.welcome-form .primary{width:100%;margin-top:13px}.welcome-form .field-error{margin:7px 0 0;min-height:0}.welcome-note{font-size:.74rem;color:#6a737e;margin:16px 0 0;line-height:1.45}
+    @media(max-width:600px){.shell[data-phase="welcome"] .layout{flex:1;justify-content:center}.shell[data-phase="welcome"] .panel{padding:27px 22px}.welcome-copy{margin-bottom:22px}.learner-tag{max-width:100px}}
+    /* La comprobación final cambia de tono para señalar el desafío por la llave. */
+    .shell[data-phase="exit"]{background:radial-gradient(circle at 50% 54%,#ffe7e9 0,#f4f6f8 58%)}
+    .shell[data-phase="exit"] .topline{border-color:#e6c6ca}.shell[data-phase="exit"] .brand::before{box-shadow:0 0 0 5px #eb575733,0 0 14px #eb575799}
+    .boss-banner{position:relative;display:flex;align-items:center;gap:20px;padding:17px 24px;margin:0 0 14px;border:1px solid #d58b94;border-left:5px solid #b42e3e;border-radius:23px;background:linear-gradient(110deg,#fff6f6,#f7e9eb 70%,#f4f6f8);box-shadow:8px 8px 18px #dfcbd0,-8px -8px 18px #fff;overflow:hidden;animation:boss-enter .5s ease-out both}
+    .boss-banner::after{content:"";position:absolute;right:-34px;top:-62px;width:190px;height:190px;border:1px solid #d77b8540;border-radius:50%;box-shadow:0 0 0 24px #d77b8510,0 0 0 48px #d77b850a;pointer-events:none}
+    .boss-sigil{position:relative;z-index:1;display:grid;place-items:center;flex:none;width:58px;height:58px;border:2px solid #c24753;border-radius:50%;background:#fff2f3;color:#a62635;box-shadow:0 0 0 6px #e2576422,5px 5px 12px #e2b9bf,-5px -5px 12px #fff;animation:boss-pulse 2.7s ease-in-out infinite}
+    .boss-sigil svg{width:32px;height:32px}.boss-copy{position:relative;z-index:1}.boss-kicker{display:block;color:#9f2e3c;font-size:.7rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;margin-bottom:3px}.shell[data-phase="exit"] #exit-title{display:block;text-align:left;margin:0 0 4px;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.18;color:#3d2227}.boss-banner p{margin:0;max-width:670px;color:#5a4146;font-size:.82rem;line-height:1.4}.boss-banner strong{color:#822432}
+    .shell[data-phase="exit"] .statusline{align-items:center;margin:0 0 6px}.boss-rounds{display:flex;gap:6px;align-items:center}.boss-rounds span{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid #c6adb0;background:#f2e8ea;color:#936169;font-family:"JetBrains Mono",Consolas,monospace;font-size:.69rem;font-weight:800}.boss-rounds span.active{background:#b42e3e;color:#fff;border-color:#b42e3e;box-shadow:0 0 0 4px #eb575733}.boss-rounds span.done{background:#d7a6ad;color:#4a262c;border-color:#c78992}.shell[data-phase="exit"] #exit-count{background:#fbe9eb;color:#8f2a37;border-color:#e8c0c6}.shell[data-phase="exit"] #exit-progress{height:7px;background:#edd9dd;margin-bottom:12px}.shell[data-phase="exit"] #exit-progress>span{background:linear-gradient(90deg,#a92737,#eb5757);box-shadow:0 0 10px #eb575788}
+    .shell[data-phase="exit"] .question-card{position:relative;border:2px solid #c45a66;box-shadow:10px 10px 23px #dfc8cd,-10px -10px 23px #fff;background:#f7f4f5}.shell[data-phase="exit"] .question-card::before{content:"";position:absolute;left:25%;right:25%;top:-2px;height:3px;background:linear-gradient(90deg,transparent,#eb5757,transparent)}.shell[data-phase="exit"] .question-card h3{color:#7d2732}.shell[data-phase="exit"] .question-card .math{color:#2d2225}.shell[data-phase="exit"] .question-card .small-note{color:#78676b}
+    @keyframes boss-enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes boss-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 6px #e2576422,5px 5px 12px #e2b9bf,-5px -5px 12px #fff}50%{transform:scale(1.04);box-shadow:0 0 0 9px #e2576430,5px 5px 12px #e2b9bf,-5px -5px 12px #fff}}
+    @media(min-width:900px){.shell[data-phase="exit"] .layout,.shell[data-phase="exit"].dev-open .layout{align-items:flex-start}}
+    @media(min-width:900px) and (min-height:650px){.shell[data-phase="exit"] .layout,.shell[data-phase="exit"].dev-open .layout{align-items:stretch;padding:8px 0 10px}.shell[data-phase="exit"] .panel,.shell[data-phase="exit"].dev-open .panel{height:100%;min-height:0;max-height:100%;overflow-y:auto;scrollbar-gutter:stable}.shell[data-phase="exit"].dev-open .side-card{height:100%;min-height:0;max-height:100%;overflow-y:auto}}
+    @media(max-width:899px){.shell[data-phase="exit"] .panel,.shell[data-phase="exit"].dev-open .panel{height:auto;max-height:none;overflow:visible}}
+    @media(max-width:600px){.boss-banner{gap:12px;padding:15px;margin-bottom:12px}.boss-sigil{width:46px;height:46px}.boss-sigil svg{width:25px;height:25px}.boss-banner p{font-size:.76rem}.shell[data-phase="exit"] #exit-title{font-size:1.25rem}.boss-banner::after{opacity:.45}.boss-rounds span{width:23px;height:23px}}
+    @media(prefers-reduced-motion:reduce){.boss-banner,.boss-sigil{animation:none}}
+    /* Resultado: la llave ocupa el primer plano cuando se supera la etapa. */
+    .shell[data-phase="result"] .hero,.shell[data-phase="result"] .steps{display:none}.shell[data-phase="result"][data-outcome="high"] .steps{display:flex;margin-bottom:8px}.shell[data-phase="result"] .layout,.shell[data-phase="result"].dev-open .layout{align-items:flex-start;padding:12px 0 10px}.shell[data-phase="result"] .panel{width:min(100%,880px)}
+    .stage-next-actions{margin:0 0 15px}.stage-next-button{background:#a92e3e;border:1px solid #8d2533;color:#fff;box-shadow:5px 5px 11px #d8c4c8,-5px -5px 11px #fff}.stage-next-button:hover{background:#8d2533}
+    .shell[data-phase="result"][data-outcome="high"]{background:radial-gradient(circle at 50% 38%,#ffe6e9 0,#f4f6f8 65%)}.shell[data-phase="result"][data-outcome="high"] .panel{border-color:#e7b9bf;background:#f8f5f6}.shell[data-phase="result"][data-outcome="high"] #result-title{font-size:1.05rem;color:#6e5055;font-weight:600;margin-bottom:12px}.shell[data-phase="result"][data-outcome="high"] .badge{background:#fbe7e9;border-color:#eab9bf;color:#8f2936}
+    .key-card.earned{position:relative;display:grid;grid-template-columns:94px minmax(0,1fr);gap:24px;align-items:center;min-height:192px;padding:26px 30px;margin:0 0 18px;border:2px solid #c34755;border-radius:27px;background:linear-gradient(125deg,#fff8f8 0,#f9e3e7 62%,#f5d6dc 100%);box-shadow:10px 10px 23px #dcbfc6,-10px -10px 23px #fff;overflow:hidden}.key-card.earned::after{content:"";position:absolute;right:-45px;top:-85px;width:250px;height:250px;border:1px solid #d1606c33;border-radius:50%;box-shadow:0 0 0 34px #d1606c0c,0 0 0 68px #d1606c08;pointer-events:none}
+    .key-card.earned .key-emblem{position:relative;z-index:1;display:grid;place-items:center;width:94px;height:94px;border:1px solid #d6848e;border-radius:28px;background:#fff3f4;box-shadow:inset 5px 5px 10px #e9c9ce,inset -5px -5px 10px #fff,0 0 0 7px #eb57571c}.key-card.earned .key-icon{width:54px;height:54px;color:#ac2939}.key-card.earned .key-copy{position:relative;z-index:1}.key-kicker{display:block;color:#a43240;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px}.key-card.earned h2{font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.1;color:#852534;margin:0 0 8px}.key-card.earned p{max-width:560px;color:#543d43;font-size:.9rem;line-height:1.45;margin:0}.key-card.earned .key-next{margin-top:7px;font-size:.79rem;color:#7c4550}
+    .key-card.saved{margin:0 0 12px;padding:10px 14px;background:#f7f0f1;border-color:#d9b5bb;box-shadow:var(--inset)}.key-card.saved .key-emblem{display:grid;place-items:center;flex:none;width:35px;height:35px}.key-card.saved .key-icon{width:27px;height:27px}.key-card.saved strong{color:#81313d}
+    .shell[data-phase="result"][data-outcome="high"] .result-columns{margin-top:6px}.shell[data-phase="result"][data-outcome="high"] .result-columns h3{color:#5d333c}
+    #view-result.victory-enter{animation:victory-arrive .55s ease-out both}#view-result.victory-enter .key-card.earned{animation:key-rise .8s cubic-bezier(.2,.85,.25,1) .08s both}#view-result.victory-enter .key-emblem{animation:key-halo .8s ease-out .22s both}
+    @keyframes victory-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes key-rise{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes key-halo{from{box-shadow:inset 5px 5px 10px #e9c9ce,inset -5px -5px 10px #fff,0 0 0 2px #eb575700}to{box-shadow:inset 5px 5px 10px #e9c9ce,inset -5px -5px 10px #fff,0 0 0 7px #eb57571c}}
+    @media(min-width:900px) and (min-height:650px){.shell[data-phase="result"] .layout,.shell[data-phase="result"].dev-open .layout{align-items:stretch}.shell[data-phase="result"] .panel,.shell[data-phase="result"].dev-open .panel{height:100%;min-height:0;max-height:100%;overflow-y:auto;scrollbar-gutter:stable}.shell[data-phase="result"].dev-open .side-card{height:100%;min-height:0;max-height:100%;overflow-y:auto}}
+    @media(max-width:899px){.shell[data-phase="result"] .panel,.shell[data-phase="result"].dev-open .panel{height:auto;max-height:none;overflow:visible}}
+    @media(max-width:600px){.key-card.earned{grid-template-columns:1fr;gap:13px;padding:22px;min-height:0}.key-card.earned .key-emblem{width:64px;height:64px;border-radius:20px}.key-card.earned .key-icon{width:38px;height:38px}.key-card.earned h2{font-size:1.75rem}.key-card.earned p{font-size:.83rem}}
+    @media(prefers-reduced-motion:reduce){#view-result.victory-enter,#view-result.victory-enter .key-card.earned,#view-result.victory-enter .key-emblem{animation:none}}
+    .focus-dialog[hidden]{display:none}.focus-dialog{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px;background:#202733a8;backdrop-filter:blur(5px)}.focus-dialog-card{width:min(100%,430px);padding:28px;border:1px solid #d9e0e9;border-radius:24px;background:var(--surface);box-shadow:var(--raised);text-align:center}.focus-dialog-kicker{color:var(--accent-dark);font-size:.7rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.focus-dialog-card h2{margin:8px 0;font-size:1.45rem}.focus-dialog-card p{margin:0 0 20px;color:var(--muted);font-size:.9rem;line-height:1.5}.focus-dialog-card .primary{width:100%}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+  <div class="shell" id="app-shell" data-phase="welcome">
+    <div class="topline"><span class="brand">MATEMÁTICAS / 2.º ESO</span><div class="top-actions"><span id="learner-tag" class="learner-tag" hidden></span><button id="dev-toggle" type="button" class="dev-toggle" aria-pressed="false" aria-controls="inspector" hidden>Modo desarrollador</button></div></div>
+    <header class="hero"><div class="eyebrow">Itinerario adaptativo de 5 etapas</div><h1>Etapa 1 · Suma y resta de fracciones</h1><p>Esta es la primera de cinco etapas para llegar a dominar las operaciones combinadas con fracciones. Ahora practicarás sumas y restas; más adelante llegarán el producto, el cociente, las prioridades y los paréntesis.</p></header>
+    <ol class="steps" id="stage-steps" aria-label="Etapas del itinerario"><li class="active" id="stage1-step"><svg id="stage1-step-key" class="step-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg><strong>01</strong>Suma y resta</li><li><strong>02</strong>Producto y cociente</li><li><strong>03</strong>Prioridades</li><li><strong>04</strong>Paréntesis</li><li><strong>05</strong>Todo junto</li></ol>
+    <div class="layout">
+      <main id="main" class="panel">
+        <section id="view-welcome" aria-labelledby="welcome-title">
+          <div class="welcome-mark" aria-hidden="true">01/05</div>
+          <span class="welcome-kicker">Operaciones con fracciones</span>
+          <h1 id="welcome-title" class="welcome-title">Bienvenido al itinerario</h1>
+          <p class="welcome-copy">Avanzarás por cinco etapas de práctica. Antes de entrar en la primera, escribe tu nombre.</p>
+          <form id="welcome-form" class="welcome-form" novalidate>
+            <label for="learner-name">Tu nombre</label>
+            <input id="learner-name" name="learner-name" type="text" autocomplete="name" maxlength="60" required aria-describedby="learner-error" placeholder="Escribe tu nombre">
+            <p id="learner-error" class="field-error" role="alert"></p>
+            <button type="submit" class="primary">Continuar a la etapa 1</button>
+          </form>
+          <p class="welcome-note">El nombre y el progreso se guardan en este navegador. Si escribes otro nombre, comenzarás un recorrido nuevo.</p>
+        </section>
+        <section id="view-theory" hidden aria-labelledby="theory-title">
+          <span class="start-state" id="start-state">Todavía no has comenzado</span><h2 id="theory-title">Prepárate para la etapa 1</h2>
+          <p class="start-intro">Cuando pulses <strong>Empezar la práctica</strong>, resolverás ejercicios de suma y resta elegidos según tus respuestas. La teoría se cerrará durante el intento; si vuelves a estudiarla, comenzarás un intento nuevo.</p>
+          <h3 class="theory-heading">Teoría para consultar antes de empezar</h3><p class="theory-subtitle">Los tres apartados están cerrados. Abre el que necesites y sigue los pasos de cada ejemplo.</p>
+          <div class="theory-accordion">
+            <details class="theory-section"><summary><span class="theory-index">01</span>Mismo denominador</summary><div class="theory-content"><p>Las partes de las dos fracciones tienen el mismo tamaño. Solo cambian las cantidades de partes.</p><ol class="theory-steps"><li>Comprueba que los denominadores son iguales.</li><li>Suma o resta los numeradores, según indique la operación.</li><li>Conserva el denominador. Si se puede, simplifica el resultado.</li></ol><div class="worked-example"><strong>Ejemplo de suma</strong><div class="math" role="img" aria-label="Tres octavos más dos octavos igual a cinco octavos"><span class="frac"><span>3</span><span>8</span></span> + <span class="frac"><span>2</span><span>8</span></span> = <span class="frac"><span>5</span><span>8</span></span></div><p>Hay cinco partes de tamaño un octavo.</p></div><div class="worked-example"><strong>Ejemplo de resta</strong><div class="math" role="img" aria-label="Siete octavos menos tres octavos igual a cuatro octavos, igual a un medio"><span class="frac"><span>7</span><span>8</span></span> − <span class="frac"><span>3</span><span>8</span></span> = <span class="frac"><span>4</span><span>8</span></span> = <span class="frac"><span>1</span><span>2</span></span></div><p>Se quitan tres octavos; cuatro octavos equivalen a un medio.</p></div><p class="theory-tip"><strong>Recuerda:</strong> nunca se suman ni se restan los denominadores.</p></div></details>
+            <details class="theory-section"><summary><span class="theory-index">02</span>Distinto denominador</summary><div class="theory-content"><p>Antes de operar, convierte ambas fracciones en partes del mismo tamaño.</p><ol class="theory-steps"><li>Busca un denominador común; el mínimo común múltiplo suele dar números más pequeños.</li><li>Convierte <strong>cada</strong> fracción: multiplica su numerador y su denominador por el mismo número.</li><li>Suma o resta los nuevos numeradores, conserva el denominador común y simplifica si es posible.</li></ol><div class="worked-example"><strong>Ejemplo de suma · m. c. m. (2, 3) = 6</strong><div class="math" role="img" aria-label="Un medio más un tercio igual a tres sextos más dos sextos, igual a cinco sextos"><span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>1</span><span>3</span></span> = <span class="frac"><span>3</span><span>6</span></span> + <span class="frac"><span>2</span><span>6</span></span> = <span class="frac"><span>5</span><span>6</span></span></div><p>Se multiplica <span class="frac" role="img" aria-label="1 sobre 2"><span aria-hidden="true">1</span><span aria-hidden="true">2</span></span> por <span class="frac" role="img" aria-label="3 sobre 3"><span aria-hidden="true">3</span><span aria-hidden="true">3</span></span> y <span class="frac" role="img" aria-label="1 sobre 3"><span aria-hidden="true">1</span><span aria-hidden="true">3</span></span> por <span class="frac" role="img" aria-label="2 sobre 2"><span aria-hidden="true">2</span><span aria-hidden="true">2</span></span>.</p></div><div class="worked-example"><strong>Ejemplo de resta · m. c. m. (4, 6) = 12</strong><div class="math" role="img" aria-label="Tres cuartos menos un sexto igual a nueve doceavos menos dos doceavos, igual a siete doceavos"><span class="frac"><span>3</span><span>4</span></span> − <span class="frac"><span>1</span><span>6</span></span> = <span class="frac"><span>9</span><span>12</span></span> − <span class="frac"><span>2</span><span>12</span></span> = <span class="frac"><span>7</span><span>12</span></span></div><p>Se multiplica <span class="frac" role="img" aria-label="3 sobre 4"><span aria-hidden="true">3</span><span aria-hidden="true">4</span></span> por <span class="frac" role="img" aria-label="3 sobre 3"><span aria-hidden="true">3</span><span aria-hidden="true">3</span></span> y <span class="frac" role="img" aria-label="1 sobre 6"><span aria-hidden="true">1</span><span aria-hidden="true">6</span></span> por <span class="frac" role="img" aria-label="2 sobre 2"><span aria-hidden="true">2</span><span aria-hidden="true">2</span></span>.</p></div><p class="theory-tip"><strong>Comprueba:</strong> las dos fracciones deben tener el nuevo denominador antes de sumar o restar.</p></div></details>
+            <details class="theory-section"><summary><span class="theory-index">03</span>Simplificación con factores primos</summary><div class="theory-content"><p>Una fracción es irreducible cuando numerador y denominador no comparten ningún factor primo.</p><ol class="theory-steps"><li>Descompón el numerador y el denominador en productos de números primos.</li><li>Busca factores iguales arriba y abajo. Elimina una pareja cada vez: eso equivale a dividir ambos por el mismo primo.</li><li>Multiplica los factores que quedan. Si no queda ninguno arriba, el numerador es 1.</li></ol><div class="worked-example"><strong>Ejemplo · simplificar <span class="frac" role="img" aria-label="18 sobre 24"><span aria-hidden="true">18</span><span aria-hidden="true">24</span></span></strong><div class="math" role="img" aria-label="Dieciocho veinticuatroavos igual a dos por tres por tres, partido por dos por dos por dos por tres"><span class="frac"><span>18</span><span>24</span></span> = <span class="frac"><span>2 × 3 × 3</span><span>2 × 2 × 2 × 3</span></span></div><p>Se elimina un 2 y un 3 de arriba y de abajo.</p><div class="math" role="img" aria-label="Queda tres partido por dos por dos, igual a tres cuartos"><span class="frac"><span>3</span><span>2 × 2</span></span> = <span class="frac"><span>3</span><span>4</span></span></div></div><p class="theory-tip"><strong>Revisión final:</strong> 3 y 4 no tienen factores primos comunes; <span class="frac" role="img" aria-label="3 sobre 4"><span aria-hidden="true">3</span><span aria-hidden="true">4</span></span> ya es irreducible.</p></div></details>
+          </div>
+          <div class="start-actions"><button id="start" type="button" class="primary">Empezar la práctica</button><p class="small-note">Podrás pedir pistas y verás la corrección tras cada respuesta. La práctica requiere pantalla completa.</p></div><p class="small-note" id="saved-key-note" hidden>Ya tienes la llave de esta etapa. Puedes practicar de nuevo si quieres.</p>
+        </section>
+
+        <section id="view-practice" hidden aria-labelledby="practice-title">
+          <span class="badge">Práctica adaptativa</span><h2 id="practice-title">Concéntrate en este ejercicio</h2>
+          <div class="statusline"><span class="chip" id="count-chip">Ejercicio 1</span><span class="chip" id="focus-chip">Suma y resta</span><button id="return-theory" class="link-button" type="button" title="Cierra este intento para volver a estudiar">Salir a estudiar</button></div><div class="progress" role="progressbar" aria-label="Progreso del intento" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0" id="progress"><span></span></div>
+          <article class="question-card"><h2 id="question-prompt">Calcula y simplifica</h2><div class="math" id="question-math" role="img"></div><label id="practice-answer-label" for="answer">Tu resultado</label><div class="answer-row" id="practice-answer-row"><input id="answer" type="text" inputmode="text" autocomplete="off" spellcheck="false" aria-describedby="answer-help input-error" placeholder="5/6"><button id="check" class="primary" type="button">Comprobar</button></div><small id="answer-help">Escribe una fracción irreducible, como 3/4, o un entero, como 1.</small><p id="input-error" class="field-error" role="alert"></p><div class="actions" id="hint-actions"><button id="hint" type="button" class="ghost">Pedir una pista</button></div><div class="hint-box" id="hint-box" hidden aria-live="polite"></div><div id="feedback" class="feedback" hidden aria-live="polite"></div><div class="actions"><button id="next" class="secondary" type="button" hidden>Siguiente ejercicio</button></div></article>
+          <p class="small-note">Salir a estudiar cierra este intento. El siguiente tendrá variantes nuevas.</p>
+        </section>
+
+        <section id="view-exit" hidden aria-labelledby="exit-title">
+          <div class="boss-banner"><div class="boss-sigil" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 20 5v6c0 5.2-3.2 8.8-8 11-4.8-2.2-8-5.8-8-11V5l8-3Z"/><circle cx="12" cy="10" r="2"/><path d="M12 12v4"/></svg></div><div class="boss-copy"><span class="boss-kicker">Jefe final · tres rondas</span><h2 id="exit-title">Duelo por la llave</h2><p><strong>La llave se decide aquí.</strong> Resuelve sin pistas. Necesitas al menos dos resultados correctos e irreducibles, uno con denominadores distintos, y conservar un dominio alto. Verás la corrección al final.</p></div></div>
+          <div class="statusline"><div class="boss-rounds" aria-hidden="true"><span data-boss-round="0" class="active">1</span><span data-boss-round="1">2</span><span data-boss-round="2">3</span></div><span class="chip" id="exit-count">Ronda 1 de 3</span><button id="exit-return" class="link-button" type="button" title="Cierra este intento para volver a estudiar">Salir a estudiar</button></div><div class="progress" role="progressbar" aria-label="Progreso del desafío final" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" id="exit-progress"><span></span></div>
+          <article class="question-card"><h3>Calcula y simplifica</h3><div class="math" id="exit-math" role="img"></div><label for="exit-answer">Tu resultado</label><div class="answer-row"><input id="exit-answer" type="text" inputmode="text" autocomplete="off" spellcheck="false" aria-describedby="exit-error" placeholder="5/6"><button id="exit-check" class="primary" type="button">Guardar respuesta</button></div><p id="exit-error" class="field-error" role="alert"></p><p class="small-note">La corrección se mostrará al terminar las tres preguntas.</p></article>
+        </section>
+
+        <section id="view-result" hidden aria-labelledby="result-title">
+          <span class="badge">Resumen del intento</span><h2 id="result-title">Tu siguiente paso</h2>
+          <div id="key-area" hidden></div><div class="stage-next-actions" id="stage-next-actions" hidden><button id="go-stage-2" class="primary stage-next-button" type="button">Etapa 2</button></div><div id="result-level" class="summary-level"></div>
+          <div class="result-columns"><div><h3>Lo que has mostrado</h3><ul id="strengths" class="review-list"></ul></div><div><h3>Qué conviene repasar</h3><ul id="reviews" class="review-list"></ul></div></div>
+          <details class="history"><summary>Revisa tus respuestas y soluciones</summary><div id="history-list"></div></details>
+          <div class="actions"><button id="retry" type="button" class="primary">Volver a estudiar y reintentar</button></div>
+        </section>
+      </main>
+      <aside id="inspector" class="side-card" aria-label="Cálculos del modo desarrollador" hidden><div id="developer-side"><h2>Modelo en tiempo real</h2><div id="dev-entropy" class="dev-metric" aria-live="polite"></div><div id="dev-bars" class="dev-bars"></div><details class="dev-detail" open><summary>Pregunta y ganancia prevista</summary><div id="dev-current"></div></details><details class="dev-detail"><summary>Comparación de plantillas</summary><div id="dev-candidates"></div></details><details class="dev-detail"><summary>Última actualización de Bayes</summary><div id="dev-last"></div></details><p class="dev-empty">Son estimaciones del modelo, no una medición validada del alumno.</p></div></aside>
+    </div>
+    <footer class="footer">Material didáctico de 2.º ESO · IES de Teis.</footer>
+  </div>
+  <div id="focus-dialog" class="focus-dialog" role="dialog" aria-modal="true" aria-labelledby="focus-dialog-title" aria-describedby="focus-dialog-message" hidden><div class="focus-dialog-card"><span class="focus-dialog-kicker" id="focus-dialog-kicker"></span><h2 id="focus-dialog-title"></h2><p id="focus-dialog-message"></p><button id="focus-dialog-action" class="primary" type="button"></button></div></div>
+  <script src="sync.js"></script>
+  <script id="app">
+  (() => {
+    'use strict';
+    const STORAGE = 'ud2-adaptativo-etapa1-v1';
+    const RECENT = 'ud2-adaptativo-etapa1-recientes-v1';
+    const MAP_STORAGE = 'ud2-adaptativo-etapa1-alumnos-v2';
+    const DEV_STORAGE = 'ud2-adaptativo-etapa1-desarrollador-v1';
+    const NAME_STORAGE = 'ud2-adaptativo-etapa1-alumno-v1';
+    const NEXT_URL = 'Etapa_2_Multiplicacion_y_division.html';
+    const nextUrl = () => `${NEXT_URL}?alumno=${encodeURIComponent(learnerName)}&llave=etapa1`;
+    const MIN = 6, EARLY_MIN = 4, EARLY_CONFIDENCE = 0.90, EARLY_ENTROPY = 0.75, MAX = 18, PMIN = 0.80;
+    const theta = [-2, 0, 2];
+    const names = ['Aún no domina', 'Dominio parcial', 'Dominio alto'];
+    const familyNames = {same:'mismo denominador', related:'denominadores relacionados', general:'denominadores distintos'};
+    const templates = [
+      {id:'same-add', family:'same', op:'+', b:-1, label:'Suma · mismo denominador'},
+      {id:'same-sub', family:'same', op:'−', b:-1, label:'Resta · mismo denominador'},
+      {id:'related-add', family:'related', op:'+', b:0, label:'Suma · denominadores relacionados'},
+      {id:'related-sub', family:'related', op:'−', b:0, label:'Resta · denominadores relacionados'},
+      {id:'general-add', family:'general', op:'+', b:1, label:'Suma · denominadores distintos'},
+      {id:'general-sub', family:'general', op:'−', b:1, label:'Resta · denominadores distintos'}
+    ];
+    const exitTemplateIds = ['related-add','general-add','general-sub'];
+    const $ = id => document.getElementById(id);
+    const rand = (a,b) => a + Math.floor(Math.random() * (b-a+1));
+    const gcd = (a,b) => {a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1};
+    const lcm = (a,b) => a / gcd(a,b) * b;
+    const rat = (n,d) => {if(d<0){n=-n;d=-d}const g=gcd(n,d);return {n:n/g,d:d/g}};
+    const equal = (x,y) => x.n*y.d === y.n*x.d;
+    const plain = x => x.d===1 ? String(x.n) : `${x.n}/${x.d}`;
+    const smallResult = q => q?.result?.n<=99&&q?.result?.d<=99;
+    const part = x => x.d===1 ? String(x.n) : `<span class="frac"><span>${x.n}</span><span>${x.d}</span></span>`;
+    const byId = id => templates.find(t=>t.id===id);
+    const blankStats = () => Object.fromEntries(['same','related','general'].map(k=>[k,{attempts:0,full:0,wrong:0,hinted:0}]));
+    let state = null;
+    let recent = [];
+    let developerOpen = false;
+    let learnerName = '';
+    let records = {};
+    const normalizedName = name => name.trim().replace(/\s+/g,' ').toLocaleLowerCase('es');
+    try {recent=JSON.parse(localStorage.getItem(RECENT)||'[]');if(!Array.isArray(recent)) recent=[]}catch{recent=[]}
+    try {developerOpen=localStorage.getItem(DEV_STORAGE)==='true'}catch{}
+
+    function makeItem(t) {
+      let a,b,c,d;
+      if(t.family==='same') {
+        d=rand(4,16);b=d;
+        if(t.op==='+'){a=rand(1,d-1);c=rand(1,d-1)}
+        else {a=rand(2,d-1);c=rand(1,a-1)}
+      } else if(t.family==='related') {
+        d=rand(2,9);b=d*rand(2,3);
+        a=rand(1,d-1);c=rand(1,b-1);
+        if(t.op==='−' && a*b<=c*d){const m=Math.floor(a*b/d);c=rand(1,Math.max(1,m-1));if(a*b<=c*d)return makeItem(t)}
+      } else {
+        const pairs=[[3,4],[3,5],[4,5],[5,6],[5,7],[6,7],[7,8],[7,9],[8,9],[8,11],[9,10],[9,11]];
+        [d,b]=pairs[rand(0,pairs.length-1)];a=rand(1,d-1);c=rand(1,b-1);
+        if(t.op==='−' && a*b<=c*d){[a,c]=[c,a];[d,b]=[b,d];if(a*b<=c*d)return makeItem(t)}
+      }
+      const rawN=t.op==='+' ? a*b+c*d : a*b-c*d;
+      if(rawN<=0)return makeItem(t);
+      const result=rat(rawN,d*b);
+      if(result.n>99||result.d>99)return makeItem(t);
+      const operands=[`${a}/${d}`,`${c}/${b}`];if(t.op==='+')operands.sort();
+      const signature=`${t.id}|${operands.join('|')}`;
+      return {templateId:t.id,family:t.family,op:t.op,b:t.b,left:{n:a,d},right:{n:c,d:b},result,signature};
+    }
+    function sample(t, used) {
+      for(let i=0;i<150;i++){const q=makeItem(t);if(!used.has(q.signature))return q}
+      return makeItem(t);
+    }
+    function likelihood(q) {
+      const c=0, a=1.25/(1-c);
+      return theta.map(th=>Math.min(.95,c+(1-c)/(1+Math.exp(-a*(th-q.b)))));
+    }
+    function entropy(p){return -p.reduce((sum,x)=>sum+(x>0?x*Math.log2(x):0),0)}
+    function posterior(prior, ps, success){
+      const raw=prior.map((v,i)=>v*(success?ps[i]:1-ps[i]));const z=raw.reduce((a,b)=>a+b,0);return raw.map(x=>x/z);
+    }
+    function information(q,p){
+      const ps=likelihood(q), win=p.reduce((s,x,i)=>s+x*ps[i],0);
+      return entropy(p)-win*entropy(posterior(p,ps,true))-(1-win)*entropy(posterior(p,ps,false));
+    }
+    function update(q,s){
+      const prior=[...state.posterior],ps=likelihood(q),factors=ps.map(p=>Math.pow(p,s)*Math.pow(1-p,1-s));
+      const raw=prior.map((v,i)=>v*factors[i]),z=raw.reduce((a,b)=>a+b,0);
+      state.posterior=raw.map(v=>v/z);
+      state.previousUpdate={templateId:q.templateId,score:s,prior,ps,factors,raw,normalizer:z,posterior:[...state.posterior],entropyBefore:entropy(prior),entropyAfter:entropy(state.posterior)};
+    }
+    function parseAnswer(value){
+      const clean=value.trim().replace(/−/g,'-').replace(/\s+/g,'');
+      if(!/^[+-]?\d{1,6}(?:\/[+-]?\d{1,6})?$/.test(clean)) return {error:'Escribe una fracción como 5/6 o un entero como 1.'};
+      const [n,d='1']=clean.split('/').map(Number);
+      if(d===0)return {error:'El denominador no puede ser cero.'};
+      const valueRat=rat(n,d);
+      return {value:valueRat, simplified:d>0 && gcd(n,d)===1, entered:clean};
+    }
+    function classify(q,answer){
+      if(equal(answer,q.result))return null;
+      const x=q.left,y=q.right,sgn=q.op==='+'?1:-1;
+      const badDen=rat(x.n+sgn*y.n,x.d+y.d);
+      if(equal(answer,badDen))return 'Se han operado los denominadores';
+      const badTop=rat(x.n+sgn*y.n,x.d);
+      if(q.family!=='same'&&equal(answer,badTop))return 'Se han operado numeradores sin unidad común';
+      return null;
+    }
+    function stepsFor(q){
+      const m=lcm(q.left.d,q.right.d),x=q.left.n*(m/q.left.d),y=q.right.n*(m/q.right.d);
+      return `${q.left.n}/${q.left.d} ${q.op} ${q.right.n}/${q.right.d} = ${x}/${m} ${q.op} ${y}/${m} = ${x+(q.op==='+'?y:-y)}/${m} = ${plain(q.result)}.`;
+    }
+    function hintFor(q){
+      if(q.family==='same')return `Ambas fracciones están en ${q.left.d} partes iguales. Opera solo los numeradores.`;
+      const m=lcm(q.left.d,q.right.d);
+      return `Puedes escribir las dos fracciones con denominador ${m}. Cambia también sus numeradores.`;
+    }
+    function usedSignatures(){return new Set([...recent,...state.history.map(x=>x.q.signature),...state.exitItems.map(x=>x.signature)])}
+    function chooseQuestion(){
+      const used=usedSignatures();const counts=Object.fromEntries(templates.map(t=>[t.id,state.history.filter(x=>x.q.templateId===t.id).length]));
+      let choices=templates;
+      if(state.history.length===0)choices=templates.filter(t=>t.family==='same');
+      else if(Object.values(counts).some(n=>n===0))choices=templates.filter(t=>counts[t.id]===0);
+      const pool=[];for(const t of choices)for(let k=0;k<8;k++)pool.push(sample(t,used));
+      const maxIG=Math.max(...pool.map(q=>information(q,state.posterior)),1e-9);
+      const mean=state.posterior.reduce((s,p,i)=>s+p*theta[i],0);
+      const scored=pool.map(q=>{
+        const ig=information(q,state.posterior)/maxIG;
+        const fit=Math.max(0,1-Math.abs(q.b-mean)/2);
+        const st=state.stats[q.family];const weakness=st.attempts?st.wrong/st.attempts:.5;
+        const repeated=state.history.at(-1)?.q.templateId===q.templateId ? .12:0;
+        return {q,score:.65*ig+.25*fit+.10*weakness-repeated+Math.random()*.035};
+      });
+      scored.sort((a,b)=>b.score-a.score);
+      const bestByTemplate=new Map();
+      for(const item of scored)if(!bestByTemplate.has(item.q.templateId))bestByTemplate.set(item.q.templateId,item);
+      state.selection={chosen:scored[0].q.templateId,rows:templates.filter(t=>bestByTemplate.has(t.id)).map(t=>{
+        const item=bestByTemplate.get(t.id);return {id:t.id,label:t.label,b:t.b,ig:information(item.q,state.posterior),score:item.score};
+      })};
+      return scored[0].q;
+    }
+    function coverage(){return templates.every(t=>state.history.some(x=>x.q.templateId===t.id))}
+    function earlyCoverage(){return ['same','related'].every(f=>state.history.some(x=>x.q.family===f))}
+    function readyForEarlyExit(){return state.history.length>=EARLY_MIN&&earlyCoverage()&&state.posterior[2]>=EARLY_CONFIDENCE&&entropy(state.posterior)<=EARLY_ENTROPY}
+    function bestLevel(){return state.posterior.indexOf(Math.max(...state.posterior))}
+    function newState(){return {phase:'theory',posterior:[1/3,1/3,1/3],history:[],exitItems:[],exitAnswers:[],current:null,answered:false,hintUsed:false,stats:blankStats(),selection:null,previousUpdate:null,result:null,key:false,attempt:(state?.attempt||0)+1}}
+    function save(){try{localStorage.setItem(STORAGE,JSON.stringify(state));localStorage.setItem(RECENT,JSON.stringify(recent.slice(-300)));if(learnerName){records[normalizedName(learnerName)]={owner:learnerName,state,recent:recent.slice(-300)};localStorage.setItem(MAP_STORAGE,JSON.stringify(records))}}catch{}}
+    function load(){try{const saved=JSON.parse(localStorage.getItem(MAP_STORAGE)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))records=saved;const x=JSON.parse(localStorage.getItem(STORAGE)||'null');if(x&&Array.isArray(x.posterior)&&x.posterior.length===3&&x.stats&&x.phase)state=x}catch{}if(!state)state=newState()}
+    const fixed = (n,d=3) => Number(n).toFixed(d);
+    const developerAllowed=()=>learnerName==='Admin'||learnerName==='David';
+    function renderDeveloper(){
+      const allowed=developerAllowed()&&$('app-shell').dataset.phase!=='welcome';
+      const visible=allowed&&developerOpen;
+      $('dev-toggle').hidden=!allowed;
+      $('inspector').hidden=!visible;$('app-shell').classList.toggle('dev-open',visible);
+      $('dev-toggle').setAttribute('aria-pressed',String(visible));
+      if(!visible)return;
+      const h=entropy(state.posterior),maxH=Math.log2(3),u=state.previousUpdate;
+      $('dev-entropy').innerHTML=`<strong>H = ${fixed(h)} bits</strong><br><small>Incertidumbre: ${fixed(100*h/maxH,1)} % del máximo (${fixed(maxH)} bits)</small>`;
+      $('dev-bars').innerHTML=state.posterior.map((p,i)=>`<div><div class="barlabel"><span>${names[i]}</span><strong>${fixed(100*p,1)} %</strong></div><div class="bartrack"><span style="width:${100*p}%"></span></div></div>`).join('');
+      const q=state.phase==='practice'?state.current:state.phase==='exit'?state.exitItems[state.exitAnswers.length]:null;
+      if(q){
+        const ps=likelihood(q),row=state.selection?.rows.find(x=>x.id===q.templateId);
+        $('dev-current').innerHTML=`<p><strong>${byId(q.templateId).label}</strong> · dificultad b = ${q.b}</p><div class="dev-grid"><span>P(acierto | no domina)</span><strong>${fixed(ps[0])}</strong><span>P(acierto | parcial)</span><strong>${fixed(ps[1])}</strong><span>P(acierto | alto)</span><strong>${fixed(ps[2])}</strong></div><p>${state.phase==='exit'?'Ítem de salida de dificultad fija; no se eligió por información.':`Ganancia prevista al elegirlo: <strong>${fixed(row?.ig??information(q,state.posterior))} bits</strong>. Utilidad combinada: ${row?fixed(row.score):'—'}.`}</p>`;
+      }else $('dev-current').innerHTML='<p class="dev-empty">Inicia o continúa un intento para ver el cálculo de la pregunta actual.</p>';
+      if(state.phase==='practice'&&state.selection?.rows?.length){
+        const rows=state.selection.rows.map(x=>`<tr class="${x.id===state.selection.chosen?'chosen':''}"><td>${x.label.replace(' · ',' / ')}</td><td>${fixed(x.ig)}</td><td>${fixed(x.score)}</td></tr>`).join('');
+        $('dev-candidates').innerHTML=`<p>Se priorizan plantillas no vistas. El reto puede adelantarse con dominio alto ≥ 90 %, H ≤ 0,75 bits y ejemplos de denominadores iguales y relacionados. IG = reducción esperada de H.</p><table class="dev-table"><thead><tr><th>Plantilla</th><th>IG bits</th><th>Utilidad</th></tr></thead><tbody>${rows}</tbody></table><p>Utilidad: 65 % IG normalizada + 25 % ajuste al nivel + 10 % dificultad observada; se penaliza repetir plantilla.</p>`;
+      }else $('dev-candidates').innerHTML='<p class="dev-empty">La comprobación final usa plantillas fijadas de antemano.</p>';
+      if(u){
+        const rows=u.prior.map((p,i)=>`<p><strong>${names[i]}:</strong> ${fixed(p)} × ${fixed(u.factors[i])} = ${fixed(u.raw[i])}; ÷ ${fixed(u.normalizer)} → <strong>${fixed(u.posterior[i])}</strong></p>`).join('');
+        $('dev-last').innerHTML=`<p>Crédito s = ${fixed(u.score,2)}. Verosimilitud L = P(acierto)<sup>s</sup> · P(fallo)<sup>1−s</sup>.</p>${rows}<p>H: ${fixed(u.entropyBefore)} → ${fixed(u.entropyAfter)} bits (${u.entropyAfter-u.entropyBefore>=0?'+':''}${fixed(u.entropyAfter-u.entropyBefore)}).</p>`;
+      }else $('dev-last').innerHTML='<p class="dev-empty">Responde una pregunta para ver la actualización.</p>';
+    }
+    function view(which){
+      for(const id of ['welcome','theory','practice','exit','result'])$(`view-${id}`).hidden=id!==which;
+      $('app-shell').dataset.phase=which;
+      $('learner-tag').hidden=which==='welcome'||!learnerName;
+      $('main').scrollTop=0;renderDeveloper();
+    }
+    function showWelcome(){
+      $('learner-name').value='';$('learner-error').textContent='';$('learner-name').removeAttribute('aria-invalid');
+      view('welcome');$('learner-name').focus();
+    }
+    function acceptName(event){
+      event.preventDefault();
+      const name=$('learner-name').value.trim().replace(/\s+/g,' ');
+      if(!name||name.length>60){
+        $('learner-error').textContent=name?'Escribe un nombre de 60 caracteres como máximo.':'Escribe tu nombre para continuar.';
+        $('learner-name').setAttribute('aria-invalid','true');$('learner-name').focus();return;
+      }
+      $('learner-error').textContent='';$('learner-name').removeAttribute('aria-invalid');
+      let previous='';try{previous=localStorage.getItem(NAME_STORAGE)||''}catch{}
+      const record=records[normalizedName(name)];
+      if(record?.state?.phase&&Array.isArray(record.state.posterior)){state=record.state;recent=Array.isArray(record.recent)?record.recent:[]}
+      else if(normalizedName(name)!==normalizedName(previous)){state=null;recent=[];state=newState()}
+      learnerName=name;
+      save();
+      $('learner-tag').textContent=`Alumno: ${name}`;$('learner-tag').title=`Alumno: ${name}`;
+      try{localStorage.setItem(NAME_STORAGE,name)}catch{}
+      if(state.key){if(state.result){state.phase='result';renderResult()}else window.location.replace(nextUrl());return}
+      if(activeAttempt()){invalidateAttempt('Has recargado la página durante la práctica.');return}
+      if(state.phase==='result'&&state.result)renderResult();else renderTheory();
+    }
+    function questionMarkup(q){return `${part(q.left)} <span aria-hidden="true">${q.op}</span> ${part(q.right)}`}
+    function questionSpeech(q){return `${q.left.n} entre ${q.left.d} ${q.op==='+'?'más':'menos'} ${q.right.n} entre ${q.right.d}`}
+    function renderPractice(){
+      state.phase='practice';view('practice');
+      if(!state.current||(!state.answered&&!smallResult(state.current)))state.current=chooseQuestion();
+      const q=state.current;
+      $('focus-chip').textContent=familyNames[q.family];$('count-chip').textContent=`Ejercicio ${state.history.length+1} · máximo ${MAX}`;
+      $('question-math').innerHTML=questionMarkup(q);$('question-math').setAttribute('aria-label',questionSpeech(q));
+      $('answer').value='';$('answer').disabled=!!state.answered;$('check').disabled=!!state.answered;
+      $('practice-answer-label').hidden=!!state.answered;$('practice-answer-row').hidden=!!state.answered;$('answer-help').hidden=!!state.answered;
+      $('input-error').textContent='';$('hint-box').hidden=!state.hintUsed;$('hint-box').innerHTML=state.hintUsed?`<p>${hintFor(q)}</p>`:'';
+      $('hint-actions').hidden=!!state.answered;$('hint').disabled=!!state.hintUsed;
+      $('feedback').hidden=!state.answered;$('next').hidden=!state.answered;
+      if(state.answered)showFeedback(state.history.at(-1));
+      $('progress').setAttribute('aria-valuenow',String(state.history.length));$('progress').querySelector('span').style.width=`${Math.round(100*state.history.length/MAX)}%`;
+      save();if(!state.answered)$('answer').focus();
+    }
+    function showFeedback(record){
+      const q=record.q,good=record.correct,full=record.full;
+      $('feedback').className=`feedback ${full?'':'needs-work'}`;
+      const title=full?'Correcto.':good?'El valor es correcto; aún puedes simplificar o practicar sin pista.':q.family==='same'?'Revisa la operación de los numeradores.':'Revisa cómo igualar el tamaño de las partes.';
+      const note=record.errorTag?` Posible confusión: ${record.errorTag.toLowerCase()}.`:'';
+      $('feedback').innerHTML=`<strong>${title}</strong><p>Tu respuesta: ${record.entered}. ${stepsFor(q)}</p><p>${note}${q.family==='same'?' Se conserva el denominador.':' Ambas fracciones se expresan con el mismo denominador antes de operar.'}</p>`;
+      $('feedback').hidden=false;
+    }
+    function answerPractice(){
+      if(state.answered)return;const p=parseAnswer($('answer').value);if(p.error){$('input-error').textContent=p.error;return}
+      $('input-error').textContent='';const q=state.current,correct=equal(p.value,q.result),full=correct&&p.simplified&&!state.hintUsed;
+      const score=correct?(state.hintUsed?(p.simplified?.55:.35):(p.simplified?1:.7)):0;
+      update(q,score);
+      const record={q,entered:p.entered,correct,full,score,hinted:state.hintUsed,errorTag:classify(q,p.value)};
+      state.history.push(record);const st=state.stats[q.family];st.attempts++;if(full)st.full++;if(!correct)st.wrong++;if(state.hintUsed)st.hinted++;
+      state.answered=true;recent.push(q.signature);recent=recent.slice(-300);save();renderPractice();$('next').focus();
+    }
+    function nextPractice(){
+      if(!state.answered)return;
+      if(readyForEarlyExit()){beginExit();return}
+      const enough=state.history.length>=MIN&&coverage(),level=bestLevel(),prob=state.posterior[level];
+      if(enough&&prob>=PMIN){if(level===2){beginExit();return}finish('confident');return}
+      if(state.history.length>=MAX){finish('max');return}
+      state.current=chooseQuestion();state.answered=false;state.hintUsed=false;renderPractice();
+    }
+    function beginExit(){
+      state.phase='exit';state.exitItems=exitTemplateIds.map(id=>sample(byId(id),usedSignatures()));state.exitAnswers=[];state.current=null;state.selection=null;state.answered=false;save();renderExit();
+    }
+    function renderExit(){
+      state.phase='exit';view('exit');const i=state.exitAnswers.length;let q=state.exitItems[i];if(!q){finish('exit');return}if(!smallResult(q)){q=sample(byId(q.templateId),usedSignatures());state.exitItems[i]=q}
+      $('exit-count').textContent=`Ronda ${i+1} de 3`;
+      document.querySelectorAll('[data-boss-round]').forEach((round,index)=>{round.classList.toggle('active',index===i);round.classList.toggle('done',index<i)});
+      $('exit-math').innerHTML=questionMarkup(q);$('exit-math').setAttribute('aria-label',questionSpeech(q));
+      $('exit-answer').value='';$('exit-error').textContent='';$('exit-progress').setAttribute('aria-valuenow',String(i));$('exit-progress').querySelector('span').style.width=`${i*100/3}%`;
+      $('exit-answer').focus();save();
+    }
+    function answerExit(){
+      const p=parseAnswer($('exit-answer').value);if(p.error){$('exit-error').textContent=p.error;return}
+      $('exit-error').textContent='';const q=state.exitItems[state.exitAnswers.length],correct=equal(p.value,q.result),full=correct&&p.simplified;
+      update(q,correct?(full?1:.7):0);state.exitAnswers.push({q,entered:p.entered,correct,full,score:correct?(full?1:.7):0});
+      const st=state.stats[q.family];st.attempts++;if(full)st.full++;if(!correct)st.wrong++;
+      recent.push(q.signature);recent=recent.slice(-300);save();
+      if(state.exitAnswers.length===3)finish('exit');else renderExit();
+    }
+    function finish(reason){
+      const exitPass=state.exitAnswers.filter(x=>x.full).length>=2&&state.exitAnswers.some(x=>x.full&&x.q.family==='general');
+      const high=reason==='exit'&&exitPass&&state.posterior[2]>=PMIN;
+      const map=bestLevel();const level=high?2:(map===0?0:1);
+      state.phase='result';state.current=null;state.key=state.key||high;
+      state.result={level,reason,high,provisional:Math.max(...state.posterior)<PMIN||reason==='max'||(reason==='exit'&&!high),exitPass};
+      state.syncId=window.adaptiveSync?.newId?.()||globalThis.crypto?.randomUUID?.();save();
+      $('view-result').classList.remove('victory-enter');renderResult();
+      if(high)$('view-result').classList.add('victory-enter');
+    }
+    function returnToTheory(){
+      if(state.phase==='practice'||state.phase==='exit'){
+        state.current=null;state.exitItems=[];state.exitAnswers=[];state.posterior=[1/3,1/3,1/3];state.history=[];state.stats=blankStats();state.selection=null;state.previousUpdate=null;state.answered=false;state.hintUsed=false;
+      }
+      state.phase='theory';save();renderTheory();
+      if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});
+    }
+    const activeAttempt=()=>state&&(state.phase==='practice'||state.phase==='exit');
+    let dialogAction=null,fullscreenStarting=false;
+    function showFocusDialog(mode,detail=''){
+      const start=mode==='start';
+      $('focus-dialog-kicker').textContent=start?'Antes de empezar':mode==='reset'?'Intento reiniciado':'Pantalla completa';
+      $('focus-dialog-title').textContent=start?'Vamos a concentrarnos':mode==='reset'?'Volvemos a empezar':'No se pudo comenzar';
+      $('focus-dialog-message').textContent=start?'La práctica se abrirá en pantalla completa. Si sales, cambias de ventana o pulsas fuera de la aplicación, se reiniciará el intento de esta etapa. Las llaves anteriores se conservan.':mode==='reset'?`${detail} El intento de esta etapa se ha reiniciado. Tus llaves anteriores siguen guardadas.`:'No se ha activado la pantalla completa. Inténtalo de nuevo para comenzar.';
+      $('focus-dialog-action').textContent=start?'Comenzar en pantalla completa':'Volver a la preparación';
+      dialogAction=start?enterPractice:()=>{$('focus-dialog').hidden=true;$('start').focus()};
+      $('focus-dialog').hidden=false;if(!document.hidden)$('focus-dialog-action').focus();
+    }
+    function enterPractice(){
+      if(fullscreenStarting)return;
+      const request=document.documentElement.requestFullscreen;
+      if(!request){showFocusDialog('error');return}
+      fullscreenStarting=true;$('focus-dialog-action').disabled=true;
+      const failed=()=>{fullscreenStarting=false;$('focus-dialog-action').disabled=false;showFocusDialog('error')};
+      try{return request.call(document.documentElement).then(()=>{
+        fullscreenStarting=false;$('focus-dialog-action').disabled=false;
+        if(document.fullscreenElement!==document.documentElement){failed();return}
+        $('focus-dialog').hidden=true;const oldKey=state.key;state=newState();state.key=oldKey;state.current=chooseQuestion();renderPractice();
+      },failed)}catch{failed()}
+    }
+    function invalidateAttempt(detail){
+      if(!activeAttempt())return;
+      const oldKey=state.key,attempt=state.attempt;state=newState();state.key=oldKey;state.attempt=attempt;renderTheory();showFocusDialog('reset',detail);
+      if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});
+    }
+    $('focus-dialog-action').addEventListener('click',()=>{if(dialogAction)dialogAction()});
+    $('start').addEventListener('click',()=>showFocusDialog('start'));
+    document.addEventListener('fullscreenchange',()=>{if(activeAttempt()&&document.fullscreenElement!==document.documentElement)invalidateAttempt('Has salido de la pantalla completa.')});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)invalidateAttempt('Has cambiado de pantalla.')});
+    window.addEventListener('blur',()=>invalidateAttempt('La aplicación ha dejado de ser la ventana principal.'));
+    function updateStageSteps(){const earned=!!state.key;$('stage-steps').classList.toggle('has-key',earned);$('stage1-step').classList.toggle('earned',earned);$('stage1-step-key').hidden=!earned;if(earned)$('stage1-step').setAttribute('aria-label','Suma y resta: llave conseguida');else $('stage1-step').removeAttribute('aria-label')}
+    function renderTheory(){updateStageSteps();view('theory');document.querySelectorAll('.theory-section').forEach(section=>section.open=false);$('start-state').textContent=state.attempt>1?'Listo para un nuevo intento':'Todavía no has comenzado';$('saved-key-note').hidden=!state.key;save()}
+    function listItem(text){const li=document.createElement('li');li.textContent=text;return li}
+    function renderResult(){
+      const r=state.result,l=r.level;$('app-shell').dataset.outcome=r.high?'high':'other';updateStageSteps();view('result');
+      $('result-title').textContent=r.high?'Etapa 1 completada':'Tu siguiente paso';
+      const heading=l===2?'¡Llave conseguida!':l===1?'Dominio parcial':'Aún necesitas reforzar la base';
+      const msg=l===2?'Has resuelto con autonomía sumas y restas de fracciones y has superado la comprobación con problemas nuevos.':l===1?'Ya resuelves parte de las operaciones. Revisa los tipos que te cuestan antes de volver a intentar la etapa.':'Conviene volver a trabajar cómo se expresan las fracciones en partes iguales antes de avanzar.';
+      $('result-level').hidden=r.high;$('result-level').className=`summary-level ${l===2?'high':l===1?'partial':'low'}`;$('result-level').innerHTML=`<h2>${heading}</h2><p>${msg}</p>${r.provisional?'<p><strong>Resultado provisional:</strong> este intento no aportó evidencia suficiente para una conclusión firme o no superó la comprobación.</p>':''}`;
+      $('key-area').hidden=!state.key;$('key-area').innerHTML=state.key?`<div class="key-card ${r.high?'earned':'saved'}"><span class="key-emblem" aria-hidden="true"><svg class="key-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg></span><div class="key-copy">${r.high?'<span class="key-kicker">Etapa 1 superada</span><h2>¡Llave conseguida!</h2><p>Has superado la comprobación final con nuevas sumas y restas de fracciones.</p><p class="key-next">Tu llave está guardada. Pulsa «Etapa 2» cuando quieras continuar.</p>':'<strong>Tu llave anterior sigue guardada</strong><p>Pulsa «Etapa 2» para continuar.</p>'}</div></div>`:'';
+      $('stage-next-actions').hidden=!state.key;
+      const strengths=$('strengths'),reviews=$('reviews');strengths.replaceChildren();reviews.replaceChildren();
+      const stat=state.stats;for(const family of ['same','related','general']){
+        const s=stat[family];if(s.full>=2&&s.wrong===0)strengths.append(listItem(`Has resuelto sin ayuda ejercicios de ${familyNames[family]}.`));
+        if(s.wrong>=2)reviews.append(listItem(`Practica ${familyNames[family]}: en este intento hubo ${s.wrong} respuestas incorrectas de ${s.attempts}.`));
+      }
+      if(!strengths.children.length)strengths.append(listItem('Has completado el intento y has identificado qué procedimientos necesitas seguir practicando.'));
+      const tagged=state.history.filter(x=>x.errorTag);const tagCounts={};for(const x of tagged)tagCounts[x.errorTag]=(tagCounts[x.errorTag]||0)+1;
+      for(const [tag,count] of Object.entries(tagCounts))if(count>=2)reviews.append(listItem(`Comprueba si ${tag.toLowerCase()}: apareció en ${count} respuestas de este intento.`));
+      if(state.exitAnswers.length&&!r.high)reviews.append(listItem('Repasa la suma y resta con denominadores distintos y vuelve a probar con variantes nuevas.'));
+      if(!reviews.children.length)reviews.append(listItem(l===2?'La etapa 2 ya está abierta.':'Revisa las equivalencias y vuelve a probar con otras fracciones.'));
+      const history=$('history-list');history.replaceChildren();
+      const records=[...state.history,...state.exitAnswers];records.forEach((x,i)=>{
+        const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent=`${i<state.history.length?'Práctica':'Comprobación'} ${i<state.history.length?i+1:i-state.history.length+1}: ${questionSpeech(x.q)} · ${x.full?'correcto':x.correct?'valor correcto, falta simplificar o autonomía':'revisar'}`;
+        const p=document.createElement('p');p.textContent=`Tu respuesta: ${x.entered}. Procedimiento: ${stepsFor(x.q)}`;details.append(summary,p);history.append(details);
+      });
+      $('retry').hidden=state.key;
+      save();window.adaptiveSync?.record({name:learnerName,stage:1,state});
+    }
+    // Utilidad para validar el diseño antes de usarlo con alumnado. No aparece en la interfaz.
+    function validateModel(trials=500,seed=20261015){
+      const oldState=state,oldRecent=recent,oldRandom=Math.random;
+      let z=seed>>>0;
+      Math.random=()=>{z+=0x6D2B79F5;let x=z;x=Math.imul(x^(x>>>15),x|1);x^=x+Math.imul(x^(x>>>7),x|61);return ((x^(x>>>14))>>>0)/4294967296};
+      const matrix=Array.from({length:3},()=>[0,0,0]),keys=[0,0,0],lengths=[0,0,0],provisional=[0,0,0];
+      try{
+        for(let truth=0;truth<3;truth++)for(let run=0;run<trials;run++){
+          state=newState();recent=[];let reason='max';
+          for(let k=0;k<MAX;k++){
+            const q=chooseQuestion(),hit=Math.random()<likelihood(q)[truth];update(q,hit?1:0);
+            state.history.push({q,full:hit,correct:hit});const st=state.stats[q.family];st.attempts++;if(hit)st.full++;else st.wrong++;
+            if(readyForEarlyExit()){reason='exit';break}
+            if(state.history.length>=MIN&&coverage()&&Math.max(...state.posterior)>=PMIN){reason=bestLevel()===2?'exit':'confident';break}
+          }
+          if(reason==='exit'){
+            state.exitItems=exitTemplateIds.map(id=>sample(byId(id),usedSignatures()));
+            for(const q of state.exitItems){const hit=Math.random()<likelihood(q)[truth];update(q,hit?1:0);state.exitAnswers.push({q,full:hit,correct:hit})}
+          }
+          const pass=reason==='exit'&&state.exitAnswers.filter(x=>x.full).length>=2&&state.exitAnswers.some(x=>x.full&&x.q.family==='general')&&state.posterior[2]>=PMIN;
+          const outcome=pass?2:bestLevel()===0?0:1;
+          matrix[truth][outcome]++;if(pass)keys[truth]++;
+          if(reason==='max'||Math.max(...state.posterior)<PMIN||(reason==='exit'&&!pass))provisional[truth]++;
+          lengths[truth]+=state.history.length+state.exitAnswers.length;
+        }
+      }finally{state=oldState;recent=oldRecent;Math.random=oldRandom}
+      return {seed,trialsPerLevel:trials,matrix,balancedAccuracy:matrix.reduce((s,row,i)=>s+row[i]/trials,0)/3,keyRates:keys.map(x=>x/trials),provisionalRates:provisional.map(x=>x/trials),meanQuestions:lengths.map(x=>x/trials)};
+    }
+    $('check').addEventListener('click',answerPractice);$('answer').addEventListener('keydown',e=>{if(e.key==='Enter')answerPractice()});
+    $('next').addEventListener('click',nextPractice);$('hint').addEventListener('click',()=>{state.hintUsed=true;$('hint-box').innerHTML=`<p>${hintFor(state.current)}</p>`;$('hint-box').hidden=false;$('hint').disabled=true;save()});
+    $('return-theory').addEventListener('click',returnToTheory);$('exit-return').addEventListener('click',returnToTheory);
+    $('exit-check').addEventListener('click',answerExit);$('exit-answer').addEventListener('keydown',e=>{if(e.key==='Enter')answerExit()});
+    $('retry').addEventListener('click',returnToTheory);
+    $('go-stage-2').addEventListener('click',()=>{if(state.key&&learnerName)window.location.assign(nextUrl())});
+    $('welcome-form').addEventListener('submit',acceptName);
+    $('learner-name').addEventListener('input',()=>{$('learner-error').textContent='';$('learner-name').removeAttribute('aria-invalid')});
+    $('dev-toggle').addEventListener('click',()=>{if(!developerAllowed())return;developerOpen=!developerOpen;try{localStorage.setItem(DEV_STORAGE,String(developerOpen))}catch{}renderDeveloper()});
+    document.querySelectorAll('.theory-section').forEach(section=>section.addEventListener('toggle',()=>{if(section.open)document.querySelectorAll('.theory-section').forEach(other=>{if(other!==section)other.open=false})}));
+    load();showWelcome();
+    window.__etapa1={templates,makeItem,likelihood,information,parseAnswer,stepsFor,rat,equal,validateModel};
+  })();
+  </script>
+</body>
+</html>
