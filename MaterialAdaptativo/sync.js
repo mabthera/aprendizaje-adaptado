@@ -81,7 +81,7 @@
           const oldDone = read(DONE_KEY, []);
           const done = Array.isArray(oldDone) ? oldDone : [];
           if (!done.includes(item.id)) { done.push(item.id); write(DONE_KEY, done.slice(-MAX_DONE)) }
-          status('Intento guardado en la hoja de la profesora.', 'saved');
+          status('información enviada al profesor', 'saved');
         } else {
           status(item.lastPostAt
             ? 'Solicitud enviada, pero Google no confirma la recepción desde este navegador. Pide a la profesora que compruebe la hoja. Si tienes varias cuentas de Google abiertas, usa un perfil separado para los próximos intentos.'
