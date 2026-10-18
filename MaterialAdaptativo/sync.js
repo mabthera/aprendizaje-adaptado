@@ -1,4 +1,4 @@
-/* Sincronización de resúmenes de intentos con Apps Script. */
+/* Sincronización de intentos y sus ejercicios con Apps Script. */
 (() => {
   'use strict';
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCn-S93OX699xcHUEh9MguMxAijRNBrXwr3Mb0Ir7iBkmCY-ftWJDc5HfA339vnE7N/exec';
@@ -28,15 +28,47 @@
   }
   function makePayload({ name, stage, state }) {
     const practice = state.history || [], exit = state.exitAnswers || [];
+    const answers = [...practice, ...exit];
+    const cards = [...document.querySelectorAll('#history-list details')];
+    if (!answers.length || cards.length !== answers.length) throw new Error('El repaso de ejercicios está incompleto');
+    const topics = {
+      1: { same: 'suma y resta con igual denominador', related: 'denominadores relacionados', general: 'denominadores distintos' },
+      2: { product: 'multiplicación de fracciones', division: 'división de fracciones', simplify: 'simplificación en productos y cocientes' },
+      3: { priority: 'prioridad de operaciones', order: 'orden de izquierda a derecha', chain: 'cadenas de operaciones' },
+      4: { group: 'operaciones dentro de paréntesis', operand: 'paréntesis como factor o divisor', subtraction: 'restas y divisiones agrupadas' },
+      5: { sequence: 'operaciones combinadas', nested: 'paréntesis anidados', repair: 'corrección del primer paso' }
+    };
+    const fraction = value => value && Number.isInteger(value.n) && Number.isInteger(value.d)
+      ? `${value.n}/${value.d}` : '';
+    const chosenStep = item => {
+      const q = item.q, i = item.selectedOp;
+      if (!q || !Number.isInteger(i) || !q.expr || !q.vals) return '';
+      const left = q.vals[q.expr[i - 1]], right = q.vals[q.expr[i + 1]];
+      return left && right ? `${fraction(left)} ${q.expr[i]} ${fraction(right)}` : '';
+    };
+    const exercises = answers.map((item, index) => {
+      const summary = cards[index].querySelector('summary')?.textContent?.trim();
+      const review = cards[index].querySelector('p')?.textContent?.trim();
+      if (!summary || !review) throw new Error('Falta un ejercicio en el repaso');
+      return {
+        position: index + 1, phase: index < practice.length ? 'practice' : 'exit',
+        statement: summary, answer: String(item.entered ?? ''), review,
+        correct: item.correct === true, full: item.full === true, hinted: item.hinted === true,
+        stepCorrect: typeof item.stepCorrect === 'boolean' ? item.stepCorrect : null,
+        selectedStep: chosenStep(item), simplified: typeof item.simplified === 'boolean' ? item.simplified : null,
+        topic: topics[stage]?.[item.q?.family] || 'contenido de la etapa',
+        errorTag: String(item.errorTag || '')
+      };
+    });
     return {
-      version: 1, id: state.syncId, clientTime: new Date().toISOString(),
+      version: 2, id: state.syncId, clientTime: new Date().toISOString(),
       name: String(name || '').trim().replace(/\s+/g, ' '), stage, attempt: state.attempt || 1,
       practiceTotal: practice.length, practiceCorrect: practice.filter(x => x.correct).length,
       practiceFull: practice.filter(x => x.full).length, hints: practice.filter(x => x.hinted).length,
       exitTotal: exit.length, exitCorrect: exit.filter(x => x.correct).length,
       exitFull: exit.filter(x => x.full).length, level: state.result.level,
       high: !!state.result.high, provisional: !!state.result.provisional,
-      reason: String(state.result.reason || ''), stats: state.stats || {}
+      reason: String(state.result.reason || ''), stats: state.stats || {}, exercises
     };
   }
   function receipt(attemptId) {
@@ -100,7 +132,8 @@
     const pending = read(QUEUE_KEY, []);
     const queue = Array.isArray(pending) ? pending : [];
     if (!queue.some(x => x.id === state.syncId)) {
-      queue.push(makePayload({ name, stage, state }));
+      try { queue.push(makePayload({ name, stage, state })) }
+      catch { status('No se pudo preparar el detalle de los ejercicios. Recarga la página para reintentar el envío.', 'pending'); return }
       if (!write(QUEUE_KEY, queue)) { status('El navegador no ha podido guardar el envío. Mantén esta página abierta y avisa a la profesora.', 'pending'); return }
     }
     status(ready() ? (queue.find(x => x.id === state.syncId)?.lastPostAt ? 'Comprobando la recepción…' : 'Enviando el resultado…') : 'Envío pendiente de configuración.', 'pending');
