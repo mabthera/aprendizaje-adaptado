@@ -268,6 +268,28 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
 .question-form .field { max-width: none; }
 .progress { height: 7px; margin: 5px 0 10px; border-radius: 99px; background: #dfe5ec; box-shadow: var(--inset); overflow: hidden; }
 .progress span { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width .25s ease; }
+.key-circuit { width: min(100%, 620px); margin: 0 auto 3px; padding: 8px 14px 7px; border: 1px solid #d4dce6; border-radius: 17px; background: var(--surface); box-shadow: var(--inset); text-align: left; }
+.circuit-heading, .circuit-metrics { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.circuit-heading { color: #3d4855; font-size: .72rem; line-height: 1.3; }
+.circuit-heading strong { font-weight: 800; }
+.circuit-heading span { color: var(--accent-dark); font-size: .69rem; font-weight: 800; }
+.circuit-track { position: relative; height: 8px; margin: 9px 5px 10px; border-radius: 99px; background: #dce3eb; box-shadow: var(--inset); }
+.circuit-fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: var(--stage-color); transition: width .28s ease-out; }
+.circuit-node { position: absolute; top: 50%; width: 15px; height: 15px; border: 2px solid #aeb8c4; border-radius: 50%; background: var(--surface); box-shadow: 2px 2px 5px #c7cfda, -2px -2px 5px #fff; transform: translate(-50%, -50%); }
+.circuit-node-types { left: 35%; }
+.circuit-node-practice { left: 70%; }
+.circuit-node-ready { left: 80%; width: 19px; height: 19px; border-radius: 6px; transform: translate(-50%, -50%) rotate(45deg); }
+.circuit-node-key { left: 99%; width: 19px; height: 19px; border-radius: 6px; transform: translate(-50%, -50%) rotate(45deg); }
+.circuit-node.active { border-color: var(--stage-color); background: var(--stage-color); }
+.key-circuit.pulse .circuit-node.active { animation: circuit-pulse .26s ease-out; }
+@keyframes circuit-pulse { 50% { scale: 1.22; } }
+.circuit-metrics { color: #46515d; font-size: .7rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.circuit-status { margin: 3px 0 0; color: #59636e; font-size: .69rem; line-height: 1.25; }
+.key-circuit-exit { padding-top: 7px; padding-bottom: 7px; }
+.key-circuit-exit .circuit-track { margin-top: 7px; margin-bottom: 9px; }
+.result-milestone { width: fit-content; margin: 5px 0 0; padding: 6px 10px; border: 1px solid color-mix(in srgb, var(--stage-color) 38%, #dce3eb); border-radius: 12px; background: color-mix(in srgb, var(--stage-color) 8%, var(--surface)); color: var(--accent-dark); font-size: .8rem; font-weight: 700; }
+.key-card.is-revealed .key-emblem { animation: key-arrival .28s ease-out; }
+@keyframes key-arrival { 0% { opacity: .45; scale: .88; } 100% { opacity: 1; scale: 1; } }
 .hint, .feedback { width: min(100%, 640px); margin: 15px auto 0; padding: 13px 16px; border-radius: 17px; text-align: left; box-shadow: var(--inset); }
 .hint { border: 1px solid #d8dfe8; background: var(--surface); color: #515b67; }
 .feedback { border: 1px solid #b5c5d3; background: var(--surface); }
@@ -500,9 +522,22 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
       <section id="locked" class="card" hidden><h2>Etapa bloqueada</h2><p>Primero necesitas la llave de la etapa anterior.</p><a id="locked-link" class="secondary" href="index.html">Ir a la etapa anterior</a></section>
       <section id="view-welcome" class="card" aria-labelledby="welcome-title"><div class="flow"><span class="welcome-mark" aria-hidden="true">03</span><span class="eyebrow">Cinco llaves · cinco etapas</span><h2 id="welcome-title">Aprende a usar las potencias paso a paso</h2><p class="lead">En cada etapa practicarás con ejercicios que cambian según tus respuestas. Para avanzar, demuestra lo aprendido en una comprobación final.</p><form id="name-form" class="flow"><label class="field" for="name">Tu nombre<input id="name" maxlength="60" autocomplete="name" required></label><p id="name-error" class="error" aria-live="polite"></p><div class="actions"><button type="submit" class="primary">Continuar</button></div></form></div></section>
       <section id="view-theory" class="card" hidden><p id="notice" class="notice" role="status" hidden></p><span class="eyebrow" style="color:var(--accent)">Preparación</span><h2 id="stage-title"></h2><p class="lead">Abre las explicaciones que necesites. Después comienza tu intento.</p><div id="theory-sections"></div><p class="prep-note">Durante la práctica y la comprobación final, la pantalla completa ayuda a concentrarse. Si sales de ella o cambias de ventana, se reinicia el intento actual; conservarás las llaves anteriores.</p><div class="actions"><button id="start" class="primary" type="button">Empezar la práctica</button><button id="change-user" class="ghost" type="button">Cambiar de usuario</button></div><p class="small muted">Alumno: <strong id="learner-label"></strong></p></section>
-      <section id="view-practice" class="card question-card" hidden><span class="mini-label">Práctica adaptativa</span><h2 id="question-count">Ejercicio 1</h2><div class="progress" aria-hidden="true"><span id="practice-progress" style="width:0"></span></div><div id="question" class="question"></div><div class="question-form"><div id="step-wrap" class="field" hidden><label id="step-label" for="step"></label><select id="step"></select></div><div class="field"><label id="answer-label" for="answer">Tu respuesta</label><input id="answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="answer-select" hidden></select></div><p id="answer-error" class="error" aria-live="polite"></p></div><p id="hint-text" class="hint" hidden></p><div class="actions question-actions"><button id="hint-button" type="button" class="ghost">Ver una pista</button><button id="check-button" type="button" class="primary">Comprobar</button><button id="next-button" type="button" class="primary" hidden>Siguiente ejercicio</button></div><div id="feedback" class="feedback" role="status" hidden></div></section>
-      <section id="view-exit" class="card question-card" hidden><span class="boss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Comprobación final</span><h2 id="exit-count">Comprobación 1</h2><p class="muted">Responde sin pistas. Verás las soluciones al terminar.</p><div class="progress" aria-hidden="true"><span id="exit-progress" style="width:0"></span></div><div id="exit-question" class="question"></div><div class="question-form"><div id="exit-step-wrap" class="field" hidden><label id="exit-step-label" for="exit-step"></label><select id="exit-step"></select></div><div class="field"><label id="exit-answer-label" for="exit-answer">Tu respuesta</label><input id="exit-answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="exit-select" hidden></select></div><p id="exit-error" class="error" aria-live="polite"></p></div><div class="actions question-actions"><button id="exit-check" type="button" class="primary">Guardar respuesta</button></div></section>
-      <section id="view-result" class="card" hidden><span class="eyebrow">Resultado de la etapa</span><h2 id="result-title"></h2><p id="result-level" class="boss"></p><p id="result-message" class="lead"></p><div id="key-card" class="key-card" hidden><span class="key-emblem" aria-hidden="true"><svg class="key-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg></span><div><h3>Llave conseguida</h3><p>Esta etapa está superada. Puedes continuar cuando quieras.</p></div></div><div class="actions"><a id="next-stage" class="primary" href="#" hidden>Ir a la siguiente etapa</a><button id="retry" class="secondary" type="button" hidden>Volver a intentarlo</button></div><div id="diploma" class="diploma" hidden><h3>¡Cinco llaves conseguidas!</h3><p id="diploma-name" class="diploma-name"></p><p>Has completado el itinerario de propiedades de potencias.</p></div><details class="review-drawer"><summary>Repaso de tus respuestas</summary><div id="review-list" class="result-list"></div></details><p id="sync-status" class="small muted" role="status"></p></section>
+      <section id="view-practice" class="card question-card" hidden><span class="mini-label">Práctica adaptativa</span><h2 id="question-count">Ejercicio 1</h2><div id="practice-circuit" class="key-circuit" aria-label="Carga de la llave">
+  <div class="circuit-heading"><strong>Carga de la llave</strong><span id="circuit-stage">Etapa actual</span></div>
+  <div id="circuit-track" class="circuit-track" role="progressbar" aria-label="Preparación para el reto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Comenzando el intento">
+    <span id="circuit-fill" class="circuit-fill"></span><span id="circuit-node-types" class="circuit-node circuit-node-types" aria-hidden="true"></span><span id="circuit-node-practice" class="circuit-node circuit-node-practice" aria-hidden="true"></span><span id="circuit-node-ready" class="circuit-node circuit-node-ready" aria-hidden="true"></span><span class="circuit-node circuit-node-key" aria-hidden="true"></span>
+  </div>
+  <div class="circuit-metrics"><span id="circuit-types">Tipos explorados 0/0</span><span id="circuit-count">Práctica 0/0</span></div>
+  <p id="circuit-status" class="circuit-status" role="status">Comienza a explorar los tipos clave.</p>
+</div><div id="question" class="question"></div><div class="question-form"><div id="step-wrap" class="field" hidden><label id="step-label" for="step"></label><select id="step"></select></div><div class="field"><label id="answer-label" for="answer">Tu respuesta</label><input id="answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="answer-select" hidden></select></div><p id="answer-error" class="error" aria-live="polite"></p></div><p id="hint-text" class="hint" hidden></p><div class="actions question-actions"><button id="hint-button" type="button" class="ghost">Ver una pista</button><button id="check-button" type="button" class="primary">Comprobar</button><button id="next-button" type="button" class="primary" hidden>Siguiente ejercicio</button></div><div id="feedback" class="feedback" role="status" hidden></div></section>
+      <section id="view-exit" class="card question-card" hidden><span class="boss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Comprobación final</span><h2 id="exit-count">Comprobación 1</h2><p class="muted">Responde sin pistas. Verás las soluciones al terminar.</p><div id="exit-circuit" class="key-circuit key-circuit-exit" aria-label="Reto de la llave">
+  <div class="circuit-heading"><strong>Reto de la llave</strong><span id="exit-circuit-stage">Etapa actual</span></div>
+  <div id="exit-circuit-track" class="circuit-track" role="progressbar" aria-label="Carga de la llave durante el reto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-valuetext="Comprobación final iniciada">
+    <span id="exit-circuit-fill" class="circuit-fill" style="width:80%"></span><span class="circuit-node circuit-node-ready active" aria-hidden="true"></span><span class="circuit-node circuit-node-key" aria-hidden="true"></span>
+  </div>
+  <div class="circuit-metrics"><span id="exit-saved">0 respuestas guardadas</span><span>Soluciones al terminar</span></div>
+</div><div id="exit-question" class="question"></div><div class="question-form"><div id="exit-step-wrap" class="field" hidden><label id="exit-step-label" for="exit-step"></label><select id="exit-step"></select></div><div class="field"><label id="exit-answer-label" for="exit-answer">Tu respuesta</label><input id="exit-answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="exit-select" hidden></select></div><p id="exit-error" class="error" aria-live="polite"></p></div><div class="actions question-actions"><button id="exit-check" type="button" class="primary">Guardar respuesta</button></div></section>
+      <section id="view-result" class="card" hidden><span class="eyebrow">Resultado de la etapa</span><h2 id="result-title"></h2><p id="result-level" class="boss"></p><p id="result-message" class="lead"></p><p id="result-milestone" class="result-milestone" hidden></p><div id="key-card" class="key-card" hidden><span class="key-emblem" aria-hidden="true"><svg class="key-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg></span><div><h3>Llave conseguida</h3><p>Esta etapa está superada. Puedes continuar cuando quieras.</p></div></div><div class="actions"><a id="next-stage" class="primary" href="#" hidden>Ir a la siguiente etapa</a><button id="retry" class="secondary" type="button" hidden>Volver a intentarlo</button></div><div id="diploma" class="diploma" hidden><h3>¡Cinco llaves conseguidas!</h3><p id="diploma-name" class="diploma-name"></p><p>Has completado el itinerario de propiedades de potencias.</p></div><details class="review-drawer"><summary>Repaso de tus respuestas</summary><div id="review-list" class="result-list"></div></details><p id="sync-status" class="small muted" role="status"></p></section>
     </main>
     <aside id="developer" class="developer" aria-label="Cálculos en tiempo real" hidden><h2>Modelo en tiempo real</h2><section class="dev-panel" aria-label="Estado de dominio"><div id="dev-entropy"></div><div id="dev-probabilities"></div></section><details class="dev-detail" open><summary>Preguntas candidatas</summary><div id="dev-selection"></div></details><details class="dev-detail" open><summary>Última actualización de Bayes</summary><div id="dev-update"></div></details></aside>
   </div>
@@ -543,7 +578,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     null,
     { title: 'Significado, paréntesis y signo', short: 'Signo', color: '#c34755', min: 6, max: 18, early: 4, essential: ['s1-pair', 's1-parens', 's1-growth'], exit: ['s1-pair', 's1-parens', 's1-error'], need: 3, required: ['s1-parens'], families: ['lectura', 'signo', 'aplicacion'] },
     { title: 'Producto y cociente de igual base', short: 'Igual base', color: '#4f6ed0', min: 8, max: 22, early: 5, essential: ['s2-product', 's2-quotient', 's2-chain'], exit: ['s2-product', 's2-quotient', 's2-chain', 's2-missing'], need: 3, requiredFamilies: ['producto', 'cociente'], families: ['producto', 'cociente', 'combinacion'] },
-    { title: 'Potencia de una potencia y elección de regla', short: 'Elegir regla', color: '#14765f', min: 8, max: 22, early: 6, essential: ['s3-nested', 's3-combine-product', 's3-sum', 's3-bases'], exit: ['s3-nested', 's3-combine-product', 's3-sum', 's3-repair'], need: 3, requiredFamilies: ['bloques', 'condiciones'], families: ['bloques', 'combinacion', 'condiciones'] },
+    { title: 'Potencia de una potencia y elección de regla', short: 'Elegir regla', color: '#14765f', min: 8, max: 22, early: 6, essential: ['s3-nested', 's3-combine-product', 's3-sum', 's3-bases'], exit: ['s3-nested', 's3-combine-product', 's3-sum', 's3-repair'], need: 3, required: ['s3-sum'], requiredFamilies: ['bloques', 'condiciones'], families: ['bloques', 'combinacion', 'condiciones'] },
     { title: 'Exponentes cero y negativos', short: 'Cero y negativos', color: '#6e4ca6', min: 8, max: 24, early: 6, essential: ['s4-zero', 's4-reciprocal', 's4-negative-base', 's4-quotient'], exit: ['s4-zero', 's4-reciprocal', 's4-negative-base', 's4-quotient'], need: 3, requiredFamilies: ['cero', 'reciproco'], families: ['cero', 'reciproco', 'signo', 'combinacion'] },
     { title: 'Propiedades integradas', short: 'Todo junto', color: '#8b590d', min: 10, max: 28, early: 7, essential: ['s5-mixed', 's5-negative', 's5-condition', 's5-context'], exit: ['s5-mixed', 's5-condition', 's5-negative', 's5-repair', 's5-context'], need: 4, requiredFamilies: ['mixto', 'condiciones', 'negativos'], families: ['mixto', 'condiciones', 'negativos', 'aplicacion'] }
   ];
@@ -861,6 +896,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
   const templates = bank.templatesFor(stage);
   const theta = [-2, 0, 2];
   const levels = ['Aún no domina', 'Dominio parcial', 'Dominio alto'];
+  const keyNames = ['roja', 'azul', 'verde', 'violeta', 'ámbar'];
   const rootKey = 'ud3-potencias-adaptativo-v1';
   const keySvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg>';
   const $ = id => document.getElementById(id);
@@ -1041,8 +1077,8 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
   }
   function renderPractice() {
     state.phase = 'practice'; if (!state.current) state.current = chooseQuestion();
-    show('practice'); $('question-count').textContent = `Ejercicio ${state.history.length + 1} · máximo ${cfg.max}`;
-    $('practice-progress').style.width = `${100 * state.history.length / cfg.max}%`;
+    show('practice'); $('question-count').textContent = `Ejercicio ${state.history.length + 1}`;
+    renderCircuit();
     renderQuestion(state.current);
     $('hint-text').hidden = !state.hint; $('hint-text').textContent = state.hint ? state.current.hint : '';
     $('hint-button').disabled = state.hint;
@@ -1105,7 +1141,14 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
   function answerPractice() {
     const q = state.current, entered = enteredFor(false), stepValue = q.step ? $('step').value : '';
     if (!String(entered).trim() || (q.step && !stepValue)) { $('answer-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
+    const beforeTypes = essentialTypesSeen(), beforeCount = state.history.length;
     const item = record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, state.hint, false, stepValue);
+    const milestones = [];
+    if (essentialTypesSeen() > beforeTypes) milestones.push(`Nuevo tipo explorado: ${bank.LABELS[q.id]}.`);
+    if (beforeCount < cfg.min && state.history.length >= cfg.min) milestones.push('Práctica mínima completada.');
+    if (readyForExit()) milestones.push('Reto de la llave preparado.');
+    renderCircuit(milestones.join(' '));
+    if (milestones.length) pulseCircuit();
     $('feedback').hidden = false;
     $('feedback').className = `feedback ${item.full ? 'good' : 'review'}`;
     $('feedback').innerHTML = `<strong>${item.full ? 'Correcto.' : 'Revisa este procedimiento.'}</strong><p><b>Explicación:</b> ${q.explanation}</p><p>Respuesta esperada: <b>${q.answer}</b>${q.step ? ` · Regla o paso: <b>${q.step.answer}</b>` : ''}.</p>`;
@@ -1114,6 +1157,37 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     renderDeveloper(); $('feedback').scrollIntoView({ block: 'nearest' }); $('next-button').focus({ preventScroll: true });
   }
   const covered = () => cfg.families.every(f => state.history.some(x => x.q.family === f));
+  const essentialTypesSeen = () => cfg.essential.filter(id => state.history.some(x => x.q.id === id)).length;
+  function readyForExit() {
+    const n = state.history.length, p = state.posterior;
+    return covered() && (
+      (n >= cfg.early && p[2] >= .90 && entropy(p) <= .75) ||
+      (n >= cfg.min && p[2] >= .80 && p[2] === Math.max(...p))
+    );
+  }
+  function renderCircuit(message = '') {
+    const seen = essentialTypesSeen(), total = cfg.essential.length, n = state.history.length;
+    const ready = readyForExit();
+    const amount = ready ? 80 : Math.round(35 * seen / total + 35 * Math.min(n / cfg.min, 1));
+    $('circuit-stage').textContent = `Llave ${keyNames[stage - 1]}`;
+    $('circuit-types').textContent = `Tipos explorados ${seen}/${total}`;
+    $('circuit-count').textContent = `Práctica ${n}/${cfg.min} · hasta ${cfg.max}`;
+    $('circuit-fill').style.width = `${amount}%`;
+    $('circuit-node-types').classList.toggle('active', seen === total);
+    $('circuit-node-practice').classList.toggle('active', n >= cfg.min || ready);
+    $('circuit-node-ready').classList.toggle('active', ready);
+    $('circuit-track').setAttribute('aria-valuenow', String(amount));
+    $('circuit-track').setAttribute('aria-valuetext', `${seen} de ${total} tipos clave explorados; ${n} ejercicios de práctica completados; ${ready ? 'reto disponible' : 'reto pendiente'}`);
+    $('circuit-status').textContent = message || (ready ? 'Reto de la llave preparado.' : n >= cfg.min ? 'Ajustando el siguiente desafío.' : 'La siguiente pregunta se adapta a tus respuestas.');
+  }
+  function pulseCircuit() {
+    const circuit = $('practice-circuit');
+    circuit.classList.remove('pulse');
+    requestAnimationFrame(() => {
+      circuit.classList.add('pulse');
+      setTimeout(() => circuit.classList.remove('pulse'), 300);
+    });
+  }
   function nextPractice() {
     $('answer').disabled = false; $('answer-select').disabled = false; $('step').disabled = false;
     const n = state.history.length, p = state.posterior, winner = p.indexOf(Math.max(...p));
@@ -1132,7 +1206,12 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     const i = state.exitAnswers.length;
     if (i >= state.exitItems.length) { finish('exit'); return; }
     $('exit-count').textContent = `Comprobación ${i + 1} de ${cfg.exit.length}`;
-    $('exit-progress').style.width = `${100 * i / cfg.exit.length}%`;
+    const circuitAmount = Math.round(80 + 20 * i / cfg.exit.length);
+    $('exit-circuit-stage').textContent = `Llave ${keyNames[stage - 1]}`;
+    $('exit-circuit-fill').style.width = `${circuitAmount}%`;
+    $('exit-circuit-track').setAttribute('aria-valuenow', String(circuitAmount));
+    $('exit-circuit-track').setAttribute('aria-valuetext', `${i} de ${cfg.exit.length} respuestas guardadas; corrección al terminar`);
+    $('exit-saved').textContent = `${i} de ${cfg.exit.length} respuestas guardadas`;
     renderQuestion(state.exitItems[i], true); save();
   }
   function answerExit() {
@@ -1175,8 +1254,11 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     const r = state.result;
     $('result-title').textContent = r.high ? (stage === 5 ? '¡Itinerario completado!' : `¡Llave ${stage} conseguida!`) : 'Tu siguiente paso';
     $('result-message').textContent = r.high ? `Has demostrado dominio alto en ${cfg.title.toLowerCase()}.` : r.provisional ? 'Este intento no aportó evidencia suficiente o no superó la comprobación final. Revisa los ejercicios y vuelve a intentarlo.' : 'Ya dominas una parte de la etapa. Revisa los tipos que te han costado.';
+    $('result-milestone').hidden = false;
+    $('result-milestone').textContent = `${r.high ? 'Circuito completado. ' : ''}En este intento exploraste ${essentialTypesSeen()} de ${cfg.essential.length} tipos clave y completaste ${state.history.length} ejercicios de práctica.`;
     $('result-level').textContent = levels[r.level];
     $('key-card').hidden = !state.key; $('key-card').style.setProperty('--key-color', cfg.color);
+    $('key-card').classList.toggle('is-revealed', !!state.key);
     $('retry').hidden = !!state.key; $('next-stage').hidden = !state.key || stage === 5;
     if (stage < 5) $('next-stage').href = `Etapa_${stage + 1}.html?alumno=${encodeURIComponent(learner)}&llave=etapa${stage}`;
     $('diploma').hidden = !(stage === 5 && state.key); $('diploma-name').textContent = learner;
