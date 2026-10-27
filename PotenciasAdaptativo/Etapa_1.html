@@ -154,7 +154,7 @@
         position: i + 1, phase: x.phase, statement: plain(x.q.text), answer: String(x.entered),
         review: `${plain(x.q.text)} Respuesta correcta: ${x.q.answer}.${x.q.step ? ` Regla o paso: ${x.q.step.answer}.` : ''}`,
         correct: !!x.main, full: !!x.full, hinted: !!x.hint, stepCorrect: !!x.step,
-        selectedStep: '', simplified: null, topic: x.q.family, errorTag: x.main && x.step ? '' : x.q.id
+        selectedStep: x.selectedStep || '', simplified: null, topic: x.q.family, errorTag: x.main && x.step ? '' : x.q.id
       }))
     };
   }
@@ -426,10 +426,10 @@
     state.posterior = posterior(prior, factors);
     state.previousUpdate = { id: q.id, prior, likelihoods: probs(q), factors, after: [...state.posterior], entropyBefore: before, entropyAfter: entropy(state.posterior), main, step, hint };
   }
-  function record(q, entered, main, step, hint, final) {
+  function record(q, entered, main, step, hint, final, selectedStep = '') {
     update(q, main, step, hint);
     const full = main && step && !hint;
-    const item = { q, entered, main, step, hint, full, phase: final ? 'exit' : 'practice' };
+    const item = { q, entered, main, step, selectedStep, hint, full, phase: final ? 'exit' : 'practice' };
     (final ? state.exitAnswers : state.history).push(item);
     const stats = state.stats[q.family] || { asked: 0, full: 0, wrong: 0, hinted: 0 };
     stats.asked++; if (full) stats.full++; if (!main || !step) stats.wrong++; if (hint) stats.hinted++;
@@ -440,7 +440,7 @@
   function answerPractice() {
     const q = state.current, entered = enteredFor(false), stepValue = q.step ? $('step').value : '';
     if (!String(entered).trim() || (q.step && !stepValue)) { $('answer-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
-    const item = record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, state.hint, false);
+    const item = record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, state.hint, false, stepValue);
     $('feedback').hidden = false;
     $('feedback').className = `feedback ${item.full ? 'good' : 'review'}`;
     $('feedback').innerHTML = `<strong>${item.full ? 'Correcto.' : 'Revisa este procedimiento.'}</strong><p>${q.explanation}</p><p>Respuesta esperada: <b>${q.answer}</b>${q.step ? ` · Regla o paso: <b>${q.step.answer}</b>` : ''}.</p>`;
@@ -473,7 +473,7 @@
   function answerExit() {
     const q = state.exitItems[state.exitAnswers.length], entered = enteredFor(true), stepValue = q.step ? $('exit-step').value : '';
     if (!String(entered).trim() || (q.step && !stepValue)) { $('exit-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
-    record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, false, true);
+    record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, false, true, stepValue);
     renderDeveloper();
     if (state.exitAnswers.length >= cfg.exit.length) finish('exit'); else renderExit();
   }
@@ -545,7 +545,12 @@
       $('focus-dialog').hidden = true; state = freshState(state.attempt + 1, state.key, state.recent);
       state.current = chooseQuestion(); renderPractice();
     } catch { $('focus-error').textContent = 'No se pudo activar la pantalla completa. Inténtalo de nuevo.'; }
-    finally { fullscreenStarting = false; }
+    finally {
+      fullscreenStarting = false;
+      if (['practice', 'exit'].includes(state?.phase) && document.fullscreenElement !== document.documentElement) {
+        resetAttempt('Has salido de la pantalla completa.');
+      }
+    }
   }
   function setLearner(name) {
     learner = cleanName(name); if (!learner) return false;
