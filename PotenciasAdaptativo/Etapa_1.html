@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="es" data-stage="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e2740">
+  <title>Etapa 1 · Potencias</title>
+  <style>:root{color-scheme:light;--accent:#c34755;--ink:#202739;--muted:#586173;--line:#d8dce5;--paper:#f6f7fa;--card:#fff;--shadow:0 15px 45px #27304a13;font-family:Inter,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;color:var(--ink);line-height:1.55}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}a{color:#234f91}a:hover{text-decoration-thickness:2px}[hidden]{display:none!important}
+.site-header{background:#1e2740;color:white;border-bottom:5px solid var(--accent)}.site-header-inner{max-width:1180px;margin:auto;padding:20px 26px 23px}.eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:850;color:#e1e8f5}.site-header h1{font-size:clamp(1.35rem,3.2vw,2rem);margin:5px 0 1px;line-height:1.2}.site-header p{margin:0;color:#d4dced;font-size:.9rem}
+.shell{max-width:1180px;margin:0 auto;padding:24px 26px 60px;display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:22px;align-items:start}.main{min-width:0}.card,.developer{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.card{padding:clamp(20px,3vw,38px)}.card h2{line-height:1.2;margin:0 0 12px;font-size:clamp(1.45rem,2.7vw,2rem)}.lead{font-size:1.05rem;color:var(--muted);max-width:65ch}.muted{color:var(--muted)}.small{font-size:.85rem}.flow{display:grid;gap:15px}.primary,.secondary,.ghost{border-radius:12px;padding:11px 20px;font-weight:780;min-height:46px}.primary{border:2px solid var(--accent);background:var(--accent);color:#fff}.primary:hover{filter:brightness(.88)}.secondary{border:2px solid var(--accent);background:#fff;color:var(--ink)}.secondary:hover{background:#f2f4f8}.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.field{display:grid;gap:6px;max-width:520px;font-weight:700}.field input,.field select{width:100%;padding:10px 12px;border:2px solid #bfc7d5;border-radius:10px;background:#fff;color:var(--ink);min-height:45px}.error{min-height:1.1em;color:#a72e38;font-weight:720}.notice{padding:12px 16px;background:#fff6e8;border:1px solid #d9a945;border-radius:12px;color:#5c3d08;font-weight:650}
+.journey{display:flex;flex-wrap:wrap;list-style:none;margin:0 0 18px;padding:0;gap:7px}.journey-stage{display:flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid var(--line);border-radius:100px;background:white;color:#697082;font-size:.76rem;font-weight:740}.journey-stage.active{border-color:var(--accent);color:var(--ink);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent)}.journey-stage.earned{color:var(--ink)}.stage-dot{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#e5e9f0;color:#475168}.journey-stage.earned .stage-dot{background:var(--key-color);color:white}
+.theory-section{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff;margin:10px 0}.theory-section summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;padding:15px 18px;font-weight:780}.theory-section summary::-webkit-details-marker{display:none}.theory-section summary::after{content:'+';margin-left:auto;color:var(--accent);font-size:1.4rem}.theory-section[open] summary::after{content:'−'}.theory-number{color:var(--accent);font-size:.78rem;letter-spacing:.08em}.theory-body{border-top:1px solid var(--line);padding:3px 18px 16px}.worked{padding:12px 15px;background:#f0f3f9;border-left:4px solid var(--accent);border-radius:8px}.warning{color:#674210;background:#fff8e9;padding:10px 14px;border-radius:8px}.prep-note{margin:22px 0 14px;padding:14px 16px;background:#eef2f8;border-radius:12px}
+.question-card{text-align:center;min-height:470px;display:flex;flex-direction:column;align-items:stretch;justify-content:center}.question-card .mini-label{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-weight:850}.question{font-size:clamp(1.45rem,3vw,2.2rem);font-weight:760;line-height:1.5;max-width:780px;margin:16px auto 24px;overflow-wrap:anywhere}.question sup{font-size:.6em}.question-form{display:grid;gap:14px;max-width:530px;width:100%;margin:0 auto;text-align:left}.question-form label{font-weight:760}.question-form input,.question-form select{width:100%;padding:11px 14px;border:2px solid #bfc7d5;border-radius:11px;background:#fff;color:var(--ink);min-height:48px}.progress{height:8px;border-radius:100px;background:#e6e9ef;overflow:hidden;margin:12px 0 24px}.progress span{display:block;height:100%;background:var(--accent);transition:width .25s}.hint{margin:0 auto;padding:10px 15px;background:#fff8e9;border:1px solid #dec783;border-radius:11px;max-width:550px}.feedback{margin:20px auto 0;text-align:left;max-width:630px;border-radius:13px;padding:15px 18px}.feedback p{margin:7px 0 0}.feedback.good{background:#eff8f3;border:1px solid #90cba9}.feedback.review{background:#fff5ee;border:1px solid #dfad89}.question-actions{justify-content:center;margin-top:16px}
+.boss{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:100px;background:#1e2740;color:white;font-size:.8rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.key-card{display:flex;align-items:center;gap:18px;padding:18px 20px;margin:18px 0;background:color-mix(in srgb,var(--key-color) 11%,white);border:2px solid var(--key-color);border-radius:18px}.key-card .key-icon{font-size:3rem;color:var(--key-color);line-height:1}.key-card h3{margin:0;color:var(--ink)}.key-card p{margin:4px 0 0}.result-list{display:grid;gap:8px}.result-list details{border:1px solid var(--line);border-radius:10px;padding:8px 12px}.result-list summary{cursor:pointer;font-weight:700}.result-list p{overflow-wrap:anywhere}.diploma{padding:22px;border:2px solid #b98a36;border-radius:16px;background:linear-gradient(135deg,#fffdfa,#fff0cc);text-align:center}.diploma h3{font-size:1.6rem;margin:0}.diploma-name{font-size:1.3rem;font-weight:820}.side{display:grid;gap:15px}.side-card{border:1px solid var(--line);background:white;border-radius:18px;padding:16px}.side-card h2{font-size:.9rem;margin:0 0 8px}.side-card p{font-size:.8rem;color:var(--muted);margin:0}.developer{padding:16px;font-size:.78rem;max-height:78vh;overflow:auto}.developer h2{margin:0 0 10px;font-size:1rem}.developer h3{font-size:.83rem;margin:16px 0 5px}.dev-prob{margin:8px 0;display:grid;grid-template-columns:1fr auto;gap:2px 8px}.dev-track{grid-column:1/-1;height:7px;background:#e5e8ef;border-radius:10px;overflow:hidden}.dev-track span{display:block;height:100%;background:var(--accent)}.developer ol{padding-left:20px}.developer li{margin:5px 0;overflow-wrap:anywhere}.developer p{overflow-wrap:anywhere}
+.dialog-backdrop{position:fixed;inset:0;background:#142039b8;z-index:50;display:grid;place-items:center;padding:20px}.dialog{max-width:500px;width:100%;background:white;border-radius:22px;padding:28px;box-shadow:0 25px 90px #0005}.dialog h2{margin-top:0}.site-footer{max-width:1180px;margin:0 auto 30px;padding:0 26px;color:#677084;font-size:.75rem}.site-footer a{color:inherit}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.side{grid-template-columns:repeat(2,minmax(0,1fr))}.developer{max-height:none}}@media(max-width:600px){.shell{padding:14px 12px 44px;gap:12px}.site-header-inner{padding:17px 15px}.card{border-radius:16px;padding:18px}.side{grid-template-columns:1fr}.journey-stage{font-size:.68rem}.question-card{min-height:0;padding-top:28px;padding-bottom:28px}.question{font-size:clamp(1.3rem,6vw,1.8rem)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+  <header class="site-header"><div class="site-header-inner"><span class="eyebrow">Matemáticas · 2.º ESO · UD 03</span><h1 id="hero-title">Potencias</h1><p id="hero-subtitle">Itinerario adaptativo</p></div></header>
+  <div class="shell" id="app">
+    <main class="main">
+      <ol id="journey" class="journey" aria-label="Progreso de las cinco etapas"></ol>
+      <section id="locked" class="card" hidden><h2>Etapa bloqueada</h2><p>Primero necesitas la llave de la etapa anterior.</p><a id="locked-link" class="secondary" href="index.html">Ir a la etapa anterior</a></section>
+      <section id="view-welcome" class="card" aria-labelledby="welcome-title"><div class="flow"><span class="eyebrow" style="color:var(--accent)">Cinco llaves · cinco etapas</span><h2 id="welcome-title">Aprende a usar las potencias paso a paso</h2><p class="lead">En cada etapa practicarás con ejercicios que cambian según tus respuestas. Para avanzar, demuestra lo aprendido en una comprobación final.</p><form id="name-form" class="flow"><label class="field" for="name">Tu nombre<input id="name" maxlength="60" autocomplete="name" required></label><p id="name-error" class="error" aria-live="polite"></p><div class="actions"><button type="submit" class="primary">Continuar</button></div></form></div></section>
+      <section id="view-theory" class="card" hidden><p id="notice" class="notice" role="status" hidden></p><span class="eyebrow" style="color:var(--accent)">Preparación</span><h2 id="stage-title"></h2><p class="lead">Abre las explicaciones que necesites. Después comienza tu intento.</p><div id="theory-sections"></div><p class="prep-note">Durante la práctica y la comprobación final, la pantalla completa ayuda a concentrarse. Si sales de ella o cambias de ventana, se reinicia el intento actual; conservarás las llaves anteriores.</p><div class="actions"><button id="start" class="primary" type="button">Empezar la práctica</button><button id="change-user" class="ghost" type="button">Cambiar de usuario</button></div><p class="small muted">Alumno: <strong id="learner-label"></strong></p></section>
+      <section id="view-practice" class="card question-card" hidden><span class="mini-label">Práctica adaptativa</span><h2 id="question-count">Ejercicio 1</h2><div class="progress" aria-hidden="true"><span id="practice-progress" style="width:0"></span></div><div id="question" class="question"></div><div class="question-form"><div id="step-wrap" class="field" hidden><label id="step-label" for="step"></label><select id="step"></select></div><div class="field"><label id="answer-label" for="answer">Tu respuesta</label><input id="answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="answer-select" hidden></select></div><p id="answer-error" class="error" aria-live="polite"></p></div><p id="hint-text" class="hint" hidden></p><div class="actions question-actions"><button id="hint-button" type="button" class="ghost">Ver una pista</button><button id="check-button" type="button" class="primary">Comprobar</button><button id="next-button" type="button" class="primary" hidden>Siguiente ejercicio</button></div><div id="feedback" class="feedback" role="status" hidden></div></section>
+      <section id="view-exit" class="card question-card" hidden><span class="boss">✦ Comprobación final</span><h2 id="exit-count">Comprobación 1</h2><p class="muted">Responde sin pistas. Verás las soluciones al terminar.</p><div class="progress" aria-hidden="true"><span id="exit-progress" style="width:0"></span></div><div id="exit-question" class="question"></div><div class="question-form"><div id="exit-step-wrap" class="field" hidden><label id="exit-step-label" for="exit-step"></label><select id="exit-step"></select></div><div class="field"><label id="exit-answer-label" for="exit-answer">Tu respuesta</label><input id="exit-answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="exit-select" hidden></select></div><p id="exit-error" class="error" aria-live="polite"></p></div><div class="actions question-actions"><button id="exit-check" type="button" class="primary">Guardar respuesta</button></div></section>
+      <section id="view-result" class="card" hidden><span class="eyebrow" style="color:var(--accent)">Resultado de la etapa</span><h2 id="result-title"></h2><p id="result-level" class="boss"></p><p id="result-message" class="lead"></p><div id="key-card" class="key-card" hidden><div class="key-icon" aria-hidden="true">⚿</div><div><h3>Llave conseguida</h3><p>Esta etapa está superada. Puedes continuar cuando quieras.</p></div></div><div class="actions"><a id="next-stage" class="primary" href="#" hidden>Ir a la siguiente etapa</a><button id="retry" class="secondary" type="button" hidden>Volver a intentarlo</button></div><div id="diploma" class="diploma" hidden><h3>¡Cinco llaves conseguidas!</h3><p id="diploma-name" class="diploma-name"></p><p>Has completado el itinerario de propiedades de potencias.</p></div><h3>Repaso de tus respuestas</h3><div id="review-list" class="result-list"></div><p id="sync-status" class="small muted" role="status"></p></section>
+    </main>
+    <aside class="side"><div class="side-card"><h2>Tu recorrido</h2><p>La llave de cada color abre la etapa siguiente. Puedes repetir una etapa hasta dominarla.</p></div><button id="developer-toggle" type="button" class="ghost" hidden>Modo desarrollador</button><section id="developer" class="developer" aria-label="Cálculos en tiempo real" hidden><h2>Modelo en tiempo real</h2><p id="dev-entropy"></p><div id="dev-probabilities"></div><h3>Preguntas candidatas</h3><ol id="dev-selection"></ol><h3>Última actualización</h3><p id="dev-update"></p></section></aside>
+  </div>
+  <div id="focus-dialog" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="focus-title" hidden><div class="dialog"><h2 id="focus-title">Vamos a concentrarnos</h2><p>Se activará la pantalla completa. Si sales de ella o cambias de ventana durante la práctica, el intento se reiniciará. Las llaves conseguidas se conservan.</p><p id="focus-error" class="error" role="alert"></p><div class="actions"><button id="focus-start" class="primary" type="button">Comenzar en pantalla completa</button><button id="focus-cancel" class="ghost" type="button">Volver</button></div></div></div>
+  <footer class="site-footer">Material didáctico 2.º ESO · IES de Teis · <a href="https://jjdeharo.github.io/recursos-adaptativos/">Metodología adaptativa de referencia</a></footer>
+  <script>/* Banco parametrizado de propiedades de potencias. Compartido por las cinco etapas. */
+(function (root) {
+  'use strict';
+  const STAGES = [
+    null,
+    { title: 'Significado, paréntesis y signo', short: 'Signo', color: '#c34755', min: 6, max: 18, early: 4, exit: ['s1-pair', 's1-parens', 's1-error'], need: 3, required: ['s1-parens'], families: ['lectura', 'signo', 'aplicacion'] },
+    { title: 'Producto y cociente de igual base', short: 'Igual base', color: '#4f6ed0', min: 8, max: 22, early: 5, exit: ['s2-product', 's2-quotient', 's2-chain', 's2-missing'], need: 3, requiredFamilies: ['producto', 'cociente'], families: ['producto', 'cociente', 'combinacion'] },
+    { title: 'Potencia de una potencia y elección de regla', short: 'Elegir regla', color: '#14765f', min: 8, max: 22, early: 6, exit: ['s3-nested', 's3-combine-product', 's3-sum', 's3-repair'], need: 3, requiredFamilies: ['bloques', 'condiciones'], families: ['bloques', 'combinacion', 'condiciones'] },
+    { title: 'Exponentes cero y negativos', short: 'Cero y negativos', color: '#6e4ca6', min: 8, max: 24, early: 6, exit: ['s4-zero', 's4-reciprocal', 's4-negative-base', 's4-quotient'], need: 3, requiredFamilies: ['cero', 'reciproco'], families: ['cero', 'reciproco', 'signo', 'combinacion'] },
+    { title: 'Propiedades integradas', short: 'Todo junto', color: '#8b590d', min: 10, max: 28, early: 7, exit: ['s5-mixed', 's5-condition', 's5-negative', 's5-repair', 's5-context'], need: 4, requiredFamilies: ['mixto', 'condiciones', 'negativos'], families: ['mixto', 'condiciones', 'negativos', 'aplicacion'] }
+  ];
+  const draw = (rng, length) => rng.choose ? rng.choose(length) : Math.floor(rng() * length);
+  const rand = (rng, lo, hi) => lo + draw(rng, hi - lo + 1);
+  const pick = (rng, values) => values[draw(rng, values.length)];
+  const pow = (a, n) => `${a < 0 ? `(${a})` : a}<sup>${n}</sup>`;
+  const power = (a, n) => `${a}^${n}`;
+  const q = (t, params, text, kind, answer, extra = {}) => ({
+    id: t.id, family: t.family, stage: t.stage, b: t.b, params, text, kind,
+    answer: String(answer), signature: `${t.id}|${JSON.stringify(params)}`,
+    hint: extra.hint || 'Identifica la base y la operación antes de calcular.',
+    explanation: extra.explanation || `Respuesta: ${answer}.`,
+    ...extra
+  });
+  const templates = [];
+  const add = (stage, id, family, b, make) => templates.push({ stage, id, family, b, make(rng = Math.random) { return make(this, rng); } });
+  const ruleStep = (answer, prompt = '¿Qué regla se aplica a la parte indicada?') => ({ prompt, options: ['Sumar exponentes', 'Restar exponentes', 'Multiplicar exponentes', 'Ninguna de esas reglas'], answer });
+  const signStep = (answer) => ({ prompt: '¿Cuál es el signo del resultado?', options: ['Positivo', 'Negativo'], answer });
+
+  // Etapa 1: nueve operaciones cognitivas diferentes.
+  add(1, 's1-pair', 'lectura', -1, (t, r) => { const a = -rand(r, 2, 12), n = rand(r, 2, 6); return q(t, { a, n }, `En ${pow(a, n)}, escribe «base;exponente».`, 'pair', `${a};${n}`, { hint: 'Los paréntesis forman parte de la base.', explanation: `La base completa es ${a} y se repite ${n} veces.` }); });
+  add(1, 's1-expand', 'lectura', -.8, (t, r) => { const a = -rand(r, 2, 8), n = rand(r, 2, 5); return q(t, { a, n }, `Desarrolla ${pow(a, n)} como producto. Usa * entre factores.`, 'product', Array(n).fill(a).join('*'), { hint: `Escribe ${n} factores iguales a ${a}.` }); });
+  add(1, 's1-compress', 'lectura', -.7, (t, r) => { const a = rand(r, 2, 12), n = rand(r, 2, 7); return q(t, { a, n }, `Escribe ${Array(n).fill(a).join(' · ')} como una potencia. Usa ^.`, 'power', power(a, n), { hint: 'El factor repetido es la base; cuenta cuántas veces aparece.' }); });
+  add(1, 's1-calc', 'signo', -.5, (t, r) => { const a = -rand(r, 2, 7), n = rand(r, 2, 4); return q(t, { a, n }, `Calcula ${pow(a, n)}.`, 'rat', a ** n, { step: signStep(n % 2 ? 'Negativo' : 'Positivo'), hint: 'Una cantidad par de factores negativos produce signo positivo.' }); });
+  add(1, 's1-parity', 'signo', -.2, (t, r) => { const a = -rand(r, 2, 12), n = rand(r, 5, 18); return q(t, { a, n }, `Sin calcular el valor, indica el signo de ${pow(a, n)}.`, 'choice', n % 2 ? 'Negativo' : 'Positivo', { options: ['Positivo', 'Negativo'], hint: 'Mira si el exponente es par o impar.' }); });
+  add(1, 's1-parens', 'signo', .2, (t, r) => { const a = rand(r, 2, 9), n = pick(r, [2, 4]); return q(t, { a, n }, `Calcula ${pow(-a, n)} y −${pow(a, n)}. Escribe ambos valores separados por «;».`, 'pair', `${a ** n};${-(a ** n)}`, { hint: 'En el segundo caso, el signo menos queda fuera de la potencia.', explanation: `${pow(-a, n)} = ${a ** n}, mientras que −${pow(a, n)} = ${-(a ** n)}.` }); });
+  add(1, 's1-multiplier', 'lectura', .1, (t, r) => { const a = rand(r, 2, 8), n = rand(r, 3, 5); return q(t, { a, n }, `Calcula ${pow(a, n)} y ${a}·${n}. Separa los resultados por «;».`, 'pair', `${a ** n};${a * n}`, { hint: 'El exponente indica factores repetidos, no una multiplicación por el exponente.' }); });
+  add(1, 's1-error', 'signo', .5, (t, r) => { const a = rand(r, 2, 10), n = pick(r, [2, 4]); return q(t, { a, n }, `Un compañero escribe «−${pow(a, n)} = ${a ** n}». Escribe el valor correcto de −${pow(a, n)}.`, 'rat', -(a ** n), { step: signStep('Negativo'), hint: 'El menos está fuera; calcula primero la potencia.' }); });
+  add(1, 's1-growth', 'aplicacion', .7, (t, r) => { const start = rand(r, 2, 9), factor = rand(r, 2, 4), n = rand(r, 2, 5); return q(t, { start, factor, n }, `Hay ${start} objetos y la cantidad se multiplica por ${factor} en cada una de ${n} rondas. ¿Cuántos hay al final?`, 'rat', start * factor ** n, { hint: `Representa la situación como ${start}·${pow(factor, n)}.` }); });
+
+  // Etapa 2: exponentes naturales y misma base.
+  add(2, 's2-product', 'producto', -1, (t, r) => { const a = rand(r, 2, 12), m = rand(r, 2, 6), n = rand(r, 2, 6); return q(t, { a, m, n }, `Reduce ${pow(a, m)} · ${pow(a, n)} a una sola potencia. Usa ^.`, 'power', power(a, m + n), { step: ruleStep('Sumar exponentes'), hint: 'Misma base y producto: conserva la base.' }); });
+  add(2, 's2-quotient', 'cociente', -.7, (t, r) => { const a = rand(r, 2, 12), n = rand(r, 1, 5), m = n + rand(r, 1, 5); return q(t, { a, m, n }, `Reduce ${pow(a, m)} : ${pow(a, n)} a una sola potencia. Usa ^.`, 'power', power(a, m - n), { step: ruleStep('Restar exponentes'), hint: 'Cancela factores de la misma base; la base no puede ser cero.' }); });
+  add(2, 's2-count', 'producto', -.6, (t, r) => { const a = rand(r, 2, 10), m = rand(r, 2, 7), n = rand(r, 2, 7); return q(t, { a, m, n }, `¿Cuántos factores ${a} contiene ${pow(a, m)} · ${pow(a, n)}?`, 'int', m + n, { hint: `Cuenta ${m} factores y después ${n} más.` }); });
+  add(2, 's2-cancel', 'cociente', -.4, (t, r) => { const a = rand(r, 2, 11), n = rand(r, 1, 6), m = n + rand(r, 1, 5); return q(t, { a, m, n }, `Al cancelar factores en ${pow(a, m)} : ${pow(a, n)}, ¿cuántos factores ${a} quedan?`, 'int', m - n, { hint: 'Resta los factores que cancelas.' }); });
+  add(2, 's2-equal', 'cociente', -.2, (t, r) => { const a = rand(r, 2, 12), n = rand(r, 2, 8); return q(t, { a, n }, `Calcula ${pow(a, n)} : ${pow(a, n)}.`, 'rat', 1, { hint: 'Todo número no nulo dividido por sí mismo vale 1.' }); });
+  add(2, 's2-missing', 'cociente', .2, (t, r) => { const a = rand(r, 2, 12), n = rand(r, 1, 5), k = rand(r, 1, 5), m = n + k; return q(t, { a, m, n, k }, `Completa ${pow(a, m)} : ${a}<sup>□</sup> = ${pow(a, k)}. ¿Qué exponente falta?`, 'int', n, { hint: `Resuelve ${m} − □ = ${k}.` }); });
+  add(2, 's2-chain', 'combinacion', .6, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 2, 5), n = rand(r, 2, 5), d = rand(r, 1, Math.min(m + n - 1, 5)); return q(t, { a, m, n, d }, `Reduce ${pow(a, m)} · ${pow(a, n)} : ${pow(a, d)} a una sola potencia.`, 'power', power(a, m + n - d), { hint: 'Suma los exponentes del producto y resta el del cociente.' }); });
+  add(2, 's2-growth', 'combinacion', .7, (t, r) => { const m = rand(r, 2, 6), n = rand(r, 2, 6); return q(t, { m, n }, `Una cantidad se duplica ${m} veces y después ${n} veces más. ¿Por qué factor se ha multiplicado? Escribe una potencia de 2.`, 'power', power(2, m + n), { hint: 'Junta las dos fases de duplicación.' }); });
+
+  // Etapa 3: potencia de potencia y límites de las reglas.
+  add(3, 's3-nested', 'bloques', -1, (t, r) => { const a = rand(r, 2, 10), m = rand(r, 2, 5), n = rand(r, 2, 5); return q(t, { a, m, n }, `Reduce (${pow(a, m)})<sup>${n}</sup> a una sola potencia.`, 'power', power(a, m * n), { step: ruleStep('Multiplicar exponentes'), hint: 'Hay varios bloques con el mismo número de factores.' }); });
+  add(3, 's3-blocks', 'bloques', -.7, (t, r) => { const a = rand(r, 2, 10), m = rand(r, 2, 5), n = rand(r, 2, 5); return q(t, { a, m, n }, `¿Cuántos factores ${a} hay en (${pow(a, m)})<sup>${n}</sup>?`, 'int', m * n, { hint: `${n} bloques de ${m} factores.` }); });
+  add(3, 's3-missing', 'bloques', -.4, (t, r) => { const a = rand(r, 2, 10), m = rand(r, 2, 5), n = rand(r, 2, 6); return q(t, { a, m, n }, `Completa (${pow(a, m)})<sup>□</sup> = ${pow(a, m * n)}.`, 'int', n, { hint: `Resuelve ${m}·□ = ${m * n}.` }); });
+  add(3, 's3-combine-product', 'combinacion', .2, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 2, 4), n = rand(r, 2, 4), k = rand(r, 1, 4); return q(t, { a, m, n, k }, `Reduce (${pow(a, m)})<sup>${n}</sup> · ${pow(a, k)} a una sola potencia.`, 'power', power(a, m * n + k), { hint: 'Multiplica dentro del bloque y después suma por el producto.' }); });
+  add(3, 's3-combine-quotient', 'combinacion', .4, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 2, 4), n = rand(r, 2, 4), d = rand(r, 1, m * n - 1); return q(t, { a, m, n, d }, `Reduce (${pow(a, m)})<sup>${n}</sup> : ${pow(a, d)} a una sola potencia.`, 'power', power(a, m * n - d), { hint: 'Multiplica los exponentes del bloque y resta el divisor.' }); });
+  add(3, 's3-rule', 'condiciones', .3, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 2, 5), n = rand(r, 2, 5), type = rand(r, 0, 2); const expressions = [`${pow(a, m)} · ${pow(a, n)}`, `(${pow(a, m)})<sup>${n}</sup>`, `${pow(a, m)} + ${pow(a, n)}`]; const answers = ['Sumar exponentes', 'Multiplicar exponentes', 'Ninguna de esas reglas']; return q(t, { a, m, n, type }, `¿Qué regla permite simplificar directamente ${expressions[type]}?`, 'choice', answers[type], { options: ruleStep().options, hint: 'Comprueba la operación y la base antes de elegir.' }); });
+  add(3, 's3-sum', 'condiciones', .6, (t, r) => { const a = rand(r, 2, 7), m = rand(r, 2, 4), n = m + rand(r, 1, 2); return q(t, { a, m, n }, `Calcula ${pow(a, m)} + ${pow(a, n)}. No apliques una regla de producto a una suma.`, 'rat', a ** m + a ** n, { step: ruleStep('Ninguna de esas reglas'), hint: 'Calcula las dos potencias y suma sus valores.' }); });
+  add(3, 's3-bases', 'condiciones', .7, (t, r) => { const a = rand(r, 2, 6), b = a + rand(r, 1, 4), m = rand(r, 2, 4), n = m + 1; return q(t, { a, b, m, n }, `Calcula ${pow(a, m)} · ${pow(b, n)}. ¿Se pueden sumar los exponentes directamente?`, 'rat', a ** m * b ** n, { step: { prompt: '¿Se puede usar la regla de producto de igual base?', options: ['Sí', 'No'], answer: 'No' }, hint: 'Las bases son diferentes y los exponentes también.' }); });
+  add(3, 's3-repair', 'condiciones', .8, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 2, 5), n = rand(r, 3, 5); return q(t, { a, m, n }, `Un compañero afirma (${pow(a, m)})<sup>${n}</sup> = ${pow(a, m + n)}. Escribe la potencia correcta.`, 'power', power(a, m * n), { step: ruleStep('Multiplicar exponentes'), hint: 'Una potencia de potencia multiplica exponentes.' }); });
+  add(3, 's3-equivalent', 'combinacion', .9, (t, r) => { const a = rand(r, 2, 10), m = rand(r, 3, 7), shift = rand(r, 0, 1); return q(t, { a, m, shift }, `¿Son equivalentes ${pow(a, m)} : ${a} y (${pow(a, m - 1 + shift)})<sup>1</sup>?`, 'choice', shift ? 'No' : 'Sí', { options: ['Sí', 'No'], hint: 'Simplifica ambos lados antes de comparar.' }); });
+
+  // Etapa 4: cero, recíproco y signo.
+  add(4, 's4-sequence', 'cero', -1, (t, r) => { const a = rand(r, 2, 9), values = [a ** 3, a ** 2, a, 1, `1/${a}`]; return q(t, { a }, `Completa los valores de ${pow(a, 3)}, ${pow(a, 2)}, ${pow(a, 1)}, ${pow(a, 0)}, ${pow(a, -1)} separados por comas.`, 'sequence', values.join(','), { hint: `En cada paso divide entre ${a}.` }); });
+  add(4, 's4-zero', 'cero', -.8, (t, r) => { const a = pick(r, [-12, -9, -7, -5, 2, 3, 5, 8, 11, 13]); return q(t, { a }, `Calcula ${pow(a, 0)}.`, 'rat', 1, { step: { prompt: '¿Se cumple la condición «base no nula»?', options: ['Sí', 'No'], answer: 'Sí' }, hint: 'Toda base distinta de cero elevada a cero vale 1.' }); });
+  add(4, 's4-reciprocal', 'reciproco', -.6, (t, r) => { const a = rand(r, 2, 10), n = rand(r, 1, 4); return q(t, { a, n }, `Escribe ${pow(a, -n)} como fracción irreducible.`, 'rat', `1/${a ** n}`, { hint: 'Un exponente negativo indica el recíproco.' }); });
+  add(4, 's4-inverse', 'reciproco', -.3, (t, r) => { const a = rand(r, 2, 10), n = rand(r, 1, 4); return q(t, { a, n }, `Escribe 1/${a ** n} como potencia de base ${a}. Usa ^.`, 'power', power(a, -n), { hint: 'El denominador se expresa con exponente negativo.' }); });
+  add(4, 's4-ten', 'reciproco', -.1, (t, r) => { const n = rand(r, 1, 5); return q(t, { n }, `Escribe ${pow(10, -n)} como decimal. Usa coma o punto.`, 'rat', `1/${10 ** n}`, { hint: `Es una unidad dividida entre ${10 ** n}.` }); });
+  add(4, 's4-product', 'combinacion', .2, (t, r) => { const a = rand(r, 2, 7), m = rand(r, 1, 4), n = m + rand(r, 1, 3); return q(t, { a, m, n }, `Calcula ${pow(a, m)} · ${pow(a, -n)} como fracción irreducible.`, 'rat', `1/${a ** (n - m)}`, { hint: 'Suma exponentes; convierte el exponente negativo en recíproco.' }); });
+  add(4, 's4-quotient', 'combinacion', .4, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 1, 4), n = m + rand(r, 1, 3); return q(t, { a, m, n }, `Calcula ${pow(a, m)} : ${pow(a, n)} como fracción irreducible.`, 'rat', `1/${a ** (n - m)}`, { hint: 'Resta exponentes y convierte el negativo en fracción.' }); });
+  add(4, 's4-negative-base', 'signo', .6, (t, r) => { const a = rand(r, 2, 7), n = rand(r, 1, 4); const numerator = n % 2 ? -1 : 1; return q(t, { a, n }, `Calcula ${pow(-a, -n)} como fracción irreducible.`, 'rat', `${numerator}/${a ** n}`, { step: signStep(n % 2 ? 'Negativo' : 'Positivo'), hint: 'El exponente negativo pide recíproco; la paridad decide el signo.' }); });
+  add(4, 's4-compare', 'reciproco', .7, (t, r) => { const a = rand(r, 2, 5), b = a + rand(r, 1, 3), m = rand(r, 1, 3), n = rand(r, 1, 3); const x = a ** m, y = b ** n; return q(t, { a, b, m, n }, `Compara ${pow(a, -m)} y ${pow(b, -n)}. Escribe <, = o >.`, 'choice', x === y ? '=' : x < y ? '>' : '<', { options: ['<', '=', '>'], hint: 'Convierte ambas potencias en fracciones positivas.' }); });
+  add(4, 's4-error', 'signo', .8, (t, r) => { const a = rand(r, 2, 10), n = rand(r, 1, 4); return q(t, { a, n }, `Un compañero afirma ${pow(a, -n)} = −${a ** n}. Escribe el valor correcto como fracción.`, 'rat', `1/${a ** n}`, { hint: 'El menos del exponente no es el signo del resultado.' }); });
+  add(4, 's4-zero-base', 'cero', 1, (t, r) => { const n = pick(r, [0, -1, -2, -3, -4]); return q(t, { n }, `¿Se puede evaluar 0<sup>${n}</sup> con estas reglas?`, 'choice', 'No', { options: ['Sí', 'No'], hint: 'Para llegar a exponentes cero o negativos habría que dividir entre cero.' }); });
+
+  // Etapa 5: integración y transferencia.
+  add(5, 's5-mixed', 'mixto', -.8, (t, r) => { const a = rand(r, 2, 7), m = rand(r, 2, 4), n = rand(r, 2, 4), d = m * n - rand(r, 1, 4); return q(t, { a, m, n, d }, `Calcula (${pow(a, m)})<sup>${n}</sup> · ${pow(a, -d)}.`, 'rat', a ** (m * n - d), { hint: 'Multiplica los exponentes del bloque; después suma el negativo.' }); });
+  add(5, 's5-negative', 'negativos', .2, (t, r) => { const a = rand(r, 2, 7), m = rand(r, 2, 5), n = rand(r, 1, 4), d = m + n + rand(r, 1, 3); return q(t, { a, m, n, d }, `Calcula (${pow(a, m)} · ${pow(a, -n)}) : ${pow(a, d)} como fracción irreducible.`, 'rat', `1/${a ** (d - m + n)}`, { hint: 'Suma en el producto, resta en el cociente y convierte el exponente final.' }); });
+  add(5, 's5-missing', 'mixto', .1, (t, r) => { const a = rand(r, 2, 9), target = rand(r, 1, 5), n = rand(r, 1, 4); return q(t, { a, target, n }, `Completa ${a}<sup>□</sup> · ${pow(a, -n)} = ${pow(a, target)}.`, 'int', target + n, { hint: `Resuelve □ − ${n} = ${target}.` }); });
+  add(5, 's5-equivalent', 'mixto', .3, (t, r) => { const a = rand(r, 2, 9), m = rand(r, 2, 5), n = rand(r, 2, 5), shift = rand(r, 0, 1); return q(t, { a, m, n, shift }, `¿Son equivalentes ${pow(a, m)} · ${pow(a, n)} y ${pow(a, m + n + 1 + shift)} : ${a}?`, 'choice', shift ? 'No' : 'Sí', { options: ['Sí', 'No'], hint: 'Simplifica ambos exponentes finales.' }); });
+  add(5, 's5-sign', 'negativos', .4, (t, r) => { const a = rand(r, 2, 7), m = pick(r, [2, 4]), n = pick(r, [2, 4]); return q(t, { a, m, n }, `Calcula ${pow(-a, m)} : ${pow(-a, n)}.`, 'rat', m >= n ? a ** (m - n) : `1/${a ** (n - m)}`, { step: signStep('Positivo'), hint: 'Ambas potencias tienen signo positivo; el cociente también.' }); });
+  add(5, 's5-sum', 'condiciones', .5, (t, r) => { const a = rand(r, 2, 6), m = rand(r, 2, 4), n = m + 1; return q(t, { a, m, n }, `Calcula ${pow(a, m)} + ${pow(a, n)}.`, 'rat', a ** m + a ** n, { step: ruleStep('Ninguna de esas reglas'), hint: 'No sumes exponentes en una suma ordinaria.' }); });
+  add(5, 's5-condition', 'condiciones', .7, (t, r) => { const n = rand(r, 2, 7), d = rand(r, 1, 5); return q(t, { n, d }, `¿Está definido 0<sup>${n}</sup> : 0<sup>${d}</sup>?`, 'choice', 'No', { options: ['Sí', 'No'], hint: 'El divisor es cero.' }); });
+  add(5, 's5-repair', 'mixto', .7, (t, r) => { const a = rand(r, 2, 7), m = rand(r, 2, 4), n = rand(r, 3, 4), d = rand(r, 1, m * n - 1); return q(t, { a, m, n, d }, `Un compañero escribe (${pow(a, m)})<sup>${n}</sup> : ${pow(a, d)} = ${pow(a, m + n - d)}. Escribe la potencia correcta.`, 'power', power(a, m * n - d), { step: ruleStep('Multiplicar exponentes', '¿Qué se hace primero con los exponentes del bloque?'), hint: 'Multiplica los exponentes del bloque antes de restar.' }); });
+  add(5, 's5-check', 'mixto', .8, (t, r) => { const a = rand(r, 2, 6), m = rand(r, 2, 3), n = rand(r, 2, 3), d = m * n - rand(r, 1, 3); return q(t, { a, m, n, d }, `Calcula (${pow(a, m)})<sup>${n}</sup> : ${pow(a, d)} y comprueba el valor numérico.`, 'rat', a ** (m * n - d), { hint: 'Simplifica primero los exponentes y después calcula.' }); });
+  add(5, 's5-context', 'aplicacion', 1, (t, r) => { const a = pick(r, [2, 4]), boxes = rand(r, 2, 4), pieces = rand(r, 2, 4), used = pick(r, [2, 4, 8]), numerator = rand(r, 1, used - 1); const total = a ** (boxes + pieces); return q(t, { a, boxes, pieces, used, numerator }, `Hay ${pow(a, boxes)} cajas con ${pow(a, pieces)} piezas cada una. Se utiliza ${numerator}/${used} del total. ¿Cuántas piezas quedan?`, 'rat', total * (used - numerator) / used, { hint: `Primero calcula ${pow(a, boxes)} · ${pow(a, pieces)} y después resta la parte utilizada.` }); });
+
+  function make(id, rng = Math.random) { const t = templates.find(x => x.id === id); if (!t) throw new Error(`Plantilla desconocida: ${id}`); return t.make(rng); }
+  const api = { STAGES, templates, make, templatesFor: n => templates.filter(t => t.stage === n) };
+  root.PowerBank = api;
+  if (typeof module !== 'undefined') module.exports = api;
+})(globalThis);
+</script>
+  <script>/* Cola local de intentos de UD 03 con confirmación y reintentos. */
+(function (root) {
+  'use strict';
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCn-S93OX699xcHUEh9MguMxAijRNBrXwr3Mb0Ir7iBkmCY-ftWJDc5HfA339vnE7N/exec';
+  const RESOURCE = '03Potencias';
+  const QUEUE = 'ud3-potencias-envios-v1';
+  const DONE = 'ud3-potencias-confirmados-v1';
+  const RETRY_MS = 60 * 60 * 1000;
+  let busy = false;
+  const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+  const write = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } };
+  const status = message => { const node = document.getElementById('sync-status'); if (node) node.textContent = message; };
+  const plain = html => String(html || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  function payload({ name, stage, state }) {
+    const practice = state.history || [], exit = state.exitAnswers || [];
+    const all = [...practice, ...exit];
+    return {
+      version: 3, resource: RESOURCE, id: state.syncId, clientTime: new Date().toISOString(),
+      name: String(name || '').trim().replace(/\s+/g, ' '), stage, attempt: state.attempt,
+      practiceTotal: practice.length, practiceCorrect: practice.filter(x => x.main).length,
+      practiceFull: practice.filter(x => x.full).length, hints: practice.filter(x => x.hint).length,
+      exitTotal: exit.length, exitCorrect: exit.filter(x => x.main).length,
+      exitFull: exit.filter(x => x.full).length, level: state.result.level,
+      high: !!state.result.high, provisional: !!state.result.provisional,
+      reason: String(state.result.reason || ''), stats: state.stats || {},
+      exercises: all.map((x, i) => ({
+        position: i + 1, phase: x.phase, statement: plain(x.q.text), answer: String(x.entered),
+        review: `${plain(x.q.text)} Respuesta correcta: ${x.q.answer}.${x.q.step ? ` Regla o paso: ${x.q.step.answer}.` : ''}`,
+        correct: !!x.main, full: !!x.full, hinted: !!x.hint, stepCorrect: !!x.step,
+        selectedStep: '', simplified: null, topic: x.q.family, errorTag: x.main && x.step ? '' : x.q.id
+      }))
+    };
+  }
+  const ready = () => /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(ENDPOINT);
+  function receipt(id) {
+    return new Promise(resolve => {
+      const callback = '__adaptativoReceipt_' + id.replace(/-/g, '');
+      const script = document.createElement('script'); let timer;
+      const finish = found => { clearTimeout(timer); delete root[callback]; script.remove(); resolve(found); };
+      root[callback] = response => finish(response?.id === id && response?.stored === true);
+      script.onerror = () => finish(false);
+      script.src = `${ENDPOINT}?action=receipt&resource=${RESOURCE}&id=${encodeURIComponent(id)}&callback=${callback}&_=${Date.now()}`;
+      timer = setTimeout(() => finish(false), 12000);
+      document.head.append(script);
+    });
+  }
+  async function flush() {
+    if (busy || !ready() || !navigator.onLine) return;
+    busy = true;
+    try {
+      const queue = read(QUEUE, []);
+      for (const item of Array.isArray(queue) ? queue : []) {
+        let stored = await receipt(item.id);
+        if (!stored && (!item.lastPostAt || Date.now() - item.lastPostAt >= RETRY_MS)) {
+          try {
+            await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(item) });
+            item.lastPostAt = Date.now(); write(QUEUE, queue);
+            stored = await receipt(item.id);
+          } catch { /* La cola se conservará para el próximo intento. */ }
+        }
+        if (!stored) { status('Envío pendiente de confirmación. Se reintentará al recuperar la conexión.'); break; }
+        write(QUEUE, read(QUEUE, []).filter(x => x.id !== item.id));
+        const done = read(DONE, []); if (!done.includes(item.id)) write(DONE, [...done, item.id].slice(-500));
+        status('Información enviada al profesor.');
+      }
+    } finally { busy = false; }
+  }
+  function record(data) {
+    if (!data.state?.result || !data.state?.syncId) return;
+    const done = read(DONE, []); if (done.includes(data.state.syncId)) return;
+    const queue = read(QUEUE, []);
+    if (!queue.some(x => x.id === data.state.syncId)) {
+      queue.push(payload(data));
+      if (!write(QUEUE, queue)) { status('No se pudo guardar el envío en este navegador.'); return; }
+    }
+    status(ready() ? 'Enviando resultado…' : 'Resultado guardado en este navegador. El registro docente está pendiente de conexión.');
+    void flush();
+  }
+  root.adaptiveSync = { record, flush, payload, ready };
+  if (typeof module !== 'undefined') module.exports = { payload, ready };
+  if (typeof window !== 'undefined') {
+    window.addEventListener('online', flush);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) void flush(); });
+    document.addEventListener('DOMContentLoaded', () => { void flush(); });
+    setInterval(flush, 60000);
+  }
+})(globalThis);
+</script>
+  <script>/* Motor adaptativo común. build.py lo inserta en cada etapa para uso local autónomo. */
+(function () {
+  'use strict';
+  const bank = globalThis.PowerBank;
+  const stage = typeof document === 'undefined' ? 1 : Number(document.documentElement.dataset.stage);
+  const cfg = bank.STAGES[stage];
+  const templates = bank.templatesFor(stage);
+  const theta = [-2, 0, 2];
+  const levels = ['Aún no domina', 'Dominio parcial', 'Dominio alto'];
+  const rootKey = 'ud3-potencias-adaptativo-v1';
+  const $ = id => document.getElementById(id);
+  const storageKey = name => `${rootKey}:etapa${stage}:${normalize(name)}`;
+  const normalize = value => String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('es');
+  const cleanName = value => String(value || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+  const getJson = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+  const setJson = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } };
+  const entropy = p => -p.reduce((sum, x) => sum + (x > 0 ? x * Math.log2(x) : 0), 0);
+  const fixed = (x, digits = 3) => Number(x).toFixed(digits);
+  let learner = '', state = null, developerOpen = false, fullscreenStarting = false;
+
+  const theory = {
+    1: [
+      ['Base y exponente', 'La base es el factor que se repite. El exponente dice cuántas veces aparece.', '(-3)³ = (-3)·(-3)·(-3) = −27.', 'En (-3)³ la base es −3: los paréntesis la incluyen.'],
+      ['El signo depende de la base', 'Con base negativa, un exponente par da resultado positivo; uno impar, negativo.', '(-4)² = 16, mientras que (-4)³ = −64.', '−4² = −16: el menos exterior no se eleva al cuadrado.'],
+      ['Potencia frente a multiplicación', 'Una potencia representa una multiplicación repetida, no base por exponente.', '3⁴ = 3·3·3·3 = 81, distinto de 3·4 = 12.', 'En un crecimiento repetido, multiplica una vez por ronda.']
+    ],
+    2: [
+      ['Producto de igual base', 'Al juntar factores de la misma base, suma los exponentes y conserva la base.', '2³·2² = 2⁵.', 'La regla se refiere a productos, no a sumas.'],
+      ['Cociente de igual base', 'Al cancelar factores de la misma base, resta los exponentes. El divisor debe ser distinto de cero.', '5⁶:5² = 5⁴.', 'Si los exponentes son iguales, el cociente vale 1.'],
+      ['Cadenas y exponentes desconocidos', 'En una cadena de productos y cocientes, suma y resta cada exponente según la operación.', '3⁴·3³:3² = 3⁵.', 'Comprueba el exponente contando factores si dudas.']
+    ],
+    3: [
+      ['Potencia de una potencia', 'Una potencia de potencia repite un bloque: multiplica los exponentes.', '(4²)³ = 4⁶.', 'Sumar 2 + 3 en este caso daría una potencia incorrecta.'],
+      ['Combinar reglas', 'Resuelve el bloque y después aplica la regla de producto o cociente de igual base.', '(2³)²·2 = 2⁶·2 = 2⁷.', 'Escribe un paso por línea para no perder exponentes.'],
+      ['Comprobar condiciones', 'Identifica la operación y las bases antes de transformar la expresión.', '2³·5² = 8·25 = 200.', 'No sumes exponentes en una suma ni en un producto de bases distintas.']
+    ],
+    4: [
+      ['Exponente cero', 'Al descender un exponente divides entre la base. Para cualquier base no nula, a⁰ = 1.', '3² = 9, 3¹ = 3, 3⁰ = 1.', 'La regla no permite base cero.'],
+      ['Exponente negativo', 'Para base no nula, a⁻ⁿ = 1/aⁿ. El signo del exponente indica recíproco.', '4⁻² = 1/4² = 1/16.', 'Un exponente negativo no vuelve negativo el resultado.'],
+      ['Signos y propiedades', 'Con base negativa, conserva los paréntesis y decide el signo por la paridad.', '(-2)⁻³ = 1/(-2)³ = −1/8.', 'No intentes dividir entre cero.']
+    ],
+    5: [
+      ['Elegir una ruta', 'Localiza primero potencias de potencias. Luego combina productos y cocientes de la misma base.', '(2³)²·2⁻⁴ = 2⁶·2⁻⁴ = 2² = 4.', 'Copia los términos pendientes en cada paso.'],
+      ['Cuidar condiciones y signos', 'Comprueba bases, operación y divisor antes de aplicar una regla.', '2³ + 2² = 8 + 4 = 12.', 'Una suma no se transforma sumando exponentes.'],
+      ['Verificar e interpretar', 'Comprueba el resultado por una segunda vía y responde con unidades si hay contexto.', '4³·4² = 4⁵, igual que 4⁶:4.', 'Un resultado exacto debe corresponder también al significado del problema.']
+    ]
+  };
+
+  const pCorrect = (th, b, c) => Math.min(.95, c + (1 - c) / (1 + Math.exp(-1.25 / (1 - c) * (th - b))));
+  const probs = q => theta.map(th => ({
+    main: pCorrect(th, q.b, q.kind === 'choice' ? 1 / q.options.length : 0),
+    step: q.step ? pCorrect(th, q.b - .2, 1 / q.step.options.length) : null
+  }));
+  function evidence(q, outcome, hint = false) {
+    const ps = probs(q), strength = hint ? .55 : 1;
+    return ps.map(x => {
+      const m = outcome.main ? x.main : 1 - x.main;
+      if (!q.step) return Math.pow(m, strength);
+      const s = outcome.step ? x.step : 1 - x.step;
+      return Math.pow(m, .6 * strength) * Math.pow(s, .4 * strength);
+    });
+  }
+  function posterior(prior, factors) {
+    const raw = prior.map((x, i) => x * factors[i]);
+    const z = raw.reduce((a, b) => a + b, 0);
+    return raw.map(x => x / z);
+  }
+  function information(q, prior) {
+    const ps = probs(q), scenarios = q.step ? [[false, false], [false, true], [true, false], [true, true]] : [[false, true], [true, true]];
+    const before = entropy(prior);
+    let after = 0;
+    for (const [main, stepResult] of scenarios) {
+      const joint = ps.map(x => (main ? x.main : 1 - x.main) * (q.step ? (stepResult ? x.step : 1 - x.step) : 1));
+      const probability = prior.reduce((sum, x, i) => sum + x * joint[i], 0);
+      after += probability * entropy(posterior(prior, evidence(q, { main, step: stepResult })));
+    }
+    return Math.max(0, before - after);
+  }
+  const freshState = (attempt = 1, key = false, recent = []) => ({
+    attempt, key, phase: 'theory', posterior: [1 / 3, 1 / 3, 1 / 3], history: [], exitItems: [], exitAnswers: [],
+    current: null, answered: false, hint: false, recent, stats: {}, selection: null, previousUpdate: null, result: null,
+    syncId: null
+  });
+  function save() { if (learner && state) setJson(storageKey(learner), state); }
+  function sample(t, used) {
+    let item;
+    for (let i = 0; i < 120; i++) { item = t.make(); if (!used.has(item.signature)) return item; }
+    return item;
+  }
+  function usedSignatures() { return new Set([...state.recent, ...state.history.map(x => x.q.signature), ...state.exitItems.map(x => x.signature)]); }
+  function chooseQuestion() {
+    const used = usedSignatures(), seen = new Set(state.history.map(x => x.q.family));
+    const missing = cfg.families.filter(f => !seen.has(f));
+    const candidates = missing.length ? templates.filter(t => missing.includes(t.family)) : templates;
+    const pool = candidates.flatMap(t => Array.from({ length: 4 }, () => sample(t, used)));
+    const info = pool.map(q => information(q, state.posterior));
+    const maxIG = Math.max(...info, 1e-9), estimate = state.posterior.reduce((sum, p, i) => sum + p * theta[i], 0);
+    const rows = pool.map((q, i) => {
+      const stats = state.stats[q.family] || { asked: 0, wrong: 0 };
+      const weakness = stats.asked ? stats.wrong / stats.asked : .5;
+      const fit = Math.max(0, 1 - Math.abs(q.b - estimate) / 2);
+      const repeated = state.history.at(-1)?.q.id === q.id ? .12 : 0;
+      return { q, ig: info[i], utility: .65 * info[i] / maxIG + .25 * fit + .10 * weakness - repeated + Math.random() * .035 };
+    }).sort((a, b) => b.utility - a.utility);
+    const best = new Map(); for (const row of rows) if (!best.has(row.q.id)) best.set(row.q.id, row);
+    state.selection = { chosen: rows[0].q.id, rows: [...best.values()].sort((a, b) => b.utility - a.utility).map(x => ({ id: x.q.id, family: x.q.family, ig: x.ig, utility: x.utility })) };
+    return rows[0].q;
+  }
+  function renderJourney() {
+    const list = $('journey'); list.replaceChildren();
+    for (let i = 1; i <= 5; i++) {
+      const li = document.createElement('li'), earned = i < stage || (i === stage && state.key);
+      li.className = `journey-stage ${i === stage ? 'active' : ''} ${earned ? 'earned' : ''}`;
+      li.style.setProperty('--key-color', bank.STAGES[i].color);
+      li.innerHTML = `<span class="stage-dot" aria-hidden="true">${earned ? '⚿' : i}</span><span>${bank.STAGES[i].short}</span>`;
+      li.setAttribute('aria-label', `${bank.STAGES[i].short}: ${earned ? 'llave conseguida' : i === stage ? 'etapa actual' : 'pendiente'}`);
+      list.append(li);
+    }
+  }
+  function show(which) {
+    for (const id of ['welcome', 'theory', 'practice', 'exit', 'result']) $(`view-${id}`).hidden = id !== which;
+    $('app').dataset.phase = which;
+    window.scrollTo(0, 0);
+    renderDeveloper();
+  }
+  function renderTheory() {
+    state.phase = 'theory'; state.current = null; state.answered = false; state.hint = false;
+    renderJourney(); show('theory');
+    $('stage-title').textContent = `Etapa ${stage} · ${cfg.title}`;
+    $('learner-label').textContent = learner;
+    const area = $('theory-sections'); area.replaceChildren();
+    theory[stage].forEach(([title, body, example, warning], i) => {
+      const details = document.createElement('details'); details.className = 'theory-section';
+      details.innerHTML = `<summary><span class="theory-number">0${i + 1}</span>${title}</summary><div class="theory-body"><p>${body}</p><p class="worked"><strong>Ejemplo</strong><br>${example}</p><p class="warning"><strong>Atención:</strong> ${warning}</p></div>`;
+      area.append(details);
+    });
+    save();
+  }
+  function renderQuestion(q, final = false) {
+    const area = final ? $('exit-question') : $('question');
+    area.innerHTML = q.text;
+    const stepWrap = final ? $('exit-step-wrap') : $('step-wrap');
+    const stepSelect = final ? $('exit-step') : $('step');
+    stepWrap.hidden = !q.step;
+    if (q.step) {
+      (final ? $('exit-step-label') : $('step-label')).textContent = q.step.prompt;
+      stepSelect.replaceChildren(new Option('Elige una opción', ''));
+      for (const option of q.step.options) stepSelect.add(new Option(option, option));
+    }
+    const answer = final ? $('exit-answer') : $('answer');
+    const select = final ? $('exit-select') : $('answer-select');
+    const label = final ? $('exit-answer-label') : $('answer-label');
+    const isChoice = q.kind === 'choice';
+    answer.hidden = isChoice; select.hidden = !isChoice;
+    label.htmlFor = isChoice ? select.id : answer.id;
+    label.textContent = isChoice ? 'Elige tu respuesta' : q.kind === 'pair' ? 'Escribe los dos valores separados por ;' : q.kind === 'sequence' ? 'Escribe los valores separados por comas' : q.kind === 'power' ? 'Escribe una potencia con ^' : 'Tu respuesta';
+    answer.value = ''; select.replaceChildren(new Option('Elige una opción', ''));
+    if (isChoice) for (const option of q.options) select.add(new Option(option, option));
+    (final ? $('exit-error') : $('answer-error')).textContent = '';
+    if (!isChoice) answer.focus(); else select.focus();
+  }
+  function renderPractice() {
+    state.phase = 'practice'; if (!state.current) state.current = chooseQuestion();
+    show('practice'); $('question-count').textContent = `Ejercicio ${state.history.length + 1} · máximo ${cfg.max}`;
+    $('practice-progress').style.width = `${100 * state.history.length / cfg.max}%`;
+    renderQuestion(state.current);
+    $('hint-text').hidden = !state.hint; $('hint-text').textContent = state.hint ? state.current.hint : '';
+    $('hint-button').disabled = state.hint;
+    $('feedback').hidden = true; $('next-button').hidden = true; $('check-button').hidden = false;
+    save();
+  }
+  const numericValue = text => {
+    const raw = String(text).trim().replace(/−/g, '-').replace(/\s/g, '').replace(',', '.');
+    if (/^[+-]?\d+\/[-+]?\d+$/.test(raw)) { const [a, b] = raw.split('/').map(Number); return b ? a / b : NaN; }
+    return /^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(raw) ? Number(raw) : NaN;
+  };
+  function sameAnswer(q, input) {
+    const entered = String(input).trim(); if (!entered) return false;
+    if (q.kind === 'rat' || q.kind === 'int') {
+      const actual = numericValue(entered), expected = numericValue(q.answer);
+      return Number.isFinite(actual) && (q.kind !== 'int' || Number.isInteger(actual)) && Math.abs(actual - expected) < 1e-10;
+    }
+    if (q.kind === 'pair') {
+      const a = entered.split(';'), b = q.answer.split(';');
+      return a.length === 2 && b.length === 2 && a.every((v, i) => Number.isFinite(numericValue(v)) && Math.abs(numericValue(v) - numericValue(b[i])) < 1e-10);
+    }
+    if (q.kind === 'sequence') {
+      const a = entered.split(','), b = q.answer.split(',');
+      return a.length === b.length && a.every((v, i) => Number.isFinite(numericValue(v)) && Math.abs(numericValue(v) - numericValue(b[i])) < 1e-10);
+    }
+    if (q.kind === 'power') {
+      const compact = entered.replace(/\s/g, '').replace(/⁻/g, '-');
+      const match = compact.match(/^\(?([+-]?\d+)\)?\^\(?([+-]?\d+)\)?$/);
+      if (!match) return false;
+      const target = q.answer.match(/^([+-]?\d+)\^([+-]?\d+)$/);
+      return Number(match[1]) === Number(target[1]) && Number(match[2]) === Number(target[2]);
+    }
+    if (q.kind === 'product') {
+      const parts = entered.replace(/×|·/g, '*').split('*').map(x => x.trim());
+      const expected = q.answer.split('*');
+      return parts.length === expected.length && parts.every((x, i) => /^\(?-?\d+\)?$/.test(x) && Number(x.replace(/[()]/g, '')) === Number(expected[i]));
+    }
+    return normalize(entered) === normalize(q.answer);
+  }
+  const enteredFor = final => {
+    const q = final ? state.exitItems[state.exitAnswers.length] : state.current;
+    return (q.kind === 'choice' ? $(final ? 'exit-select' : 'answer-select') : $(final ? 'exit-answer' : 'answer')).value;
+  };
+  function update(q, main, step, hint) {
+    const prior = [...state.posterior], before = entropy(prior), factors = evidence(q, { main, step }, hint);
+    state.posterior = posterior(prior, factors);
+    state.previousUpdate = { id: q.id, prior, likelihoods: probs(q), factors, after: [...state.posterior], entropyBefore: before, entropyAfter: entropy(state.posterior), main, step, hint };
+  }
+  function record(q, entered, main, step, hint, final) {
+    update(q, main, step, hint);
+    const full = main && step && !hint;
+    const item = { q, entered, main, step, hint, full, phase: final ? 'exit' : 'practice' };
+    (final ? state.exitAnswers : state.history).push(item);
+    const stats = state.stats[q.family] || { asked: 0, full: 0, wrong: 0, hinted: 0 };
+    stats.asked++; if (full) stats.full++; if (!main || !step) stats.wrong++; if (hint) stats.hinted++;
+    state.stats[q.family] = stats;
+    state.recent.push(q.signature); state.recent = state.recent.slice(-300);
+    save(); return item;
+  }
+  function answerPractice() {
+    const q = state.current, entered = enteredFor(false), stepValue = q.step ? $('step').value : '';
+    if (!String(entered).trim() || (q.step && !stepValue)) { $('answer-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
+    const item = record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, state.hint, false);
+    $('feedback').hidden = false;
+    $('feedback').className = `feedback ${item.full ? 'good' : 'review'}`;
+    $('feedback').innerHTML = `<strong>${item.full ? 'Correcto.' : 'Revisa este procedimiento.'}</strong><p>${q.explanation}</p><p>Respuesta esperada: <b>${q.answer}</b>${q.step ? ` · Regla o paso: <b>${q.step.answer}</b>` : ''}.</p>`;
+    $('check-button').hidden = true; $('next-button').hidden = false; $('hint-button').disabled = true;
+    $('answer').disabled = true; $('answer-select').disabled = true; $('step').disabled = true;
+    renderDeveloper(); $('next-button').focus();
+  }
+  const covered = () => cfg.families.every(f => state.history.some(x => x.q.family === f));
+  function nextPractice() {
+    $('answer').disabled = false; $('answer-select').disabled = false; $('step').disabled = false;
+    const n = state.history.length, p = state.posterior, winner = p.indexOf(Math.max(...p));
+    if (covered() && n >= cfg.early && p[2] >= .90 && entropy(p) <= .75) { beginExit(); return; }
+    if (covered() && n >= cfg.min && p[winner] >= .80) { if (winner === 2) beginExit(); else finish('confident'); return; }
+    if (n >= cfg.max) { finish('max'); return; }
+    state.current = chooseQuestion(); state.hint = false; renderPractice();
+  }
+  function beginExit() {
+    state.phase = 'exit'; state.current = null; state.exitItems = [];
+    for (const id of cfg.exit) state.exitItems.push(sample(templates.find(t => t.id === id), usedSignatures()));
+    state.exitAnswers = []; renderExit(); save();
+  }
+  function renderExit() {
+    state.phase = 'exit'; show('exit');
+    const i = state.exitAnswers.length;
+    if (i >= state.exitItems.length) { finish('exit'); return; }
+    $('exit-count').textContent = `Comprobación ${i + 1} de ${cfg.exit.length}`;
+    $('exit-progress').style.width = `${100 * i / cfg.exit.length}%`;
+    renderQuestion(state.exitItems[i], true); save();
+  }
+  function answerExit() {
+    const q = state.exitItems[state.exitAnswers.length], entered = enteredFor(true), stepValue = q.step ? $('exit-step').value : '';
+    if (!String(entered).trim() || (q.step && !stepValue)) { $('exit-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
+    record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, false, true);
+    renderDeveloper();
+    if (state.exitAnswers.length >= cfg.exit.length) finish('exit'); else renderExit();
+  }
+  function exitPassed() {
+    const full = state.exitAnswers.filter(x => x.full);
+    if (full.length < cfg.need) return false;
+    if (cfg.required && !cfg.required.every(id => full.some(x => x.q.id === id))) return false;
+    if (cfg.requiredFamilies && !cfg.requiredFamilies.every(f => full.some(x => x.q.family === f))) return false;
+    return true;
+  }
+  function finish(reason) {
+    const pass = reason === 'exit' && exitPassed(), high = pass && state.posterior[2] >= .80;
+    state.phase = 'result'; state.current = null; state.key ||= high;
+    const best = state.posterior.indexOf(Math.max(...state.posterior));
+    state.result = { reason, high, pass, level: high ? 2 : best === 0 ? 0 : 1, provisional: reason === 'max' || (reason === 'exit' && !high) };
+    state.syncId ||= globalThis.crypto?.randomUUID?.() || 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.floor(Math.random() * 16);
+      return (c === 'x' ? r : (r & 3) | 8).toString(16);
+    });
+    save(); if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    renderResult();
+  }
+  function renderResult() {
+    state.phase = 'result'; renderJourney(); show('result');
+    const r = state.result;
+    $('result-title').textContent = r.high ? (stage === 5 ? '¡Itinerario completado!' : `¡Llave ${stage} conseguida!`) : 'Tu siguiente paso';
+    $('result-message').textContent = r.high ? `Has demostrado dominio alto en ${cfg.title.toLowerCase()}.` : r.provisional ? 'Este intento no aportó evidencia suficiente o no superó la comprobación final. Revisa los ejercicios y vuelve a intentarlo.' : 'Ya dominas una parte de la etapa. Revisa los tipos que te han costado.';
+    $('result-level').textContent = levels[r.level];
+    $('key-card').hidden = !state.key; $('key-card').style.setProperty('--key-color', cfg.color);
+    $('retry').hidden = !!state.key; $('next-stage').hidden = !state.key || stage === 5;
+    if (stage < 5) $('next-stage').href = `Etapa_${stage + 1}.html?alumno=${encodeURIComponent(learner)}&llave=etapa${stage}`;
+    $('diploma').hidden = !(stage === 5 && state.key); $('diploma-name').textContent = learner;
+    const review = $('review-list'); review.replaceChildren();
+    [...state.history, ...state.exitAnswers].forEach((x, i) => {
+      const details = document.createElement('details'), summary = document.createElement('summary'), body = document.createElement('p');
+      summary.textContent = `${x.phase === 'exit' ? 'Comprobación' : 'Práctica'} ${i + 1}: ${x.full ? 'correcto' : 'revisar'}`;
+      body.textContent = `${x.q.text.replace(/<[^>]+>/g, '')} Tu respuesta: ${x.entered}. Solución: ${x.q.answer}.${x.q.step ? ` Regla o paso: ${x.q.step.answer}.` : ''}`;
+      details.append(summary, body); review.append(details);
+    });
+    save(); globalThis.adaptiveSync?.record({ name: learner, stage, state });
+  }
+  function renderDeveloper() {
+    const allowed = normalize(learner) === 'admin', visible = allowed && developerOpen;
+    $('developer-toggle').hidden = !allowed;
+    $('developer').hidden = !visible;
+    if (!visible || !state) return;
+    $('dev-entropy').textContent = `H = ${fixed(entropy(state.posterior))} bits`;
+    $('dev-probabilities').innerHTML = state.posterior.map((p, i) => `<div class="dev-prob"><span>${levels[i]}</span><strong>${fixed(p * 100, 1)} %</strong><div class="dev-track"><span style="width:${p * 100}%"></span></div></div>`).join('');
+    const rows = state.selection?.rows || [];
+    $('dev-selection').replaceChildren();
+    for (const x of rows) {
+      const li = document.createElement('li'); li.textContent = `${x.id} · ${x.family} · IG ${fixed(x.ig)} bits · utilidad ${fixed(x.utility)}${x.id === state.selection.chosen ? ' ← elegida' : ''}`; $('dev-selection').append(li);
+    }
+    const u = state.previousUpdate;
+    $('dev-update').textContent = u ? `${u.id}: p previa [${u.prior.map(x => fixed(x)).join(', ')}]; P(acierto) [${u.likelihoods.map(x => fixed(x.main)).join(', ')}]; factores [${u.factors.map(x => fixed(x)).join(', ')}]; p posterior [${u.after.map(x => fixed(x)).join(', ')}]; H ${fixed(u.entropyBefore)} → ${fixed(u.entropyAfter)} bits.` : 'Aún no hay respuestas en este intento.';
+  }
+  function resetAttempt(message) {
+    if (!state || !['practice', 'exit'].includes(state.phase)) return;
+    state = freshState(state.attempt, state.key, state.recent);
+    renderTheory(); $('notice').textContent = `${message} El intento se ha reiniciado. Las llaves obtenidas se conservan.`; $('notice').hidden = false;
+  }
+  async function startAttempt() {
+    if (fullscreenStarting) return;
+    if (!document.documentElement.requestFullscreen) { $('focus-error').textContent = 'Este navegador no permite pantalla completa. Abre el recurso en un navegador compatible.'; return; }
+    fullscreenStarting = true;
+    try {
+      await document.documentElement.requestFullscreen();
+      if (document.fullscreenElement !== document.documentElement) throw Error('No se activó pantalla completa');
+      $('focus-dialog').hidden = true; state = freshState(state.attempt + 1, state.key, state.recent);
+      state.current = chooseQuestion(); renderPractice();
+    } catch { $('focus-error').textContent = 'No se pudo activar la pantalla completa. Inténtalo de nuevo.'; }
+    finally { fullscreenStarting = false; }
+  }
+  function setLearner(name) {
+    learner = cleanName(name); if (!learner) return false;
+    developerOpen = false; $('notice').hidden = true;
+    try { localStorage.setItem(`${rootKey}:ultimo-alumno`, learner); } catch { }
+    const saved = getJson(storageKey(learner), null);
+    state = saved && Array.isArray(saved.posterior) && saved.posterior.length === 3 ? saved : freshState(0);
+    if (['practice', 'exit'].includes(state.phase)) state = freshState(state.attempt, state.key, state.recent || []);
+    if (state.key && state.result) renderResult(); else renderTheory();
+    return true;
+  }
+  function init() {
+    document.title = `Etapa ${stage} · ${cfg.title} · Potencias`;
+    document.documentElement.style.setProperty('--accent', cfg.color);
+    $('hero-title').textContent = `Etapa ${stage} · ${cfg.title}`;
+    $('hero-subtitle').textContent = `Itinerario adaptativo de potencias · ${stage} de 5`;
+    $('focus-dialog').hidden = true;
+    $('name-form').addEventListener('submit', e => { e.preventDefault(); if (!setLearner($('name').value)) $('name-error').textContent = 'Escribe tu nombre para continuar.'; });
+    $('change-user').addEventListener('click', () => { if (document.fullscreenElement) return; learner = ''; developerOpen = false; $('name').value = ''; $('developer').hidden = true; $('developer-toggle').hidden = true; show('welcome'); $('name').focus(); });
+    $('start').addEventListener('click', () => { $('focus-error').textContent = ''; $('focus-dialog').hidden = false; $('focus-start').focus(); });
+    $('focus-cancel').addEventListener('click', () => { $('focus-dialog').hidden = true; $('start').focus(); });
+    $('focus-start').addEventListener('click', startAttempt);
+    $('hint-button').addEventListener('click', () => { state.hint = true; $('hint-text').textContent = state.current.hint; $('hint-text').hidden = false; $('hint-button').disabled = true; save(); });
+    $('check-button').addEventListener('click', answerPractice);
+    $('next-button').addEventListener('click', nextPractice);
+    $('exit-check').addEventListener('click', answerExit);
+    $('retry').addEventListener('click', () => { state = freshState(state.attempt, state.key, state.recent); renderTheory(); });
+    $('developer-toggle').addEventListener('click', () => { if (normalize(learner) !== 'admin') return; developerOpen = !developerOpen; renderDeveloper(); });
+    document.addEventListener('fullscreenchange', () => { if (!fullscreenStarting && ['practice', 'exit'].includes(state?.phase) && document.fullscreenElement !== document.documentElement) resetAttempt('Has salido de la pantalla completa.'); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) resetAttempt('Has cambiado de pantalla.'); });
+    window.addEventListener('blur', () => { if (!fullscreenStarting) resetAttempt('La aplicación ha dejado de ser la ventana principal.'); });
+    const transfer = new URLSearchParams(location.search), name = transfer.get('alumno') || getJson(`${rootKey}:ultimo-alumno`, '');
+    const authorized = stage === 1 || getJson(`${rootKey}:etapa${stage - 1}:${normalize(name)}`, null)?.key;
+    if (!authorized) { $('locked').hidden = false; $('locked-link').href = `Etapa_${stage - 1}.html`; $('view-welcome').hidden = true; return; }
+    if (stage > 1 && name) setLearner(name); else { $('name').value = name || ''; show('welcome'); }
+  }
+  if (typeof module !== 'undefined') module.exports = { entropy, pCorrect, probs, evidence, posterior, information, sameAnswer };
+  if (typeof document !== 'undefined') init();
+})();
+</script>
+</body>
+</html>
