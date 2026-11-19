@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="es" data-stage="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f8">
+  <title>Etapa 1 · Proporcionalidad</title>
+  <style>/* Neumorphic Tech Schematic · coherente con el adaptativo de fracciones de UD 02. */
+:root {
+  color-scheme: light;
+  font-family: Roboto, "Segoe UI", Arial, sans-serif;
+  font-size: var(--student-font-size, 16px);
+  line-height: 1.5;
+  color: #2c2c2c;
+  background: #f4f6f8;
+  --surface: #f4f6f8;
+  --ink: #2c2c2c;
+  --muted: #59616c;
+  --stage-color: #c34755;
+  --accent: var(--stage-color);
+  --accent-dark: color-mix(in srgb, var(--stage-color) 72%, #101820);
+  --border: #dce3eb;
+  --raised: 10px 10px 22px #d1d9e6, -10px -10px 22px #fff;
+  --raised-small: 4px 4px 9px #d1d9e6, -4px -4px 9px #fff;
+  --inset: inset 5px 5px 10px #d7deea, inset -5px -5px 10px #fff;
+}
+* { box-sizing: border-box; }
+html { min-width: 320px; scroll-behavior: smooth; }
+body {
+  min-width: 320px;
+  margin: 0;
+  color: var(--ink);
+  background: radial-gradient(circle at 50% 40%, #ffffffa6, transparent 48%), var(--surface);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(#aeb8c324 1px, transparent 1px), linear-gradient(90deg, #aeb8c324 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(90deg, #0006, transparent 28%, transparent 72%, #0006);
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 3px;
+}
+a { color: var(--accent-dark); }
+a:hover { text-decoration-thickness: 2px; }
+[hidden] { display: none !important; }
+h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
+.muted { color: var(--muted); }
+.small { font-size: .82rem; }
+
+.site-header { position: relative; z-index: 1; }
+.site-header-inner {
+  position: relative;
+  width: min(100%, 1300px);
+  margin: auto;
+  padding: 25px clamp(18px, 4vw, 56px) 10px;
+  text-align: center;
+}
+.site-header-inner::after {
+  content: "";
+  position: absolute;
+  right: clamp(18px, 4vw, 56px);
+  bottom: 0;
+  left: clamp(18px, 4vw, 56px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ccd5df, transparent);
+}
+.eyebrow {
+  color: var(--accent-dark);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+.site-header h1 {
+  margin: 5px 0 3px;
+  font-size: clamp(1.8rem, 3.3vw, 2.75rem);
+  line-height: 1.16;
+}
+.site-header p { margin: 0; color: var(--muted); font-size: .87rem; }
+
+.shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 1300px);
+  min-height: calc(100svh - 165px);
+  margin: auto;
+  padding: 17px clamp(18px, 4vw, 56px) 38px;
+}
+.main { width: min(100%, 950px); min-width: 0; }
+.card, .developer {
+  border: 1px solid #e1e6ed;
+  background: var(--surface);
+  box-shadow: var(--raised);
+}
+.card { border-radius: 28px; padding: clamp(22px, 3.2vw, 38px); }
+.card h2 { margin: 0 0 12px; font-size: clamp(1.45rem, 2.7vw, 2rem); line-height: 1.22; }
+.lead { max-width: 64ch; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+.flow { display: grid; gap: 14px; }
+.flow > * { margin-top: 0; margin-bottom: 0; }
+
+.journey {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 0;
+  margin: 5px 0 27px;
+  padding: 0;
+}
+.journey-stage {
+  position: relative;
+  flex: 1 1 0;
+  max-width: 160px;
+  min-width: 0;
+  padding: 31px 4px 0;
+  color: #727b87;
+  text-align: center;
+  font-size: .72rem;
+  line-height: 1.2;
+  font-weight: 650;
+}
+.journey-stage::after {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: calc(50% + 12px);
+  width: calc(100% - 24px);
+  height: 1px;
+  background: #c8d1dc;
+}
+.journey-stage:last-child::after { display: none; }
+.stage-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border: 2px solid #bbc5d0;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--raised-small);
+  color: #5c6774;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: .68rem;
+  font-weight: 800;
+  transform: translateX(-50%);
+}
+.journey-stage.active { color: var(--accent-dark); font-weight: 800; }
+.journey-stage.active .stage-dot { border-color: var(--accent); background: var(--accent); color: white; box-shadow: 0 0 0 5px color-mix(in srgb, var(--stage-color) 18%, transparent); }
+.journey-stage.earned { color: var(--key-color); font-weight: 800; }
+.journey-stage.earned .stage-dot { border-color: var(--key-color); background: var(--key-color); color: white; }
+.journey-stage.earned::after { background: color-mix(in srgb, var(--key-color) 45%, #c8d1dc); }
+.journey-link { display: grid; justify-items: center; gap: 6px; color: inherit; text-decoration: none; border-radius: 8px; }
+.journey-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.study-notice { padding: 14px 16px; border: 1px solid #b9d5f4; border-radius: 12px; background: #eef6ff; color: #183754; line-height: 1.5; }
+.sync-status:empty { display: none; }
+.stage-dot svg { width: 14px; height: 14px; stroke-width: 2.2; }
+
+.primary, .secondary, .ghost {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  padding: 9px 19px;
+  border-radius: 18px;
+  font-weight: 760;
+  text-align: center;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.primary {
+  border: 1px solid var(--accent-dark);
+  background: var(--stage-color);
+  color: white;
+  box-shadow: 5px 5px 11px color-mix(in srgb, var(--stage-color) 20%, #d1d9e6), -5px -5px 11px #fff;
+}
+.primary:hover { transform: translateY(-2px); background: var(--accent-dark); }
+.secondary, .ghost { border: 1px solid #c9d1dc; background: var(--surface); color: #464e57; box-shadow: var(--raised-small); }
+.secondary:hover, .ghost:hover { transform: translateY(-2px); background: white; }
+.primary:active, .secondary:active, .ghost:active { transform: translateY(1px); box-shadow: var(--inset); }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 11px; }
+.field { display: grid; max-width: 540px; gap: 7px; color: #424b55; font-size: .86rem; font-weight: 750; }
+.field input, .field select {
+  width: 100%;
+  min-height: 49px;
+  padding: 10px 15px;
+  border: 1px solid #c4ceda;
+  border-radius: 17px;
+  background: var(--surface);
+  box-shadow: var(--inset);
+  color: var(--ink);
+  font-size: 1rem;
+}
+.field input:focus, .field select:focus { border-color: var(--accent-dark); }
+.error { min-height: 1.1em; color: #9d2534; font-size: .85rem; font-weight: 720; }
+.notice { padding: 11px 14px; border: 1px solid #d9ba91; border-radius: 14px; background: #fff8ee; color: #674520; font-weight: 650; }
+
+.welcome-mark {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 6px 6px 13px #d1d9e6, -6px -6px 13px #fff;
+  color: var(--accent-dark);
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: .86rem;
+  font-weight: 800;
+}
+.shell[data-phase="welcome"] { display: flex; justify-content: center; align-items: center; }
+.shell[data-phase="welcome"] .main { width: min(100%, 710px); }
+.shell[data-phase="welcome"] .journey { margin-bottom: 33px; }
+.shell[data-phase="welcome"] #view-welcome { padding: clamp(25px, 4vw, 46px); }
+.shell[data-phase="welcome"] #view-welcome .lead { margin-bottom: 11px; }
+
+.theory-section {
+  margin: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--raised-small);
+  overflow: hidden;
+}
+.theory-section[open] { border-color: #c9d2de; box-shadow: var(--inset); }
+.theory-section summary { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 10px 17px; cursor: pointer; list-style: none; font-weight: 750; }
+.theory-section summary::-webkit-details-marker { display: none; }
+.theory-section summary::after { content: "+"; margin-left: auto; color: var(--accent-dark); font-size: 1.4rem; font-weight: 400; line-height: 1; }
+.theory-section[open] summary::after { content: "−"; }
+.theory-number { color: var(--accent-dark); font-family: "JetBrains Mono", Consolas, monospace; font-size: .72rem; letter-spacing: .05em; }
+.theory-body { padding: 10px 17px 16px; border-top: 1px solid var(--border); color: #4c5662; font-size: .9rem; }
+.worked, .warning, .prep-note { border-radius: 14px; background: var(--surface); box-shadow: var(--inset); }
+.worked { padding: 12px 15px; border: 1px solid var(--border); }
+.warning { padding: 10px 14px; border-left: 3px solid var(--accent); }
+.prep-note { margin: 21px 0 17px; padding: 13px 15px; border: 1px solid var(--border); color: #515b67; font-size: .86rem; }
+
+.question-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-height: min(610px, calc(100svh - 210px));
+  text-align: center;
+}
+.question-card .mini-label { color: var(--accent-dark); font-size: .7rem; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+.question-card h2 { margin: 9px 0 11px; color: #626b76; font-size: 1.25rem; font-weight: 650; }
+.question {
+  max-width: 740px;
+  margin: 17px auto 25px;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.32;
+  font-weight: 620;
+  overflow-wrap: anywhere;
+}
+.question sup { font-size: .6em; }
+.question-form { display: grid; width: min(100%, 540px); gap: 13px; margin: 0 auto; text-align: left; }
+.question-form .field { max-width: none; }
+.question-form #step-wrap:not([hidden]), .question-form #exit-step-wrap:not([hidden]) { padding: 11px 13px; border: 2px solid var(--stage-color); border-left-width: 6px; border-radius: 12px; background: color-mix(in srgb, var(--stage-color) 8%, white); }
+.question-form #step-wrap label::after, .question-form #exit-step-wrap label::after { content: " · Primer paso obligatorio"; display: block; margin-top: 2px; color: var(--accent-dark); font-size: .82em; font-weight: 850; }
+.progress { height: 7px; margin: 5px 0 10px; border-radius: 99px; background: #dfe5ec; box-shadow: var(--inset); overflow: hidden; }
+.progress span { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width .25s ease; }
+.key-circuit { width: min(100%, 620px); margin: 0 auto 3px; padding: 8px 14px 7px; border: 1px solid #d4dce6; border-radius: 17px; background: var(--surface); box-shadow: var(--inset); text-align: left; }
+.circuit-heading, .circuit-metrics { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.circuit-heading { color: #3d4855; font-size: .72rem; line-height: 1.3; }
+.circuit-heading strong { font-weight: 800; }
+.circuit-heading span { color: var(--accent-dark); font-size: .69rem; font-weight: 800; }
+.circuit-track { position: relative; height: 8px; margin: 9px 5px 10px; border-radius: 99px; background: #dce3eb; box-shadow: var(--inset); }
+.circuit-fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: var(--stage-color); transition: width .28s ease-out; }
+.circuit-node { position: absolute; top: 50%; width: 15px; height: 15px; border: 2px solid #aeb8c4; border-radius: 50%; background: var(--surface); box-shadow: 2px 2px 5px #c7cfda, -2px -2px 5px #fff; transform: translate(-50%, -50%); }
+.circuit-node-types { left: 35%; }
+.circuit-node-practice { left: 70%; }
+.circuit-node-ready { left: 80%; width: 19px; height: 19px; border-radius: 6px; transform: translate(-50%, -50%) rotate(45deg); }
+.circuit-node-key { left: 99%; width: 19px; height: 19px; border-radius: 6px; transform: translate(-50%, -50%) rotate(45deg); }
+.circuit-node.active { border-color: var(--stage-color); background: var(--stage-color); }
+.key-circuit.pulse .circuit-node.active { animation: circuit-pulse .26s ease-out; }
+@keyframes circuit-pulse { 50% { scale: 1.22; } }
+.circuit-metrics { color: #46515d; font-size: .7rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.circuit-status { margin: 3px 0 0; color: #59636e; font-size: .69rem; line-height: 1.25; }
+.key-circuit-exit { padding-top: 7px; padding-bottom: 7px; }
+.key-circuit-exit .circuit-track { margin-top: 7px; margin-bottom: 9px; }
+.result-milestone { width: fit-content; margin: 5px 0 0; padding: 6px 10px; border: 1px solid color-mix(in srgb, var(--stage-color) 38%, #dce3eb); border-radius: 12px; background: color-mix(in srgb, var(--stage-color) 8%, var(--surface)); color: var(--accent-dark); font-size: .8rem; font-weight: 700; }
+.key-card.is-revealed .key-emblem { animation: key-arrival .28s ease-out; }
+@keyframes key-arrival { 0% { opacity: .45; scale: .88; } 100% { opacity: 1; scale: 1; } }
+.hint, .feedback { width: min(100%, 640px); margin: 15px auto 0; padding: 13px 16px; border-radius: 17px; text-align: left; box-shadow: var(--inset); }
+.hint { border: 1px solid #d8dfe8; background: var(--surface); color: #515b67; }
+.feedback { border: 1px solid #b5c5d3; background: var(--surface); }
+.feedback p { margin: 7px 0 0; }
+.feedback.good { border-color: #91b4a5; }
+.feedback.review { border-color: #d69ca2; }
+.question-actions { justify-content: center; margin-top: 17px; }
+.shell[data-phase="exit"] { background: radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--stage-color) 18%, white), transparent 72%); }
+.shell[data-phase="exit"] .question-card { border: 2px solid var(--stage-color); background: color-mix(in srgb, var(--stage-color) 5%, var(--surface)); box-shadow: 10px 10px 23px color-mix(in srgb, var(--stage-color) 13%, #d1d9e6), -10px -10px 23px #fff; }
+.boss { display: inline-flex; justify-content: center; align-items: center; gap: 8px; align-self: center; padding: 6px 13px; border: 1px solid color-mix(in srgb, var(--stage-color) 38%, white); border-radius: 99px; background: color-mix(in srgb, var(--stage-color) 13%, white); color: var(--accent-dark); font-size: .69rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+.boss svg { width: 14px; height: 14px; }
+
+.key-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 146px;
+  margin: 21px 0;
+  padding: 22px 26px;
+  border: 2px solid var(--key-color);
+  border-radius: 25px;
+  background: linear-gradient(120deg, #fffafafa, color-mix(in srgb, var(--key-color) 16%, #fff) 70%);
+  box-shadow: 9px 9px 20px #d1d9e6, -9px -9px 20px #fff;
+  overflow: hidden;
+}
+.key-card::after { content: ""; position: absolute; right: -60px; top: -80px; width: 230px; height: 230px; border: 1px solid color-mix(in srgb, var(--key-color) 25%, transparent); border-radius: 50%; box-shadow: 0 0 0 32px color-mix(in srgb, var(--key-color) 7%, transparent), 0 0 0 64px color-mix(in srgb, var(--key-color) 4%, transparent); pointer-events: none; }
+.key-emblem { z-index: 1; display: grid; place-items: center; width: 83px; height: 83px; flex: none; border: 1px solid color-mix(in srgb, var(--key-color) 50%, white); border-radius: 25px; background: color-mix(in srgb, var(--key-color) 7%, white); box-shadow: var(--inset), 0 0 0 6px color-mix(in srgb, var(--key-color) 12%, transparent); }
+.key-icon { width: 49px; height: 49px; color: var(--key-color); }
+.key-card > div:last-child { z-index: 1; }
+.key-card h3 { margin: 0; font-size: clamp(1.4rem, 2.7vw, 2rem); color: var(--key-color); }
+.key-card p { margin: 5px 0 0; color: #505962; }
+.result-list { display: grid; gap: 9px; }
+.result-list details { padding: 10px 14px; border: 1px solid var(--border); border-radius: 15px; background: var(--surface); box-shadow: var(--inset); }
+.result-list summary { cursor: pointer; font-weight: 720; }
+.result-list p { overflow-wrap: anywhere; }
+.review-drawer { margin-top: 16px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: var(--inset); }
+.review-drawer > summary { cursor: pointer; color: #464e57; font-weight: 750; }
+.review-drawer[open] > summary { margin-bottom: 12px; }
+.diploma { margin: 22px 0; padding: 24px; border: 2px solid #ad8132; border-radius: 22px; background: linear-gradient(130deg, #fffdfa, #fff2d4); box-shadow: var(--raised-small); text-align: center; }
+.diploma h3 { margin: 0; font-size: 1.7rem; }
+.diploma-name { font-size: 1.25rem; font-weight: 800; }
+
+.developer { width: 360px; max-height: calc(100svh - 40px); padding: 18px; border-radius: 23px; overflow-y: auto; font-size: .78rem; }
+.developer h2 { margin: 0 0 12px; font-size: 1.05rem; }
+.developer p, .developer strong, .developer small { overflow-wrap: anywhere; }
+.dev-panel, .dev-detail { padding: 13px; border: 1px solid var(--border); border-radius: 17px; background: #f8fafc; box-shadow: var(--inset); }
+.dev-detail { margin-top: 12px; }
+.dev-detail summary { cursor: pointer; color: #424a54; font-weight: 800; font-size: .86rem; }
+.dev-detail[open] summary { margin-bottom: 11px; }
+.dev-metric-head, .dev-prob > div:first-child, .dev-candidate-head, .dev-candidate-values, .dev-update-head, .dev-update-label { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.dev-metric-head { color: #46505c; font-weight: 750; }
+.dev-metric-head strong { color: #9d2d3a; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.dev-metric-head small { font-size: .68rem; }
+.dev-entropy-track, .dev-track, .dev-candidate-track { height: 9px; border-radius: 99px; background: #dfe5ec; box-shadow: var(--inset); overflow: hidden; }
+.dev-entropy-track { margin: 7px 0 3px; }
+.dev-entropy-track span, .dev-track span, .dev-candidate-track span { display: block; height: 100%; border-radius: inherit; }
+.dev-entropy-track span { background: linear-gradient(90deg, #16836b, #d49a32, #c34755); }
+#dev-entropy > small { color: #59616c; }
+.dev-posterior { display: grid; grid-template-columns: 105px minmax(0, 1fr); gap: 13px; align-items: center; margin-top: 14px; }
+.dev-ring { display: grid; place-items: center; width: 104px; height: 104px; border-radius: 50%; box-shadow: 3px 3px 7px #ccd4de; }
+.dev-ring > div { display: grid; align-content: center; width: 73px; height: 73px; border-radius: 50%; background: #f8fafc; text-align: center; line-height: 1.16; }
+.dev-ring span { color: #53606d; font-size: .62rem; }
+.dev-ring strong { color: #146e5b; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.dev-bars { display: grid; gap: 9px; }
+.dev-prob { --dev-color: #c34755; }
+.dev-level-0 { --dev-color: #c34755; }
+.dev-level-1 { --dev-color: #d49a32; }
+.dev-level-2 { --dev-color: #16836b; }
+.dev-prob > div:first-child { font-size: .68rem; }
+.dev-prob strong, .dev-update-label strong { color: var(--dev-color); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dev-prob .dev-track { margin-top: 3px; height: 7px; }
+.dev-track span { background: var(--dev-color); }
+.dev-empty { margin: 0; color: #5f6873; }
+.dev-candidate { padding: 9px 10px; margin-top: 7px; border: 1px solid #dbe2ea; border-radius: 12px; background: #f5f7fa; }
+.dev-candidate.chosen { border-color: #79ae9f; background: #eaf5f0; }
+.dev-candidate-head { justify-content: flex-start; }
+.dev-rank { display: grid; place-items: center; width: 19px; height: 19px; flex: none; border-radius: 50%; background: #dce4ed; font-size: .66rem; font-weight: 800; }
+.dev-candidate.chosen .dev-rank { background: #16836b; color: white; }
+.dev-candidate-head strong { flex: 1; font-size: .73rem; line-height: 1.25; }
+.dev-chosen { margin-left: auto; padding: 2px 6px; border-radius: 99px; background: #16836b; color: white; font-size: .62rem; font-weight: 800; }
+.dev-candidate-example { display: -webkit-box; margin: 5px 0 0; overflow: hidden; color: #566473; font-size: .68rem; line-height: 1.35; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
+.dev-candidate-track { height: 6px; margin: 5px 0; }
+.dev-candidate-track span { background: linear-gradient(90deg, #5d77cc, #16836b); }
+.dev-candidate-values { color: #5a6570; font-size: .65rem; }
+.dev-candidate-values b { color: #263a58; font-variant-numeric: tabular-nums; }
+.dev-update-head strong { color: #34475b; }
+.dev-update-head span { padding: 3px 7px; border-radius: 99px; font-size: .65rem; font-weight: 800; }
+.dev-success { background: #dff2e9; color: #146e5b; }
+.dev-error { background: #f8e5e7; color: #a13242; }
+.dev-entropy-change { margin: 7px 0 10px; color: #5c6570; }
+.dev-entropy-change b { color: #293b54; }
+.dev-legend { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 5px; font-size: .63rem; color: #65717e; }
+.dev-legend span::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 4px; border-radius: 50%; background: #b9c4d1; }
+.dev-legend span:last-child::before { background: #16836b; }
+.dev-update-row { margin: 10px 0; }
+.dev-update-label { font-size: .68rem; }
+.dev-update-row .dev-track { height: 6px; margin-top: 3px; }
+.dev-before span { background: #b9c4d1; }
+.dev-update-row small { display: block; margin-top: 3px; color: #62707d; font-variant-numeric: tabular-nums; }
+#developer-toggle { position: fixed; top: 14px; right: 18px; z-index: 30; min-height: 37px; padding: 6px 12px; font-size: .72rem; }
+#developer-toggle[aria-pressed="true"] { border-color: #d69ca2; background: #fbe9eb; color: #8f2936; box-shadow: var(--inset); }
+
+.dialog-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: #263343aa; }
+.dialog { width: min(100%, 510px); padding: 30px; border: 1px solid var(--border); border-radius: 25px; background: var(--surface); box-shadow: 18px 18px 50px #17253666, -8px -8px 25px #ffffff80; }
+.dialog h2 { margin-top: 0; }
+.site-footer { position: relative; z-index: 1; width: min(100%, 1300px); flex: none; margin: 4px auto 0; padding: 2px 0; text-align: center; color: #7b838d; font-size: .64rem; line-height: 1.2; }
+.text-size-controls { position: fixed; bottom: 12px; left: 12px; z-index: 40; display: flex; align-items: center; gap: 4px; padding: 5px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); box-shadow: var(--raised-small); font-family: Roboto, "Segoe UI", Arial, sans-serif; }
+.text-size-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #c9d1dc; border-radius: 14px; background: var(--surface); box-shadow: var(--raised-small); color: #7c2732; font-size: 14px; font-weight: 800; }
+.text-size-controls button:hover:not(:disabled) { background: #fff; }
+.text-size-controls button:active:not(:disabled) { box-shadow: var(--inset); }
+.text-size-controls output { min-width: 45px; color: #3f4854; text-align: center; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 980px) {
+  .main { width: min(100%, 850px); }
+}
+@media (max-width: 600px) {
+  body { padding-bottom: 64px; }
+  .site-header-inner { padding: 17px 13px 8px; }
+  .site-header h1 { font-size: 1.6rem; }
+  .site-header p { font-size: .78rem; }
+  .shell { min-height: calc(100svh - 120px); padding: 11px 13px 28px; }
+  .card { padding: 21px 16px; border-radius: 23px; }
+  .journey { margin: 8px 0 17px; }
+  .journey-stage { padding: 28px 2px 0; font-size: .59rem; }
+  .journey-stage::after { top: 10px; left: calc(50% + 10px); width: calc(100% - 20px); }
+  .stage-dot { width: 21px; height: 21px; font-size: .61rem; }
+  .stage-dot svg { width: 12px; height: 12px; }
+  .shell[data-phase="welcome"] { align-items: center; }
+  .shell[data-phase="welcome"] .journey { margin-bottom: 22px; }
+  .shell[data-phase="welcome"] #view-welcome { padding: 27px 21px; }
+  .primary, .secondary, .ghost { width: 100%; }
+  .actions { align-items: stretch; }
+  .question-card { min-height: 0; padding: 28px 16px; }
+  .question { font-size: clamp(1.8rem, 7vw, 2.5rem); margin: 18px auto 23px; }
+  .question-form { width: 100%; }
+  .question-actions { flex-direction: column; }
+  #developer-toggle { top: 10px; right: 10px; }
+  .key-card { gap: 15px; min-height: 0; padding: 19px; }
+  .key-emblem { width: 62px; height: 62px; border-radius: 19px; }
+  .key-icon { width: 37px; height: 37px; }
+  .key-card h3 { font-size: 1.35rem; }
+}
+@media (min-width: 901px) {
+  body { display: flex; flex-direction: column; height: 100svh; overflow: hidden; }
+  body.dev-open { height: auto; min-height: 100svh; overflow: auto; }
+  body.text-enlarged { height: auto; min-height: 100svh; padding-bottom: 64px; overflow: auto; }
+  .site-header { flex: none; }
+  .site-header-inner { padding: 12px 24px 7px; }
+  .site-header h1 { margin: 2px 0; font-size: clamp(1.35rem, 2vw, 1.9rem); }
+  .site-header p { font-size: .74rem; }
+  .eyebrow { font-size: .63rem; }
+  .shell { flex: 1 1 auto; min-height: 0; padding: 7px 24px 8px; }
+  .main { display: flex; flex: 1 1 auto; flex-direction: column; justify-content: center; min-height: 0; }
+  .journey { flex: none; margin: 0 0 12px; }
+  .journey-stage { padding-top: 27px; font-size: .67rem; }
+  .main > .card:not([hidden]) { max-height: 100%; min-height: 0; overflow: auto; }
+  .main > .question-card:not([hidden]) { flex: 1 1 auto; }
+  .card { padding: clamp(17px, 2.7vh, 25px) clamp(22px, 3vw, 31px); border-radius: 25px; }
+  .card h2 { margin-bottom: 8px; font-size: clamp(1.3rem, 2.2vw, 1.75rem); }
+  .lead { font-size: .9rem; line-height: 1.5; }
+  .flow { gap: 10px; }
+  .welcome-mark { width: 45px; height: 45px; }
+  .shell[data-phase="welcome"] .main { flex: 0 1 auto; width: min(100%, 690px); }
+  .shell[data-phase="welcome"] .journey { margin-bottom: 17px; }
+  .shell[data-phase="welcome"] #view-welcome { padding: clamp(22px, 3.5vh, 32px); }
+  .field { gap: 5px; font-size: .8rem; }
+  .field input, .field select { min-height: 43px; padding: 7px 12px; border-radius: 14px; }
+  .primary, .secondary, .ghost { min-height: 42px; padding: 7px 16px; border-radius: 15px; }
+  .theory-section { margin: 6px 0; border-radius: 15px; }
+  .theory-section summary { min-height: 44px; padding: 7px 14px; font-size: .85rem; }
+  .theory-body { padding: 8px 14px 13px; font-size: .84rem; }
+  .worked, .warning { padding: 8px 11px; }
+  .prep-note { margin: 11px 0 10px; padding: 9px 12px; font-size: .79rem; }
+  .question-card { min-height: 0; }
+  .question-card h2 { margin: 5px 0 6px; font-size: 1.1rem; }
+  .question { margin: 9px auto 14px; font-size: clamp(1.55rem, 2.8vw, 2.7rem); line-height: 1.27; }
+  .question-form { gap: 8px; }
+  .progress { margin: 2px 0 5px; }
+  .question-actions { margin-top: 11px; }
+  .hint, .feedback { margin-top: 9px; padding: 9px 12px; }
+  .key-card { min-height: 100px; gap: 15px; margin: 12px 0; padding: 13px 18px; border-radius: 20px; }
+  .key-emblem { width: 62px; height: 62px; border-radius: 19px; }
+  .key-icon { width: 38px; height: 38px; }
+  .key-card h3 { font-size: 1.5rem; }
+  .diploma { margin: 12px 0; padding: 15px; }
+  .diploma h3 { font-size: 1.35rem; }
+  .review-drawer { margin-top: 11px; padding: 8px 12px; }
+  .shell.dev-open { display: grid; grid-template-columns: minmax(0, 1fr) 360px; align-items: start; gap: 22px; flex: none; min-height: calc(100svh - 125px); padding: 16px 24px 20px; }
+  .shell.dev-open .main { display: block; width: 100%; }
+  .shell.dev-open .main > .card:not([hidden]) { max-height: none; overflow: visible; }
+  .shell.dev-open .developer { position: sticky; top: 16px; width: 100%; max-height: calc(100svh - 32px); }
+  body.text-enlarged .shell { flex: none; min-height: calc(100svh - 125px); padding-top: 16px; padding-bottom: 20px; }
+  body.text-enlarged .main { display: block; }
+  body.text-enlarged .main > .card:not([hidden]) { max-height: none; overflow: visible; }
+}
+@media (min-width: 901px) and (max-height: 720px) {
+  .site-header-inner { padding-top: 6px; padding-bottom: 5px; }
+  .site-header h1 { font-size: 1.4rem; }
+  .site-header p { display: none; }
+  .shell { padding-top: 4px; padding-bottom: 5px; }
+  .journey { margin-bottom: 8px; }
+  .journey-stage { padding-top: 24px; font-size: .63rem; }
+  .stage-dot { width: 20px; height: 20px; }
+  .card { padding-top: 14px; padding-bottom: 14px; }
+  .question { margin: 6px auto 9px; font-size: clamp(1.4rem, 2.4vw, 2.3rem); }
+  .question-card h2 { margin: 2px 0 4px; }
+  .question-actions { margin-top: 7px; }
+  .hint, .feedback { margin-top: 6px; }
+}
+@media (max-width: 900px) {
+  .shell.dev-open { display: flex; flex-direction: column; align-items: stretch; }
+  .shell.dev-open .developer { width: min(100%, 850px); max-height: none; margin: 16px auto 0; overflow: visible; }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .shell.dev-open { display: flex; flex-direction: column; align-items: stretch; }
+  .shell.dev-open .developer { position: static; width: min(100%, 850px); max-height: none; margin: 16px auto 0; overflow: visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+  <header class="site-header"><div class="site-header-inner"><span class="eyebrow">Matemáticas · 2.º ESO · UD 04</span><h1 id="hero-title">Proporcionalidad</h1><p id="hero-subtitle">Itinerario adaptativo</p><button id="developer-toggle" type="button" class="ghost" aria-controls="developer" aria-pressed="false" hidden>Modo desarrollador</button></div></header>
+  <div class="shell" id="app">
+    <main class="main">
+      <ol id="journey" class="journey" aria-label="Progreso de las cuatro etapas"></ol>
+      <section id="locked" class="card" hidden><h2>Etapa bloqueada</h2><p>Primero necesitas la llave de la etapa anterior.</p><a id="locked-link" class="secondary" href="index.html">Ir a la etapa anterior</a></section>
+      <section id="view-welcome" class="card" aria-labelledby="welcome-title"><div class="flow"><span class="welcome-mark" aria-hidden="true">04</span><span class="eyebrow">Cuatro llaves · cuatro etapas</span><h2 id="welcome-title">Aprende a resolver problemas de proporcionalidad</h2><p class="lead">En cada etapa practicarás con ejercicios que cambian según tus respuestas. Para avanzar, demuestra lo aprendido en una comprobación final.</p><p class="study-notice"><strong>¿Solo quieres practicar?</strong> Escribe el usuario <strong>estudiar</strong> para acceder directamente a cualquiera de las cuatro etapas. Las respuestas de ese usuario no se envían al profesor.</p><form id="name-form" class="flow"><label class="field" for="name">Tu nombre<input id="name" maxlength="60" autocomplete="name" required></label><p id="name-error" class="error" aria-live="polite"></p><div class="actions"><button type="submit" class="primary">Continuar</button></div></form></div></section>
+      <section id="view-theory" class="card" hidden><p id="notice" class="notice" role="status" hidden></p><span class="eyebrow" style="color:var(--accent)">Preparación</span><h2 id="stage-title"></h2><p class="lead">Abre las explicaciones que necesites. Después comienza tu intento.</p><div id="theory-sections"></div><p class="prep-note">Durante la práctica y la comprobación final, la pantalla completa ayuda a concentrarse. Si sales de ella o cambias de ventana, se reinicia el intento actual; conservarás las llaves anteriores.</p><div class="actions"><button id="start" class="primary" type="button">Empezar la práctica</button><button id="change-user" class="ghost" type="button">Cambiar de usuario</button></div><p class="small muted">Alumno: <strong id="learner-label"></strong></p></section>
+      <section id="view-practice" class="card question-card" hidden><span class="mini-label">Práctica adaptativa</span><h2 id="question-count">Ejercicio 1</h2><div id="practice-circuit" class="key-circuit" aria-label="Carga de la llave">
+  <div class="circuit-heading"><strong>Carga de la llave</strong><span id="circuit-stage">Etapa actual</span></div>
+  <div id="circuit-track" class="circuit-track" role="progressbar" aria-label="Preparación para el reto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Comenzando el intento">
+    <span id="circuit-fill" class="circuit-fill"></span><span id="circuit-node-types" class="circuit-node circuit-node-types" aria-hidden="true"></span><span id="circuit-node-practice" class="circuit-node circuit-node-practice" aria-hidden="true"></span><span id="circuit-node-ready" class="circuit-node circuit-node-ready" aria-hidden="true"></span><span class="circuit-node circuit-node-key" aria-hidden="true"></span>
+  </div>
+  <div class="circuit-metrics"><span id="circuit-types">Tipos explorados 0/0</span><span id="circuit-count">Práctica 0/0</span></div>
+  <p id="circuit-status" class="circuit-status" role="status">Comienza a explorar los tipos clave.</p>
+</div><div id="question" class="question"></div><div class="question-form"><div id="step-wrap" class="field" hidden><label id="step-label" for="step"></label><select id="step"></select></div><div class="field"><label id="answer-label" for="answer">Tu respuesta</label><input id="answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="answer-select" hidden></select></div><p id="answer-error" class="error" aria-live="polite"></p></div><p id="hint-text" class="hint" hidden></p><div class="actions question-actions"><button id="hint-button" type="button" class="ghost">Ver una pista</button><button id="check-button" type="button" class="primary">Comprobar</button><button id="next-button" type="button" class="primary" hidden>Siguiente ejercicio</button></div><div id="feedback" class="feedback" role="status" hidden></div></section>
+      <section id="view-exit" class="card question-card" hidden><span class="boss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Comprobación final</span><h2 id="exit-count">Comprobación 1</h2><p class="muted">Responde sin pistas. Verás las soluciones al terminar.</p><div id="exit-circuit" class="key-circuit key-circuit-exit" aria-label="Reto de la llave">
+  <div class="circuit-heading"><strong>Reto de la llave</strong><span id="exit-circuit-stage">Etapa actual</span></div>
+  <div id="exit-circuit-track" class="circuit-track" role="progressbar" aria-label="Carga de la llave durante el reto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-valuetext="Comprobación final iniciada">
+    <span id="exit-circuit-fill" class="circuit-fill" style="width:80%"></span><span class="circuit-node circuit-node-ready active" aria-hidden="true"></span><span class="circuit-node circuit-node-key" aria-hidden="true"></span>
+  </div>
+  <div class="circuit-metrics"><span id="exit-saved">0 respuestas guardadas</span><span>Soluciones al terminar</span></div>
+</div><div id="exit-question" class="question"></div><div class="question-form"><div id="exit-step-wrap" class="field" hidden><label id="exit-step-label" for="exit-step"></label><select id="exit-step"></select></div><div class="field"><label id="exit-answer-label" for="exit-answer">Tu respuesta</label><input id="exit-answer" inputmode="text" autocomplete="off" spellcheck="false"><select id="exit-select" hidden></select></div><p id="exit-error" class="error" aria-live="polite"></p></div><div class="actions question-actions"><button id="exit-check" type="button" class="primary">Guardar respuesta</button></div></section>
+      <section id="view-result" class="card" hidden><span class="eyebrow">Resultado de la etapa</span><h2 id="result-title"></h2><p id="result-level" class="boss"></p><p id="result-message" class="lead"></p><p id="result-milestone" class="result-milestone" hidden></p><p id="sync-status" class="sync-status muted" role="status" aria-live="polite"></p><div id="key-card" class="key-card" hidden><span class="key-emblem" aria-hidden="true"><svg class="key-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg></span><div><h3>Llave conseguida</h3><p>Esta etapa está superada. Puedes continuar cuando quieras.</p></div></div><div class="actions"><a id="next-stage" class="primary" href="#" hidden>Ir a la siguiente etapa</a><button id="retry" class="secondary" type="button" hidden>Volver a intentarlo</button></div><div id="diploma" class="diploma" hidden><h3>¡Cuatro llaves conseguidas!</h3><p id="diploma-name" class="diploma-name"></p><p>Has completado el itinerario de proporcionalidad.</p></div><details class="review-drawer"><summary>Repaso de tus respuestas</summary><div id="review-list" class="result-list"></div></details></section>
+    </main>
+    <aside id="developer" class="developer" aria-label="Cálculos en tiempo real" hidden><h2>Modelo en tiempo real</h2><section class="dev-panel" aria-label="Estado de dominio"><div id="dev-entropy"></div><div id="dev-probabilities"></div></section><details class="dev-detail" open><summary>Preguntas candidatas</summary><div id="dev-selection"></div></details><details class="dev-detail" open><summary>Última actualización de Bayes</summary><div id="dev-update"></div></details></aside>
+  </div>
+  <div id="focus-dialog" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="focus-title" hidden><div class="dialog"><h2 id="focus-title">Vamos a concentrarnos</h2><p>Se intentará activar la pantalla completa. Si sales de ella o cambias de ventana durante el intento, este se reiniciará y conservarás las llaves anteriores.</p><p id="focus-error" class="error" role="alert"></p><div class="actions"><button id="focus-start" class="primary" type="button">Comenzar en pantalla completa</button><button id="focus-windowed" class="secondary" type="button" hidden>Comenzar sin pantalla completa</button><button id="focus-cancel" class="ghost" type="button">Volver</button></div></div></div>
+  <footer class="site-footer">Material didáctico de 2.º ESO · IES de Teis. · <a href="https://jjdeharo.github.io/recursos-adaptativos/">Metodología adaptativa</a></footer>
+  <div class="text-size-controls" role="group" aria-label="Tamaño de letra"><button id="text-minus" type="button" aria-label="Reducir el tamaño de letra" title="Reducir letra">A−</button><output id="text-size-value" aria-live="polite">100 %</output><button id="text-plus" type="button" aria-label="Aumentar el tamaño de letra" title="Aumentar letra">A+</button></div>
+<script>/* Banco parametrizado de proporcionalidad. Sin sincronización externa. */
+(function (root) {
+  'use strict';
+  const STAGES = [null,
+    { title:'Proporcionalidad directa', short:'Directa', color:'#C34755', min:4, max:9, early:4, essential:['d1','d2','d3','d4'], exit:['d1','d2'], need:2, required:['d1','d2'], requiredCoverage:true, families:['directa'] },
+    { title:'Proporcionalidad inversa', short:'Inversa', color:'#4F6ED0', min:4, max:9, early:4, essential:['i1','i2','i3','i4'], exit:['i1','i2'], need:2, required:['i1','i2'], requiredCoverage:true, families:['inversa'] },
+    { title:'Proporcionalidad compuesta', short:'Compuesta', color:'#14765F', min:4, max:9, early:4, essential:['c1','c2','c3','c4'], exit:['c1','c2'], need:2, required:['c1','c2'], requiredCoverage:true, families:['compuesta'] },
+    { title:'Clasifica y resuelve', short:'Mixta', color:'#8B590D', min:12, max:24, early:12, essential:['md1','md2','md3','md4','mi1','mi2','mi3','mi4','mc1','mc2','mc3','mc4'], exit:['md2','mi2','mc2'], need:2, mixed:true, families:['directa','inversa','compuesta'] }
+  ];
+  const LABELS={d1:'Escalar una receta',d2:'Calcular un precio proporcional',d3:'Interpretar una escala',d4:'Hallar la cantidad correspondiente',i1:'Relacionar trabajadores y duración',i2:'Relacionar velocidad y tiempo',i3:'Calcular el tiempo según el número de grifos',i4:'Hallar cuántos trabajadores se necesitan',c1:'Calcular producción según personas y horas',c2:'Relacionar trabajadores, tiempo y tamaño de tarea',c3:'Calcular consumo según máquinas y horas',c4:'Comparar dos planes de trabajo',md1:'Clasificar una receta escalada',md2:'Clasificar un precio proporcional',md3:'Clasificar una escala',md4:'Clasificar un consumo proporcional',mi1:'Clasificar trabajadores y duración',mi2:'Clasificar velocidad y tiempo',mi3:'Clasificar grifos y llenado',mi4:'Clasificar máquinas y duración',mc1:'Clasificar producción por personas y horas',mc2:'Clasificar trabajadores y tarea ampliada',mc3:'Clasificar consumo de máquinas',mc4:'Clasificar planes con personas, días y horas'};
+  const rand=(r,a,b)=>a+Math.floor(r()*(b-a+1));
+  const q=(t,p,text,answer,explanation,hint,model)=>({id:t.id,stage:t.stage,family:t.family,b:t.b,params:p,text,answer:String(answer),kind:'rat',signature:`${t.id}|${JSON.stringify(p)}`,explanation,hint,model:model||null});
+  const templates=[];
+  function add(stage,id,family,b,make){templates.push({stage,id,family,b,make(rng=Math.random){return make(this,rng)}})}
+  // Directa: la razón entre las magnitudes se conserva.
+  const direct=(t,r,kind)=>{let a,b,k,n,txt,ans,ex;
+    if(kind===1){a=rand(r,2,9);b=rand(r,40,160)*5; k=rand(r,2,5); n=a*k; txt=`Una receta para ${a} personas necesita ${b} g de harina. ¿Cuántos gramos hacen falta para ${n} personas?`;ans=b*k;ex=`Las dos cantidades cambian en el mismo factor: ${n} ÷ ${a} = ${k}. Entonces ${b} × ${k} = ${ans} g.`}
+    else if(kind===2){a=rand(r,2,9);b=rand(r,3,16); k=rand(r,2,5); n=a*k; txt=`${a} cuadernos cuestan ${b} €. ¿Cuánto cuestan ${n} cuadernos al mismo precio por unidad?`;ans=b*k;ex=`${n} cuadernos son ${k} grupos de ${a}. El precio también se multiplica por ${k}: ${b} × ${k} = ${ans} €.`}
+    else if(kind===3){a=rand(r,2,8);b=rand(r,3,14); k=rand(r,2,5); n=a*k; txt=`En un plano, ${a} cm representan ${b} km. ¿Cuántos kilómetros representan ${n} cm?`;ans=b*k;ex=`${n} cm es ${k} veces ${a} cm. La distancia real también se multiplica por ${k}: ${b} × ${k} = ${ans} km.`}
+    else {a=rand(r,2,9);b=a*rand(r,50,140);k=rand(r,2,5);n=b*k;txt=`Una receta usa ${b} g de ingrediente para ${a} personas. ¿Para cuántas personas alcanza ${n} g?`;ans=a*k;ex=`La cantidad de ingrediente aumenta por ${k}, así que las personas también: ${a} × ${k} = ${ans}.`}
+    return q(t,{kind,a,b,k},txt,ans,ex,'Comprueba si al multiplicar una magnitud por un factor la otra cambia por ese mismo factor.');};
+  add(1,'d1','directa',-0.7,(t,r)=>direct(t,r,1)); add(1,'d2','directa',0,(t,r)=>direct(t,r,2)); add(1,'d3','directa',0.5,(t,r)=>direct(t,r,3)); add(1,'d4','directa',1,(t,r)=>direct(t,r,4));
+  // Inversa: para una tarea fija, el producto de las magnitudes permanece constante.
+  const inverse=(t,r,kind)=>{let a,b,k,n,txt,ans,ex;
+    if(kind===1){a=rand(r,3,12);b=rand(r,4,20);k=rand(r,2,5);n=a*k;ans=b/k; if(!Number.isInteger(ans)){b*=k;ans=b/k} txt=`${a} trabajadores tardan ${b} días en terminar una tarea. ¿Cuántos días tardan ${n} trabajadores al mismo ritmo?`;ex=`La tarea es la misma: trabajadores × días se conserva. ${a} × ${b} = ${n} × ${ans} días.`}
+    else if(kind===2){a=rand(r,40,80);b=rand(r,3,8);k=rand(r,2,5);let speed=a*k;ans=b/k;if(!Number.isInteger(ans)){b*=k;ans=b/k} txt=`Un trayecto lleva ${b} h a ${a} km/h. ¿Cuántas horas lleva a ${speed} km/h?`;ex=`La distancia no cambia: ${a} × ${b} = ${speed} × ${ans}.`}
+    else if(kind===3){a=rand(r,2,10);b=rand(r,6,25);k=rand(r,2,5);let nTaps=a*k;ans=b/k;if(!Number.isInteger(ans)){b*=k;ans=b/k}txt=`${a} grifos iguales llenan un depósito en ${b} h. ¿Cuánto tardan ${nTaps} grifos?`;ex=`Al aumentar los grifos por ${k}, el tiempo se divide por ${k}: ${b} ÷ ${k} = ${ans} h.`}
+    else{a=rand(r,4,20);b=rand(r,3,15);k=rand(r,2,5);n=b*k;ans=a/k;if(!Number.isInteger(ans)){a*=k;ans=a/k}txt=`${a} máquinas completan un lote en ${b} h. ¿Cuántas máquinas hacen falta para terminarlo en ${n} h?`;ex=`Máquinas × horas es constante: ${a} × ${b} = ${n} × ${ans}.`}
+    return q(t,{kind,a,b,k},txt,ans,ex,'La tarea o distancia permanece fija. Si una magnitud aumenta, ¿qué debe pasar con la otra?');};
+  add(2,'i1','inversa',-0.7,(t,r)=>inverse(t,r,1)); add(2,'i2','inversa',0,(t,r)=>inverse(t,r,2)); add(2,'i3','inversa',0.5,(t,r)=>inverse(t,r,3)); add(2,'i4','inversa',1,(t,r)=>inverse(t,r,4));
+  // Compuesta: variar una magnitud cada vez y combinar los factores directos e inversos.
+  const compound=(t,r,kind)=>{let p={kind};let text,answer,ex;
+    if(kind===1){let people=rand(r,2,6),hours=rand(r,2,5),units=rand(r,12,60)*10, kp=rand(r,2,4),kh=rand(r,2,4);p={kind,people,hours,units,kp,kh};answer=units*kp*kh;text=`${people} personas trabajan ${hours} h y fabrican ${units} piezas. ¿Cuántas piezas fabrican ${people*kp} personas en ${hours*kh} h al mismo ritmo?`;ex=`La producción es directa respecto a personas y horas: ${units} × ${kp} × ${kh} = ${answer} piezas.`}
+    else if(kind===2){let people=rand(r,2,10),days=rand(r,3,14),factor=rand(r,2,5),kp=rand(r,2,5);while((days*factor)%kp!==0)days++;p={kind,people,days,factor,kp};answer=days*factor/kp;text=`${people} personas tardan ${days} días en completar una tarea. ¿Cuántos días tardan ${people*kp} personas en una tarea ${factor} veces mayor?`;ex=`La tarea mayor multiplica el tiempo por ${factor}; más personas lo dividen por ${kp}: ${days} × ${factor} ÷ ${kp} = ${answer} días.`}
+    else if(kind===3){let machines=rand(r,2,6),hours=rand(r,2,6),litres=rand(r,12,40)*5,k1=rand(r,2,3),k2=rand(r,2,3);p={kind,machines,hours,litres,k1,k2};answer=litres*k1*k2;text=`${machines} máquinas consumen ${litres} L en ${hours} h. ¿Cuánto consumen ${machines*k1} máquinas en ${hours*k2} h?`;ex=`El consumo aumenta en la misma proporción que máquinas y horas: ${litres} × ${k1} × ${k2} = ${answer} L.`}
+    else {let workers=rand(r,2,5),daily=rand(r,4,8),kw=rand(r,2,4),kh=rand(r,2,3),task=rand(r,2,4),days=kw*kh*rand(r,1,3);let total=workers*days*daily;answer=total*task/(workers*kw*daily*kh);p={kind,workers,days,daily,kw,kh,task};text=`${workers} personas, trabajando ${daily} h al día durante ${days} días, hacen una tarea. ¿Cuántos días necesitan ${workers*kw} personas que trabajan ${daily*kh} h al día para una tarea ${task} veces mayor?`;ex=`La tarea multiplica el trabajo por ${task}; personas por ${kw} y horas diarias por ${kh} lo dividen: ${days} × ${task} ÷ ${kw} ÷ ${kh} = ${answer} días.`}
+    return q(t,p,text,answer,ex,'Compara una magnitud cada vez con la incógnita: decide si el efecto es directo o inverso y combina los factores.');};
+  add(3,'c1','compuesta',-0.7,(t,r)=>compound(t,r,1)); add(3,'c2','compuesta',0,(t,r)=>compound(t,r,2)); add(3,'c3','compuesta',0.5,(t,r)=>compound(t,r,3)); add(3,'c4','compuesta',1,(t,r)=>compound(t,r,4));
+  // Integración: cuatro contextos distintos por modelo. El selector elige primero el modelo (paso) y luego se corrige el resultado.
+  const mixedMake=(type,kind)=>(t,r)=>{let item;
+    if(type==='directa') item=direct(t,r,kind);
+    if(type==='inversa') item=inverse(t,r,kind);
+    if(type==='compuesta') item=compound(t,r,kind);
+    item.id=t.id;item.stage=t.stage;item.family=t.family;item.b=t.b;item.signature=`${t.id}|${JSON.stringify(item.params)}`;item.model=type;
+    item.step={prompt:'¿Qué tipo de proporcionalidad relaciona las magnitudes?',options:['Directa','Inversa','Compuesta'],answer:type[0].toUpperCase()+type.slice(1)};
+    item.hint='Fíjate en qué magnitudes cambian y cómo se relacionan con la incógnita. Después calcula.';
+    return item;
+  };
+  const mixedConsumption=(t,r)=>{const amount=rand(r,2,12),days=rand(r,4,18),k=rand(r,2,6);const item=q(t,{kind:4,amount,days,k},`${amount} kg de pienso duran ${days} días. ¿Cuánto duran ${amount*k} kg al mismo ritmo?`,days*k,`La cantidad de pienso se multiplica por ${k}; el tiempo también: ${days} × ${k} = ${days*k} días.`,'Comprueba cuántas veces cambia la cantidad de pienso. El tiempo cambia por el mismo factor.','directa');item.step={prompt:'¿Qué tipo de proporcionalidad relaciona las magnitudes?',options:['Directa','Inversa','Compuesta'],answer:'Directa'};item.hint='Fíjate en qué magnitudes cambian y cómo se relacionan con la incógnita. Después calcula.';return item;};
+  [['md1','directa',1,-0.7],['md2','directa',2,0],['md3','directa',3,0.5],['mi1','inversa',1,-0.7],['mi2','inversa',2,0],['mi3','inversa',3,0.5],['mi4','inversa',4,1],['mc1','compuesta',1,-0.7],['mc2','compuesta',2,0],['mc3','compuesta',3,0.5],['mc4','compuesta',4,1]].forEach(([id,family,kind,b])=>add(4,id,family,b,mixedMake(family,kind)));
+  add(4,'md4','directa',1,mixedConsumption);
+  function make(id,rng=Math.random){const t=templates.find(x=>x.id===id);if(!t)throw Error(`Plantilla desconocida: ${id}`);return t.make(rng)}
+  const api={STAGES,LABELS,templates,make,templatesFor:n=>templates.filter(t=>t.stage===n)};
+  root.ProportionBank=api;
+  if(typeof module!=='undefined')module.exports=api;
+})(globalThis);
+</script>
+<script>/* Dos controles de letra que conservan la preferencia entre etapas. */
+(function () {
+  'use strict';
+  const key = 'ud4-proporcionalidad-tamano-letra-v1';
+  const minimum = 80, maximum = 200, step = 10;
+  const minus = document.getElementById('text-minus');
+  const plus = document.getElementById('text-plus');
+  const value = document.getElementById('text-size-value');
+  let percent = 100;
+  try {
+    const stored = Number(localStorage.getItem(key));
+    if (Number.isFinite(stored) && stored >= minimum && stored <= maximum) percent = Math.round(stored / step) * step;
+  } catch { /* El control sigue funcionando sin almacenamiento. */ }
+
+  function apply() {
+    document.documentElement.style.setProperty('--student-font-size', `${16 * percent / 100}px`);
+    document.body.classList.toggle('text-enlarged', percent > 100);
+    value.textContent = `${percent} %`;
+    minus.disabled = percent <= minimum;
+    plus.disabled = percent >= maximum;
+    try { localStorage.setItem(key, String(percent)); } catch { /* Preferencia solo en esta sesión. */ }
+  }
+  minus.addEventListener('click', () => { percent = Math.max(minimum, percent - step); apply(); });
+  plus.addEventListener('click', () => { percent = Math.min(maximum, percent + step); apply(); });
+  apply();
+})();
+</script>
+<script>/* Cola de resultados de proporcionalidad para el receptor Apps Script común. */
+(function (root) {
+  'use strict';
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCn-S93OX699xcHUEh9MguMxAijRNBrXwr3Mb0Ir7iBkmCY-ftWJDc5HfA339vnE7N/exec';
+  const RESOURCE = '04Proporcionalidad';
+  const QUEUE = 'ud4-proporcionalidad-envios-v1';
+  const DONE = 'ud4-proporcionalidad-confirmados-v1';
+  const RETRY_MS = 60 * 60 * 1000;
+  let busy = false;
+  const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+  const write = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } };
+  const status = message => { const node = document.getElementById('sync-status'); if (node) node.textContent = message; };
+  const plain = html => String(html || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  const isStudy = name => String(name || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('es') === 'estudiar';
+  function payload({ name, stage, state }) {
+    const practice = state.history || [], exit = state.exitAnswers || [];
+    const all = [...practice, ...exit];
+    return {
+      version: 3, resource: RESOURCE, id: state.syncId, clientTime: new Date().toISOString(),
+      name: String(name || '').trim().replace(/\s+/g, ' '), stage, attempt: state.attempt,
+      practiceTotal: practice.length, practiceCorrect: practice.filter(x => x.main).length,
+      practiceFull: practice.filter(x => x.full).length, hints: practice.filter(x => x.hint).length,
+      exitTotal: exit.length, exitCorrect: exit.filter(x => x.main).length,
+      exitFull: exit.filter(x => x.full).length, level: state.result.level,
+      high: !!state.result.high, provisional: !!state.result.provisional,
+      reason: String(state.result.reason || ''), stats: state.stats || {},
+      exercises: all.map((x, i) => ({
+        position: i + 1, phase: x.phase, statement: plain(x.q.text), answer: String(x.entered),
+        review: `${plain(x.q.text)} Respuesta correcta: ${x.q.answer}. ${x.q.explanation ? plain(x.q.explanation) : ''}`,
+        correct: !!x.main, full: !!x.full, hinted: !!x.hint,
+        stepCorrect: x.q.step ? !!x.step : null, selectedStep: x.selectedStep || '',
+        simplified: null, topic: x.q.family, errorTag: x.q.step && !x.step ? 'clasificación' : !x.main ? 'cálculo' : ''
+      }))
+    };
+  }
+  const ready = () => /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(ENDPOINT);
+  function receipt(id) {
+    return new Promise(resolve => {
+      const callback = '__adaptativoReceipt_' + id.replace(/-/g, '');
+      const script = document.createElement('script'); let timer;
+      const finish = found => { clearTimeout(timer); delete root[callback]; script.remove(); resolve(found); };
+      root[callback] = response => finish(response?.id === id && response?.stored === true);
+      script.onerror = () => finish(false);
+      script.src = `${ENDPOINT}?action=receipt&resource=${RESOURCE}&id=${encodeURIComponent(id)}&callback=${callback}&_=${Date.now()}`;
+      timer = setTimeout(() => finish(false), 12000);
+      document.head.append(script);
+    });
+  }
+  async function flush() {
+    if (busy || !ready() || !navigator.onLine) return;
+    busy = true;
+    try {
+      const queue = read(QUEUE, []);
+      for (const item of Array.isArray(queue) ? queue : []) {
+        let stored = await receipt(item.id);
+        if (!stored && (!item.lastPostAt || Date.now() - item.lastPostAt >= RETRY_MS)) {
+          try {
+            await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(item) });
+            item.lastPostAt = Date.now(); write(QUEUE, queue);
+            stored = await receipt(item.id);
+          } catch { /* Se conserva la cola para volver a intentarlo. */ }
+        }
+        if (!stored) { status('Envío pendiente de confirmación; se reintentará al volver a conectar.'); break; }
+        write(QUEUE, read(QUEUE, []).filter(x => x.id !== item.id));
+        const done = read(DONE, []); if (!done.includes(item.id)) write(DONE, [...done, item.id].slice(-500));
+        status('Resultado enviado al profesor.');
+      }
+    } finally { busy = false; }
+  }
+  function record(data) {
+    if (!data.state?.result || !data.state?.syncId || isStudy(data.name)) return;
+    const done = read(DONE, []); if (done.includes(data.state.syncId)) return;
+    const queue = read(QUEUE, []);
+    if (!queue.some(x => x.id === data.state.syncId)) {
+      queue.push(payload(data));
+      if (!write(QUEUE, queue)) { status('No se pudo guardar el resultado en este navegador.'); return; }
+    }
+    status('Guardando resultado…'); flush();
+  }
+  root.ProportionSync = { record, flush };
+  if (typeof window !== 'undefined') {
+    window.addEventListener('online', flush);
+    window.addEventListener('focus', flush);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) flush(); });
+    setTimeout(flush, 1200);
+  }
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>/* Motor adaptativo común. build.py lo inserta en cada etapa para uso local autónomo. */
+(function () {
+  'use strict';
+  const bank = globalThis.ProportionBank;
+  const stage = typeof document === 'undefined' ? 1 : Number(document.documentElement.dataset.stage);
+  const cfg = bank.STAGES[stage];
+  const templates = bank.templatesFor(stage);
+  const theta = [-2, 0, 2];
+  const levels = ['Aún no domina', 'Dominio parcial', 'Dominio alto'];
+  const keyNames = ['roja', 'azul', 'verde', 'ámbar'];
+  const rootKey = 'ud4-proporcionalidad-adaptativo-v1';
+  const keySvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m11 12 9-9 2 2-2 2 1.5 1.5-2.5 2.5-1.5-1.5L14 13"/><path d="M6 16h3"/></svg>';
+  const $ = id => document.getElementById(id);
+  const storageKey = name => `${rootKey}:etapa${stage}:${normalize(name)}`;
+  const normalize = value => String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('es');
+  const cleanName = value => String(value || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+  const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+  const isStudyUser = name => normalize(name) === 'estudiar';
+  const canEnterStage = (number, name, previousKey, transferredKey, visitedStage) => number === 1 || (isStudyUser(name) && !!cleanName(name)) || (!!cleanName(name) && !!(previousKey || transferredKey || visitedStage));
+  const getJson = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+  const setJson = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } };
+  const entropy = p => -p.reduce((sum, x) => sum + (x > 0 ? x * Math.log2(x) : 0), 0);
+  const fixed = (x, digits = 3) => Number(x).toFixed(digits);
+  let learner = '', state = null, developerOpen = false, fullscreenStarting = false;
+
+  const theory = {
+    1: [
+      ['Detectar una relación directa','Comprueba si el cociente entre las dos magnitudes permanece constante. Al duplicar una, se duplica la otra.','3 personas necesitan 450 g. Para 5: 450 × 5 ÷ 3 = 750 g.','La relación directa se refiere a magnitudes que varían en el mismo sentido.'],
+      ['Usar el valor unitario','Calcula cuánto corresponde a una unidad y multiplica por la cantidad buscada.','4 cuadernos cuestan 6 €. Uno cuesta 1,50 €; 7 cuestan 10,50 €.','Conserva las unidades y comprueba si el resultado crece con la cantidad.'],
+      ['Comprobar el resultado','Sustituye el dato hallado y verifica la razón o el factor de escala.','Si 8 m cuestan 28 €, 11 m cuestan 38,50 € porque 28 ÷ 8 = 38,50 ÷ 11.','No sumes la misma diferencia: conserva la razón.']
+    ],
+    2: [
+      ['Detectar una relación inversa','Si una tarea o distancia es fija, más trabajadores o más velocidad implican menos tiempo.','6 personas tardan 10 días; 12 personas tardan 6 × 10 ÷ 12 = 5 días.','Antes de calcular, señala qué permanece fijo.'],
+      ['Conservar el producto','Multiplica los valores conocidos de las magnitudes inversas y divide por el nuevo valor.','A 60 km/h se tardan 4 h. A 80 km/h: 60 × 4 ÷ 80 = 3 h.','No uses una regla directa para cantidades que cambian en sentidos opuestos.'],
+      ['Comprobar la respuesta','Multiplica trabajador por tiempo o velocidad por tiempo y compara los productos.','3 grifos tardan 8 h; 4 tardan 6 h: 3 × 8 = 4 × 6.','Si el producto no se conserva, revisa el planteamiento.']
+    ],
+    3: [
+      ['Variar una magnitud cada vez','Compara cada magnitud nueva con la inicial y decide si afecta directa o inversamente a la incógnita.','4 personas durante 3 h hacen 120 piezas. Duplicar personas y horas multiplica la producción por 4.','No combines todos los datos sin decidir antes el sentido de cada relación.'],
+      ['Combinar factores','Multiplica por los factores directos y divide por los inversos, manteniendo las unidades.','5 personas tardan 8 días; 10 personas hacen una tarea triple: 8 × 3 ÷ 2 = 12 días.','La tarea mayor aumenta el tiempo; más personas lo reducen.'],
+      ['Comprobar con el rendimiento','Calcula la tasa por unidad de tiempo y verifica que reproduce el resultado.','6 trabajadores hacen 90 unidades en 5 h: 3 unidades por trabajador y hora.','Incluye todas las magnitudes que afectan al resultado.']
+    ],
+    4: [
+      ['Primero clasificar','Elige directa si ambas magnitudes cambian en el mismo sentido, inversa si una aumenta y la otra disminuye para una cantidad fija, y compuesta si intervienen varias relaciones.','Más cuadernos al mismo precio por unidad: directa. Más velocidad en la misma distancia: inversa.','No decidas por una palabra aislada: identifica qué se mantiene fijo.'],
+      ['Después calcular','Una vez elegido el modelo, usa razón constante, producto constante o combina factores directos e inversos.','8 trabajadores tardan 9 días; 12 tardan 8 × 9 ÷ 12 = 6 días.','La clasificación correcta y el cálculo correcto son evidencias distintas.'],
+      ['Verificar sentido y unidades','Comprueba que la respuesta cambia en el sentido esperado y que incluye la unidad pedida.','Si aumentan personas y horas, la producción debe aumentar.','Un resultado numérico plausible también debe corresponder al modelo elegido.']
+    ]
+  };
+
+  const pCorrect = (th, b, c) => Math.min(.95, c + (1 - c) / (1 + Math.exp(-1.25 / (1 - c) * (th - b))));
+  const probs = q => theta.map(th => ({
+    main: pCorrect(th, q.b, q.kind === 'choice' ? 1 / q.options.length : 0),
+    step: q.step ? pCorrect(th, q.b - .2, 1 / q.step.options.length) : null
+  }));
+  function evidence(q, outcome, hint = false) {
+    const ps = probs(q), strength = hint ? .55 : 1;
+    return ps.map(x => {
+      const m = outcome.main ? x.main : 1 - x.main;
+      if (!q.step) return Math.pow(m, strength);
+      const s = outcome.step ? x.step : 1 - x.step;
+      return Math.pow(m, .5 * strength) * Math.pow(s, .5 * strength);
+    });
+  }
+  function posterior(prior, factors) {
+    const raw = prior.map((x, i) => x * factors[i]);
+    const z = raw.reduce((a, b) => a + b, 0);
+    return raw.map(x => x / z);
+  }
+  function information(q, prior, classificationPrior = prior) {
+    const ps = probs(q), scenarios = q.step ? [[false, false], [false, true], [true, false], [true, true]] : [[false, true], [true, true]];
+    const before = entropy(prior) + (q.step ? entropy(classificationPrior) : 0);
+    let after = 0;
+    for (const [main, stepResult] of scenarios) {
+      const mainL = ps.map(x => main ? x.main : 1 - x.main), stepL = ps.map(x => stepResult ? x.step : 1 - x.step);
+      const pMain = prior.reduce((sum, x, i) => sum + x * mainL[i], 0);
+      const mainAfter = posterior(prior, mainL);
+      if (!q.step) after += pMain * entropy(mainAfter);
+      else {
+        const pStep = classificationPrior.reduce((sum, x, i) => sum + x * stepL[i], 0);
+        after += pMain * pStep * (entropy(mainAfter) + entropy(posterior(classificationPrior, stepL)));
+      }
+    }
+    return Math.max(0, before - after);
+  }
+  const freshState = (attempt = 1, key = false, recent = []) => ({
+    attempt, key, phase: 'theory', posterior: [1 / 3, 1 / 3, 1 / 3], classificationPosterior: [1 / 3, 1 / 3, 1 / 3], history: [], exitItems: [], exitAnswers: [],
+    current: null, answered: false, hint: false, recent, stats: {}, selection: null, previousUpdate: null, result: null,
+    syncId: null
+  });
+  function save() { if (learner && state) setJson(storageKey(learner), state); }
+  function sample(t, used, rng = Math.random) {
+    let item;
+    for (let i = 0; i < 120; i++) { item = t.make(rng); if (!used.has(item.signature)) return item; }
+    return item;
+  }
+  function usedSignatures() { return new Set([...state.recent, ...state.history.map(x => x.q.signature), ...state.exitItems.map(x => x.signature)]); }
+  function selectQuestionForStage(stageCfg, stageTemplates, selectionState, rng = Math.random) {
+    const history = selectionState.history || [];
+    const counts = new Map();
+    for (const item of history) counts.set(item.q.id, (counts.get(item.q.id) || 0) + 1);
+    const missingEssential = (stageCfg.essential || []).filter(id => !counts.has(id));
+    const seenFamilies = new Set(history.map(item => item.q.family));
+    const missingFamilies = stageCfg.families.filter(family => !seenFamilies.has(family));
+    let candidates = missingEssential.length ? stageTemplates.filter(t => missingEssential.includes(t.id)) : missingFamilies.length ? stageTemplates.filter(t => missingFamilies.includes(t.family)) : stageTemplates;
+    if (history.length < stageCfg.min) {
+      const unseen = candidates.filter(t => !counts.has(t.id));
+      if (unseen.length) candidates = unseen;
+    }
+    const maxPerType = Math.ceil(stageCfg.max / stageTemplates.length);
+    const underCap = candidates.filter(t => (counts.get(t.id) || 0) < maxPerType);
+    if (underCap.length) candidates = underCap;
+    const recentTypes = new Set(history.slice(-3).map(item => item.q.id));
+    const spaced = candidates.filter(t => !recentTypes.has(t.id));
+    if (spaced.length) candidates = spaced;
+    const used = new Set([...(selectionState.recent || []), ...history.map(item => item.q.signature), ...(selectionState.exitItems || []).map(q => q.signature)]);
+    const pool = candidates.map(t => sample(t, used, rng));
+    const info = pool.map(q => information(q, selectionState.posterior, selectionState.classificationPosterior));
+    const maxIG = Math.max(...info, 1e-9), estimate = selectionState.posterior.reduce((sum, p, i) => sum + p * theta[i], 0);
+    const rows = pool.map((q, i) => {
+      const typeHistory = history.filter(item => item.q.id === q.id);
+      const familyStats = selectionState.stats[q.family] || { asked: 0, wrong: 0 };
+      const typeWeakness = typeHistory.length ? typeHistory.filter(item => !item.full).length / typeHistory.length : .5;
+      const familyWeakness = familyStats.asked ? familyStats.wrong / familyStats.asked : .5;
+      const weakness = .7 * typeWeakness + .3 * familyWeakness;
+      const fit = Math.max(0, 1 - Math.abs(q.b - estimate) / 2);
+      const count = counts.get(q.id) || 0;
+      return { q, ig: info[i], utility: .60 * info[i] / maxIG + .20 * fit + .12 * weakness + (count === 0 ? .08 : 0) - .10 * count + rng() * .015 };
+    }).sort((a, b) => b.utility - a.utility);
+    const selection = { chosen: rows[0].q.id, rows: rows.map(x => ({ id: x.q.id, family: x.q.family, ig: x.ig, utility: x.utility, preview: x.q.text.replace(/<sup>/g, '^').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() })) };
+    return { q: rows[0].q, selection };
+  }
+  function chooseQuestion() {
+    const chosen = selectQuestionForStage(cfg, templates, state);
+    state.selection = chosen.selection;
+    return chosen.q;
+  }
+  function renderJourney() {
+    const list = $('journey'); list.replaceChildren();
+    for (let i = 1; i <= 4; i++) {
+      const li = document.createElement('li'), earned = !!learner && (i < stage || (i === stage && state?.key));
+      li.className = `journey-stage ${i === stage ? 'active' : ''} ${earned ? 'earned' : ''}`;
+      li.style.setProperty('--key-color', bank.STAGES[i].color);
+      if (isStudyUser(learner)) {
+        const link = document.createElement('a');
+        link.className = 'journey-link';
+        link.href = `Etapa_${i}.html?alumno=${encodeURIComponent(learner)}`;
+        link.setAttribute('aria-label', `Practicar ${bank.STAGES[i].short}`);
+        link.innerHTML = `<span class="stage-dot" aria-hidden="true">${i}</span><span>${bank.STAGES[i].short}</span>`;
+        li.append(link);
+      } else {
+        li.innerHTML = `<span class="stage-dot" aria-hidden="true">${earned ? keySvg : i}</span><span>${bank.STAGES[i].short}</span>`;
+        li.setAttribute('aria-label', `${bank.STAGES[i].short}: ${earned ? 'llave conseguida' : i === stage ? 'etapa actual' : 'pendiente'}`);
+      }
+      list.append(li);
+    }
+  }
+  function show(which) {
+    for (const id of ['welcome', 'theory', 'practice', 'exit', 'result']) $(`view-${id}`).hidden = id !== which;
+    $('app').dataset.phase = which;
+    window.scrollTo(0, 0);
+    renderDeveloper();
+  }
+  function renderTheory() {
+    state.phase = 'theory'; state.current = null; state.answered = false; state.hint = false;
+    renderJourney(); show('theory');
+    $('stage-title').textContent = `Etapa ${stage} · ${cfg.title}`;
+    $('learner-label').textContent = learner;
+    const area = $('theory-sections'); area.replaceChildren();
+    theory[stage].forEach(([title, body, example, warning], i) => {
+      const details = document.createElement('details'); details.className = 'theory-section';
+      details.innerHTML = `<summary><span class="theory-number">0${i + 1}</span>${title}</summary><div class="theory-body"><p>${body}</p><p class="worked"><strong>Ejemplo</strong><br>${example}</p><p class="warning"><strong>Atención:</strong> ${warning}</p></div>`;
+      area.append(details);
+    });
+    save();
+  }
+  function renderQuestion(q, final = false) {
+    const area = final ? $('exit-question') : $('question');
+    area.innerHTML = q.text;
+    const stepWrap = final ? $('exit-step-wrap') : $('step-wrap');
+    const stepSelect = final ? $('exit-step') : $('step');
+    stepWrap.hidden = !q.step;
+    if (q.step) {
+      (final ? $('exit-step-label') : $('step-label')).textContent = q.step.prompt;
+      stepSelect.replaceChildren(new Option('Elige una opción', ''));
+      for (const option of q.step.options) stepSelect.add(new Option(option, option));
+    }
+    const answer = final ? $('exit-answer') : $('answer');
+    const select = final ? $('exit-select') : $('answer-select');
+    const label = final ? $('exit-answer-label') : $('answer-label');
+    const isChoice = q.kind === 'choice';
+    answer.hidden = isChoice; select.hidden = !isChoice;
+    label.htmlFor = isChoice ? select.id : answer.id;
+    label.textContent = isChoice ? 'Elige tu respuesta' : 'Tu respuesta (puedes usar coma decimal; no hace falta escribir la unidad)';
+    answer.placeholder = q.kind === 'pair' ? 'Ej.: -5;4' : q.kind === 'sequence' ? 'Ej.: 8;4;2;1;1/2' : '';
+    answer.value = ''; select.replaceChildren(new Option('Elige una opción', ''));
+    if (isChoice) for (const option of q.options) select.add(new Option(option, option));
+    (final ? $('exit-error') : $('answer-error')).textContent = '';
+    if (!isChoice) answer.focus(); else select.focus();
+  }
+  function renderPractice() {
+    state.phase = 'practice'; if (!state.current) state.current = chooseQuestion();
+    show('practice'); $('question-count').textContent = `Ejercicio ${state.history.length + 1}`;
+    renderCircuit();
+    renderQuestion(state.current);
+    $('hint-text').hidden = !state.hint; $('hint-text').textContent = state.hint ? state.current.hint : '';
+    $('hint-button').disabled = state.hint;
+    $('feedback').hidden = true; $('next-button').hidden = true; $('check-button').hidden = false;
+    save();
+  }
+  const numericValue = text => {
+    const raw = String(text).trim().replace(/−/g, '-').replace(/\s/g, '').replace(',', '.');
+    if (/^[+-]?\d+\/[-+]?\d+$/.test(raw)) { const [a, b] = raw.split('/').map(Number); return b ? a / b : NaN; }
+    return /^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(raw) ? Number(raw) : NaN;
+  };
+  function sameAnswer(q, input) {
+    const entered = String(input).trim(); if (!entered) return false;
+    if (q.kind === 'rat' || q.kind === 'int') {
+      const actual = numericValue(entered), expected = numericValue(q.answer);
+      return Number.isFinite(actual) && (q.kind !== 'int' || Number.isInteger(actual)) && Math.abs(actual - expected) < 1e-10;
+    }
+    if (q.kind === 'pair' || q.kind === 'sequence') {
+      const a = entered.split(';'), b = q.answer.split(q.answer.includes(';') ? ';' : ',');
+      return a.length === b.length && a.every((v, i) => Number.isFinite(numericValue(v)) && Math.abs(numericValue(v) - numericValue(b[i])) < 1e-10);
+    }
+    if (q.kind === 'power') {
+      const compact = entered.replace(/\s/g, '').replace(/⁻/g, '-');
+      const match = compact.match(/^\(?([+-]?\d+)\)?\^\(?([+-]?\d+)\)?$/);
+      if (!match) return false;
+      const target = q.answer.match(/^([+-]?\d+)\^([+-]?\d+)$/);
+      if (q.acceptEquivalentPower) {
+        const base = Number(match[1]), exponent = Number(match[2]);
+        return Number.isSafeInteger(base) && Number.isSafeInteger(exponent) && base >= 2 && base <= 1000000 && exponent >= 1 && exponent <= 30 && BigInt(base) ** BigInt(exponent) === BigInt(target[1]) ** BigInt(target[2]);
+      }
+      return Number(match[1]) === Number(target[1]) && Number(match[2]) === Number(target[2]);
+    }
+    if (q.kind === 'product') {
+      const parts = entered.replace(/×|·/g, '*').split('*').map(x => x.trim());
+      const expected = q.answer.split('*');
+      return parts.length === expected.length && parts.every((x, i) => /^\(?-?\d+\)?$/.test(x) && Number(x.replace(/[()]/g, '')) === Number(expected[i]));
+    }
+    return normalize(entered) === normalize(q.answer);
+  }
+  const enteredFor = final => {
+    const q = final ? state.exitItems[state.exitAnswers.length] : state.current;
+    return (q.kind === 'choice' ? $(final ? 'exit-select' : 'answer-select') : $(final ? 'exit-answer' : 'answer')).value;
+  };
+  function update(q, main, step, hint) {
+    const prior = [...state.posterior], typePrior = [...state.classificationPosterior], before = entropy(prior), typeBefore = entropy(typePrior), ps = probs(q), strength = hint ? .55 : 1;
+    const factors = ps.map(x => Math.pow(main ? x.main : 1 - x.main, strength));
+    state.posterior = posterior(prior, factors);
+    const typeFactors = q.step ? ps.map(x => Math.pow(step ? x.step : 1 - x.step, strength)) : [1,1,1];
+    if (q.step) state.classificationPosterior = posterior(typePrior, typeFactors);
+    state.previousUpdate = { id:q.id, prior, typePrior, likelihoods:ps, factors, typeFactors, after:[...state.posterior], typeAfter:[...state.classificationPosterior], entropyBefore:before, entropyAfter:entropy(state.posterior), typeEntropyBefore:typeBefore, typeEntropyAfter:entropy(state.classificationPosterior), main, step, hint };
+  }
+  function record(q, entered, main, step, hint, final, selectedStep = '') {
+    update(q, main, step, hint);
+    const full = main && step && !hint;
+    const item = { q, entered, main, step, selectedStep, hint, full, correctType:!q.step || step, correctCalculation:main, phase: final ? 'exit' : 'practice' };
+    (final ? state.exitAnswers : state.history).push(item);
+    const stats = state.stats[q.family] || { asked: 0, full: 0, wrong: 0, hinted: 0 };
+    stats.asked++; if (full) stats.full++; if (!main || !step) stats.wrong++; if (hint) stats.hinted++;
+    state.stats[q.family] = stats;
+    state.recent.push(q.signature); state.recent = state.recent.slice(-300);
+    save(); return item;
+  }
+  function answerPractice() {
+    const q = state.current, entered = enteredFor(false), stepValue = q.step ? $('step').value : '';
+    if (!String(entered).trim() || (q.step && !stepValue)) { $('answer-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
+    const beforeTypes = essentialTypesSeen(), beforeCount = state.history.length;
+    const item = record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, state.hint, false, stepValue);
+    const milestones = [];
+    if (essentialTypesSeen() > beforeTypes) milestones.push(`Nuevo tipo explorado: ${bank.LABELS[q.id]}.`);
+    if (beforeCount < cfg.min && state.history.length >= cfg.min) milestones.push('Práctica mínima completada.');
+    if (readyForExit()) milestones.push('Reto de la llave preparado.');
+    renderCircuit(milestones.join(' '));
+    if (milestones.length) pulseCircuit();
+    $('feedback').hidden = false;
+    $('feedback').className = `feedback ${item.full ? 'good' : 'review'}`;
+    const feedbackTitle = item.full ? 'Clasificación y cálculo correctos.' : q.step && !item.step && !item.main ? 'Revisa la clasificación y el cálculo.' : q.step && !item.step ? 'El resultado puede ser correcto; revisa el tipo elegido.' : q.step && !item.main ? 'El tipo está bien elegido; revisa el cálculo.' : 'Revisa el resultado.';
+    $('feedback').innerHTML = `<strong>${feedbackTitle}</strong><p><b>Explicación:</b> ${q.explanation}</p><p>Respuesta esperada: <b>${q.answer}</b>${q.step ? ` · Tipo correcto: <b>${q.step.answer}</b>` : ''}.</p>`;
+    $('check-button').hidden = true; $('next-button').hidden = false; $('hint-button').disabled = true;
+    $('answer').disabled = true; $('answer-select').disabled = true; $('step').disabled = true;
+    renderDeveloper(); $('feedback').scrollIntoView({ block: 'nearest' }); $('next-button').focus({ preventScroll: true });
+  }
+  const covered = () => cfg.families.every(f => state.history.some(x => x.q.family === f));
+  const essentialTypesSeen = () => cfg.essential.filter(id => state.history.some(x => x.q.id === id)).length;
+  function readyForExit() {
+    const n = state.history.length, p = state.posterior;
+    const allTemplatesSeen = cfg.essential.every(id => state.history.some(x => x.q.id === id));
+    const mixedReady = !cfg.mixed || (state.classificationPosterior[2] >= .80 && state.classificationPosterior[2] === Math.max(...state.classificationPosterior) && cfg.families.every(type => state.history.some(x => x.q.family === type && x.full)));
+    return allTemplatesSeen && n >= cfg.min && (
+      (n >= cfg.early && p[2] >= .90 && entropy(p) <= .75) ||
+      (n >= cfg.min && p[2] >= .80 && p[2] === Math.max(...p))
+    ) && mixedReady;
+  }
+  function renderCircuit(message = '') {
+    const seen = essentialTypesSeen(), total = cfg.essential.length, n = state.history.length;
+    const ready = readyForExit();
+    const amount = ready ? 80 : Math.round(35 * seen / total + 35 * Math.min(n / cfg.min, 1));
+    $('circuit-stage').textContent = `Llave ${keyNames[stage - 1]}`;
+    $('circuit-types').textContent = `Tipos explorados ${seen}/${total}`;
+    $('circuit-count').textContent = `Práctica ${n}/${cfg.min} · hasta ${cfg.max}`;
+    $('circuit-fill').style.width = `${amount}%`;
+    $('circuit-node-types').classList.toggle('active', seen === total);
+    $('circuit-node-practice').classList.toggle('active', n >= cfg.min || ready);
+    $('circuit-node-ready').classList.toggle('active', ready);
+    $('circuit-track').setAttribute('aria-valuenow', String(amount));
+    $('circuit-track').setAttribute('aria-valuetext', `${seen} de ${total} tipos clave explorados; ${n} ejercicios de práctica completados; ${ready ? 'reto disponible' : 'reto pendiente'}`);
+    $('circuit-status').textContent = message || (ready ? 'Reto de la llave preparado.' : n >= cfg.min ? 'Ajustando el siguiente desafío.' : 'La siguiente pregunta se adapta a tus respuestas.');
+  }
+  function pulseCircuit() {
+    const circuit = $('practice-circuit');
+    circuit.classList.remove('pulse');
+    requestAnimationFrame(() => {
+      circuit.classList.add('pulse');
+      setTimeout(() => circuit.classList.remove('pulse'), 300);
+    });
+  }
+  function nextPractice() {
+    $('answer').disabled = false; $('answer-select').disabled = false; $('step').disabled = false;
+    const n = state.history.length, p = state.posterior;
+    const allTemplatesSeen = cfg.essential.every(id => state.history.some(x => x.q.id === id));
+    const mixedPracticeReady = !cfg.mixed || (state.classificationPosterior[2] >= .80 && state.classificationPosterior[2] === Math.max(...state.classificationPosterior) && cfg.families.every(type => state.history.some(x => x.q.family === type && x.full)));
+    const bothDomainsHigh = mixedPracticeReady;
+    if (allTemplatesSeen && n >= cfg.min && p[2] >= .80 && p[2] === Math.max(...p) && bothDomainsHigh) { beginExit(); return; }
+    if (n >= cfg.max) { finish('max'); return; }
+    state.current = chooseQuestion(); state.hint = false; renderPractice();
+  }
+  function beginExit() {
+    state.phase = 'exit'; state.current = null; state.exitItems = [];
+    for (const id of cfg.exit) state.exitItems.push(sample(templates.find(t => t.id === id), usedSignatures()));
+    state.exitAnswers = []; renderExit(); save();
+  }
+  function renderExit() {
+    state.phase = 'exit'; show('exit');
+    const i = state.exitAnswers.length;
+    if (i >= state.exitItems.length) { finish('exit'); return; }
+    $('exit-count').textContent = `Comprobación ${i + 1} de ${cfg.exit.length}`;
+    const circuitAmount = Math.round(80 + 20 * i / cfg.exit.length);
+    $('exit-circuit-stage').textContent = `Llave ${keyNames[stage - 1]}`;
+    $('exit-circuit-fill').style.width = `${circuitAmount}%`;
+    $('exit-circuit-track').setAttribute('aria-valuenow', String(circuitAmount));
+    $('exit-circuit-track').setAttribute('aria-valuetext', `${i} de ${cfg.exit.length} respuestas guardadas; corrección al terminar`);
+    $('exit-saved').textContent = `${i} de ${cfg.exit.length} respuestas guardadas`;
+    renderQuestion(state.exitItems[i], true); save();
+  }
+  function answerExit() {
+    const q = state.exitItems[state.exitAnswers.length], entered = enteredFor(true), stepValue = q.step ? $('exit-step').value : '';
+    if (!String(entered).trim() || (q.step && !stepValue)) { $('exit-error').textContent = 'Completa la respuesta y la elección solicitada.'; return; }
+    record(q, entered, sameAnswer(q, entered), !q.step || stepValue === q.step.answer, false, true, stepValue);
+    renderDeveloper();
+    if (state.exitAnswers.length >= cfg.exit.length) finish('exit'); else renderExit();
+  }
+  function handleQuestionEnter(event, final = false) {
+    if (event.key !== 'Enter' || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    const targets = final ? ['exit-answer', 'exit-select', 'exit-step', 'exit-check'] : ['answer', 'answer-select', 'step', 'check-button', 'next-button'];
+    if (!targets.includes(event.target.id)) return;
+    if (event.target.id === (final ? 'exit-step' : 'step') && String($(final ? 'exit-answer' : 'answer').value).trim() === '') {
+      event.preventDefault();
+      $(final ? 'exit-answer' : 'answer').focus();
+      return;
+    }
+    event.preventDefault();
+    if (event.repeat) return;
+    const button = final ? $('exit-check') : $('next-button').hidden ? $('check-button') : $('next-button');
+    if (!button.hidden && !button.disabled) button.click();
+  }
+  function promotionRequirements(stageCfg, practice, exit) {
+    if (!stageCfg.essential.every(id => practice.some(x => x.q.id === id))) return false;
+    const full = exit.filter(x => x.full);
+    if (full.length < stageCfg.need) return false;
+    if (stageCfg.required && !stageCfg.required.every(id => full.some(x => x.q.id === id))) return false;
+    if (stageCfg.mixed) {
+      const all = [...practice, ...exit];
+      const byType = Object.fromEntries(stageCfg.families.map(type => [type, all.filter(x => x.q.family === type && x.full).length]));
+      if (!stageCfg.families.every(type => byType[type] >= 2)) return false;
+      if (exit.length !== 3 || exit.some(x => !x.step) || exit.filter(x => x.main).length < 2) return false;
+    }
+    return true;
+  }
+  function exitPassed() { return promotionRequirements(cfg, state.history, state.exitAnswers); }
+  function finish(reason) {
+    const pass = reason === 'exit' && exitPassed(), high = pass && state.posterior[2] >= .80 && entropy(state.posterior) <= .75 && (!cfg.mixed || (state.classificationPosterior[2] >= .80 && entropy(state.classificationPosterior) <= .75));
+    state.phase = 'result'; state.current = null; state.key ||= high;
+    const best = state.posterior.indexOf(Math.max(...state.posterior));
+    state.result = { reason, high, pass, level: high ? 2 : best === 0 ? 0 : 1, provisional: reason === 'max' || (reason === 'exit' && !high) };
+    state.syncId ||= globalThis.crypto?.randomUUID?.() || 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.floor(Math.random() * 16);
+      return (c === 'x' ? r : (r & 3) | 8).toString(16);
+    });
+    if (!isStudyUser(learner)) globalThis.ProportionSync?.record({ name: learner, stage, state });
+    save(); if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    renderResult();
+  }
+  function renderResult() {
+    state.phase = 'result'; renderJourney(); show('result');
+    const r = state.result;
+    $('result-title').textContent = r.high ? (stage === 4 ? '¡Itinerario completado!' : `¡Llave ${stage} conseguida!`) : 'Tu siguiente paso';
+    $('result-message').textContent = r.high ? `Has demostrado dominio alto en ${cfg.title.toLowerCase()}.` : r.provisional ? 'Este intento no aportó evidencia suficiente o no superó la comprobación final. Revisa los ejercicios y vuelve a intentarlo.' : 'Ya dominas una parte de la etapa. Revisa los tipos que te han costado.';
+    $('result-milestone').hidden = false;
+    const mixSummary = cfg.mixed ? ` Clasificación correcta: ${[...state.history,...state.exitAnswers].filter(x=>x.step).length}; cálculo correcto: ${[...state.history,...state.exitAnswers].filter(x=>x.main).length}.` : '';
+    $('result-milestone').textContent = `${r.high ? 'Circuito completado. ' : ''}En este intento exploraste ${essentialTypesSeen()} de ${cfg.essential.length} plantillas clave y completaste ${state.history.length} ejercicios de práctica.${mixSummary}`;
+    $('result-level').textContent = levels[r.level];
+    $('key-card').hidden = !state.key; $('key-card').style.setProperty('--key-color', cfg.color);
+    $('key-card').classList.toggle('is-revealed', !!state.key);
+    $('retry').hidden = !!state.key; $('next-stage').hidden = !state.key || stage === 4;
+    if (stage < 4) $('next-stage').href = `Etapa_${stage + 1}.html`;
+    $('diploma').hidden = !(stage === 4 && state.key); $('diploma-name').textContent = learner;
+    const review = $('review-list'); review.replaceChildren();
+    [...state.history, ...state.exitAnswers].forEach((x, i) => {
+      const details = document.createElement('details'), summary = document.createElement('summary'), body = document.createElement('p'), explanation = document.createElement('p');
+      summary.textContent = `${x.phase === 'exit' ? 'Comprobación' : 'Práctica'} ${i + 1}: ${x.full ? 'correcto' : 'revisar'}`;
+      body.textContent = `${x.q.text.replace(/<[^>]+>/g, '')} ${x.q.step ? `Tipo elegido: ${x.selectedStep || '—'} (${x.step ? 'correcto' : 'revisar'}). ` : ''}Tu respuesta: ${x.entered} (${x.main ? 'cálculo correcto' : 'cálculo por revisar'}). Solución: ${x.q.answer}.${x.q.step ? ` Tipo correcto: ${x.q.step.answer}.` : ''}`;
+      const why = x.q.explanation || `Respuesta: ${x.q.answer}.`;
+      explanation.textContent = `Explicación: ${String(why).replace(/<sup>/g, '^').replace(/<[^>]+>/g, '')}`;
+      details.append(summary, body, explanation); review.append(details);
+    });
+    save();
+  }
+  function renderDeveloper() {
+    const allowed = normalize(learner) === 'admin', visible = allowed && developerOpen;
+    $('developer-toggle').hidden = !allowed;
+    $('developer-toggle').setAttribute('aria-pressed', String(visible));
+    $('developer').hidden = !visible;
+    $('app').classList.toggle('dev-open', visible);
+    document.body.classList.toggle('dev-open', visible);
+    if (!visible || !state) return;
+    const p = state.posterior, h = entropy(p), uncertainty = 100 * h / Math.log2(3);
+    const cp = state.classificationPosterior || [1/3,1/3,1/3], ch = entropy(cp), cu = 100 * ch / Math.log2(3);
+    $('dev-entropy').innerHTML = `<div class="dev-metric-head"><span>Entropía · cálculo</span><strong>${fixed(h)} <small>bits</small></strong></div><div class="dev-entropy-track" role="img" aria-label="Incertidumbre de cálculo: ${fixed(uncertainty, 1)} % del máximo"><span style="width:${uncertainty}%"></span></div><small>Incertidumbre del cálculo: ${fixed(uncertainty, 1)} % del máximo</small>${cfg.mixed ? `<div class="dev-metric-head"><span>Entropía · clasificación</span><strong>${fixed(ch)} <small>bits</small></strong></div><div class="dev-entropy-track" role="img" aria-label="Incertidumbre de clasificación: ${fixed(cu, 1)} % del máximo"><span style="width:${cu}%"></span></div><small>Incertidumbre de clasificación: ${fixed(cu, 1)} % del máximo</small>` : ''}`;
+    const cuts = [p[0] * 100, (p[0] + p[1]) * 100];
+    const ring = `conic-gradient(#c34755 0 ${cuts[0]}%, #d49a32 ${cuts[0]}% ${cuts[1]}%, #16836b ${cuts[1]}% 100%)`;
+    const classBars = cfg.mixed ? `<h3>Clasificación del tipo</h3>${cp.map((value,i)=>`<div class="dev-prob dev-level-${i}"><div><span>${levels[i]}</span><strong>${fixed(value*100,1)} %</strong></div><div class="dev-track"><span style="width:${value*100}%"></span></div></div>`).join('')}` : '';
+    $('dev-probabilities').innerHTML = `<div class="dev-posterior"><div class="dev-ring" style="background:${ring}" role="img" aria-label="Probabilidades de cálculo: ${levels.map((label, i) => `${label} ${fixed(p[i] * 100, 1)} %`).join(', ')}"><div><span>Dominio de cálculo</span><strong>${fixed(p[2] * 100, 1)} %</strong></div></div><div class="dev-bars">${p.map((value, i) => `<div class="dev-prob dev-level-${i}"><div><span>${levels[i]}</span><strong>${fixed(value * 100, 1)} %</strong></div><div class="dev-track"><span style="width:${value * 100}%"></span></div></div>`).join('')}</div></div>${classBars}`;
+    const rows = state.selection?.rows || [];
+    const maxUtility = Math.max(...rows.map(x => x.utility), 0.001);
+    $('dev-selection').innerHTML = rows.length ? rows.map((x, i) => `<div class="dev-candidate ${x.id === state.selection.chosen ? 'chosen' : ''}"><div class="dev-candidate-head"><span class="dev-rank">${i + 1}</span><strong>${escapeHtml(bank.LABELS[x.id] || 'Tipo de ejercicio')}</strong>${x.id === state.selection.chosen ? '<span class="dev-chosen">Elegida</span>' : ''}</div>${x.preview ? `<p class="dev-candidate-example">Ejemplo: ${escapeHtml(x.preview)}</p>` : ''}<div class="dev-candidate-track"><span style="width:${Math.max(0, 100 * x.utility / maxUtility)}%"></span></div><div class="dev-candidate-values"><span>Información <b>${fixed(x.ig)} bits</b></span><span>Puntuación <b>${fixed(x.utility)}</b></span></div></div>`).join('') : '<p class="dev-empty">La comprobación final usa preguntas fijadas.</p>';
+    const u = state.previousUpdate;
+    $('dev-update').innerHTML = u ? `<div class="dev-update-head"><strong>${escapeHtml(bank.LABELS[u.id] || 'Último ejercicio')}</strong><span class="${u.main && u.step ? 'dev-success' : 'dev-error'}">${u.main && u.step ? 'Acierto completo' : 'Componentes separados'}</span></div><p class="dev-entropy-change">Cálculo: entropía ${fixed(u.entropyBefore)} → ${fixed(u.entropyAfter)} bits</p>${u.prior.map((before, i) => `<div class="dev-update-row dev-level-${i}"><div class="dev-update-label"><span>${levels[i]}</span><strong>${fixed(before * 100, 1)} → ${fixed(u.after[i] * 100, 1)} %</strong></div><small>P(acierto de cálculo) ${fixed(u.likelihoods[i].main)} · evidencia ${fixed(u.factors[i])}</small></div>`).join('')}${cfg.mixed ? `<p class="dev-entropy-change">Clasificación: entropía ${fixed(u.typeEntropyBefore)} → ${fixed(u.typeEntropyAfter)} bits · ${u.step ? 'correcta' : 'incorrecta'}</p>${u.typePrior.map((before,i)=>`<div class="dev-update-row dev-level-${i}"><div class="dev-update-label"><span>${levels[i]}</span><strong>${fixed(before*100,1)} → ${fixed(u.typeAfter[i]*100,1)} %</strong></div><small>P(acierto de clasificación) ${fixed(u.likelihoods[i].step)} · evidencia ${fixed(u.typeFactors[i])}</small></div>`).join('')}` : ''}` : '<p class="dev-empty">Responde una pregunta para ver cómo cambian las probabilidades.</p>';
+  }
+  function resetAttempt(message) {
+    if (!state || !['practice', 'exit'].includes(state.phase)) return;
+    state = freshState(state.attempt, state.key, state.recent);
+    renderTheory(); $('notice').textContent = `${message} El intento se ha reiniciado. Las llaves obtenidas se conservan.`; $('notice').hidden = false;
+  }
+  async function startAttempt() {
+    if (fullscreenStarting) return;
+    if (!document.documentElement.requestFullscreen) { showWindowedFallback('Este navegador no permite pantalla completa. Puedes reintentar en un navegador compatible o empezar en ventana.'); return; }
+    fullscreenStarting = true;
+    try {
+      await document.documentElement.requestFullscreen();
+      if (document.fullscreenElement !== document.documentElement) throw Error('No se activó pantalla completa');
+      $('focus-dialog').hidden = true; state = freshState(state.attempt + 1, state.key, state.recent); state.focusMode = 'fullscreen';
+      state.current = chooseQuestion(); renderPractice();
+    } catch (error) { showWindowedFallback(`No se pudo activar la pantalla completa (${error?.name || 'permiso denegado'}). Puedes reintentar o empezar en ventana.`); }
+    finally {
+      fullscreenStarting = false;
+      if (['practice', 'exit'].includes(state?.phase) && state.focusMode !== 'windowed' && document.fullscreenElement !== document.documentElement) {
+        resetAttempt('Has salido de la pantalla completa.');
+      }
+    }
+  }
+  function showWindowedFallback(message) {
+    $('focus-error').textContent = `${message} Si cambias de pestaña o la aplicación pierde el foco, se reiniciará el intento.`;
+    $('focus-windowed').hidden = false;
+    $('focus-windowed').focus();
+  }
+  function startWindowedAttempt() {
+    $('focus-dialog').hidden = true;
+    state = freshState(state.attempt + 1, state.key, state.recent);
+    state.focusMode = 'windowed';
+    state.current = chooseQuestion();
+    renderPractice();
+  }
+  function setLearner(name) {
+    learner = cleanName(name); if (!learner) return false;
+    developerOpen = false; $('notice').hidden = true;
+    try { localStorage.setItem(`${rootKey}:ultimo-alumno`, learner); } catch { }
+    const saved = getJson(storageKey(learner), null);
+    state = saved && Array.isArray(saved.posterior) && saved.posterior.length === 3 ? saved : freshState(0);
+    if (['practice', 'exit'].includes(state.phase)) state = freshState(state.attempt, state.key, state.recent || []);
+    if (state.key && state.result) renderResult(); else renderTheory();
+    return true;
+  }
+  function init() {
+    document.title = `Etapa ${stage} · ${cfg.title} · Proporcionalidad`;
+    document.documentElement.style.setProperty('--stage-color', cfg.color);
+    document.documentElement.style.setProperty('--key-color', cfg.color);
+    $('hero-title').textContent = `Etapa ${stage} · ${cfg.title}`;
+    $('hero-subtitle').textContent = `Itinerario adaptativo de proporcionalidad · ${stage} de 4`;
+    $('focus-dialog').hidden = true;
+    $('name-form').addEventListener('submit', e => { e.preventDefault(); if (!setLearner($('name').value)) $('name-error').textContent = 'Escribe tu nombre para continuar.'; });
+    $('change-user').addEventListener('click', () => { if (document.fullscreenElement) return; learner = ''; developerOpen = false; $('name').value = ''; $('developer').hidden = true; $('developer-toggle').hidden = true; renderJourney(); show('welcome'); $('name').focus(); });
+    $('start').addEventListener('click', () => { $('focus-error').textContent = ''; $('focus-windowed').hidden = true; $('focus-dialog').hidden = false; $('focus-start').focus(); });
+    $('focus-cancel').addEventListener('click', () => { $('focus-dialog').hidden = true; $('start').focus(); });
+    $('focus-start').addEventListener('click', startAttempt);
+    $('focus-windowed').addEventListener('click', startWindowedAttempt);
+    $('hint-button').addEventListener('click', () => { state.hint = true; $('hint-text').textContent = state.current.hint; $('hint-text').hidden = false; $('hint-button').disabled = true; save(); });
+    $('check-button').addEventListener('click', answerPractice);
+    $('next-button').addEventListener('click', nextPractice);
+    $('exit-check').addEventListener('click', answerExit);
+    $('view-practice').addEventListener('keydown', event => handleQuestionEnter(event));
+    $('view-exit').addEventListener('keydown', event => handleQuestionEnter(event, true));
+    $('retry').addEventListener('click', () => { state = freshState(state.attempt, state.key, state.recent); renderTheory(); });
+    $('developer-toggle').addEventListener('click', () => { if (normalize(learner) !== 'admin') return; developerOpen = !developerOpen; renderDeveloper(); });
+    document.addEventListener('fullscreenchange', () => { if (!fullscreenStarting && state?.focusMode !== 'windowed' && ['practice', 'exit'].includes(state?.phase) && document.fullscreenElement !== document.documentElement) resetAttempt('Has salido de la pantalla completa.'); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) resetAttempt('Has cambiado de pantalla.'); });
+    window.addEventListener('blur', () => { if (!fullscreenStarting) resetAttempt('La aplicación ha dejado de ser la ventana principal.'); });
+    const transfer = new URLSearchParams(location.search), name = transfer.get('alumno') || getJson(`${rootKey}:ultimo-alumno`, '');
+    const previousKey = getJson(`${rootKey}:etapa${stage - 1}:${normalize(name)}`, null)?.key;
+    const transferredKey = transfer.get('llave') === `etapa${stage - 1}` && !!cleanName(transfer.get('alumno'));
+    const visitedStage = !!getJson(storageKey(name), null);
+    const authorized = canEnterStage(stage, name, previousKey, transferredKey, visitedStage);
+    if (!authorized) { $('locked').hidden = false; $('locked-link').href = `Etapa_${stage - 1}.html`; $('view-welcome').hidden = true; return; }
+    if (stage > 1 && name) setLearner(name); else { $('name').value = name || ''; renderJourney(); show('welcome'); }
+  }
+  if (typeof module !== 'undefined') module.exports = { entropy, pCorrect, probs, evidence, posterior, information, sameAnswer, canEnterStage, selectQuestionForStage, promotionRequirements };
+  if (typeof document !== 'undefined') init();
+})();
+</script>
+
+</body>
+</html>
+
