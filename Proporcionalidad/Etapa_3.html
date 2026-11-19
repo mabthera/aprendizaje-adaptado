@@ -688,12 +688,18 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     try {
       const queue = read(QUEUE, []);
       for (const item of Array.isArray(queue) ? queue : []) {
+        if (/^(PRUEBA|TEST)[_ -]/i.test(item.name || '')) {
+          write(QUEUE, read(QUEUE, []).filter(x => x.id !== item.id));
+          continue;
+        }
         let stored = await receipt(item.id);
         if (!stored && (!item.lastPostAt || Date.now() - item.lastPostAt >= RETRY_MS)) {
           try {
             await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(item) });
-            item.lastPostAt = Date.now(); write(QUEUE, queue);
-            stored = await receipt(item.id);
+            write(QUEUE, read(QUEUE, []).filter(x => x.id !== item.id));
+            const done = read(DONE, []); if (!done.includes(item.id)) write(DONE, [...done, item.id].slice(-500));
+            status('Resultado enviado al profesor.');
+            continue;
           } catch { /* Se conserva la cola para volver a intentarlo. */ }
         }
         if (!stored) { status('Envío pendiente de confirmación; se reintentará al volver a conectar.'); break; }
