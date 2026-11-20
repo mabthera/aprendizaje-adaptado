@@ -15,6 +15,56 @@
   const normalize = value => String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('es');
   const cleanName = value => String(value || '').trim().replace(/\s+/g, ' ').slice(0, 60);
   const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+  function compoundFeedback(q) {
+    const p = q.params;
+    if (!p || q.family !== 'compuesta') return null;
+    let rows, product;
+    if (p.kind === 1) {
+      rows = [
+        ['Personas', 'Directa · más personas → más piezas', `× ${p.people * p.kp} personas nuevas ÷ ${p.people} iniciales`],
+        ['Horas', 'Directa · más horas → más piezas', `× ${p.hours * p.kh} horas nuevas ÷ ${p.hours} iniciales`]
+      ];
+      product = `${p.units} × ${p.people * p.kp} × ${p.hours * p.kh} ÷ ${p.people} ÷ ${p.hours} = ${q.answer} piezas`;
+    } else if (p.kind === 2) {
+      rows = [
+        ['Cajas (trabajo)', 'Directa · más cajas → más días', `× ${p.newWork} cajas nuevas ÷ ${p.oldWork} iniciales`],
+        ['Personas', 'Inversa · más personas → menos días', `× ${p.people} personas iniciales ÷ ${p.people * p.kp} nuevas`]
+      ];
+      product = `${p.days} × ${p.newWork} × ${p.people} ÷ ${p.oldWork} ÷ ${p.people * p.kp} = ${q.answer} días`;
+    } else if (p.kind === 3) {
+      rows = [
+        ['Máquinas', 'Directa · más máquinas → más consumo', `× ${p.machines * p.k1} máquinas nuevas ÷ ${p.machines} iniciales`],
+        ['Horas', 'Directa · más horas → más consumo', `× ${p.hours * p.k2} horas nuevas ÷ ${p.hours} iniciales`]
+      ];
+      product = `${p.litres} × ${p.machines * p.k1} × ${p.hours * p.k2} ÷ ${p.machines} ÷ ${p.hours} = ${q.answer} L`;
+    } else {
+      rows = [
+        ['Personas', 'Inversa · más personas → menos días', `× ${p.workers} personas iniciales ÷ ${p.newWorkers} nuevas`],
+        ['Horas al día', 'Inversa · más horas → menos días', `× ${p.daily} horas iniciales ÷ ${p.newDaily} nuevas`]
+      ];
+      product = `${p.days} × ${p.workers} × ${p.daily} ÷ ${p.newWorkers} ÷ ${p.newDaily} = ${q.answer} días`;
+    }
+    return { rows, product };
+  }
+  function makeCompoundTable(q) {
+    const data = compoundFeedback(q);
+    if (!data) return null;
+    const section = document.createElement('section'); section.className = 'compound-feedback';
+    const heading = document.createElement('h3'); heading.textContent = 'Relaciones con la incógnita'; section.append(heading);
+    const table = document.createElement('table'); table.className = 'compound-feedback-table';
+    const thead = table.createTHead(), header = thead.insertRow();
+    ['Magnitud que cambia', 'Tipo de relación', 'Operación y datos'].forEach(label => { const th = document.createElement('th'); th.scope = 'col'; th.textContent = label; header.append(th); });
+    const tbody = table.createTBody();
+    data.rows.forEach(row => {
+      const tr = tbody.insertRow();
+      row.forEach((value, index) => { const td = tr.insertCell(); td.dataset.label = ['Magnitud que cambia', 'Tipo de relación', 'Operación y datos'][index]; td.textContent = value; });
+    });
+    const product = document.createElement('p'); product.className = 'compound-product';
+    const label = document.createElement('strong'); label.textContent = 'Producto completo (5 datos): ';
+    product.append(label, document.createTextNode(data.product));
+    section.append(table, product);
+    return section;
+  }
   const isStudyUser = name => normalize(name) === 'estudiar';
   const canEnterStage = (number, name, previousKey, transferredKey, visitedStage) => number === 1 || (isStudyUser(name) && !!cleanName(name)) || (!!cleanName(name) && !!(previousKey || transferredKey || visitedStage));
   const getJson = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
@@ -276,7 +326,12 @@
     $('feedback').hidden = false;
     $('feedback').className = `feedback ${item.full ? 'good' : 'review'}`;
     const feedbackTitle = item.full ? 'Clasificación y cálculo correctos.' : q.step && !item.step && !item.main ? 'Revisa la clasificación y el cálculo.' : q.step && !item.step ? 'El resultado puede ser correcto; revisa el tipo elegido.' : q.step && !item.main ? 'El tipo está bien elegido; revisa el cálculo.' : 'Revisa el resultado.';
-    $('feedback').innerHTML = `<strong>${feedbackTitle}</strong><p><b>Explicación:</b> ${q.explanation}</p><p>Respuesta esperada: <b>${q.answer}</b>${q.step ? ` · Tipo correcto: <b>${q.step.answer}</b>` : ''}.</p>`;
+    const feedback = $('feedback'); feedback.replaceChildren();
+    const title = document.createElement('strong'); title.textContent = feedbackTitle; feedback.append(title);
+    const compoundTable = makeCompoundTable(q);
+    if (compoundTable) feedback.append(compoundTable);
+    else { const explanation = document.createElement('p'); explanation.innerHTML = `<b>Explicación:</b> ${escapeHtml(q.explanation)}`; feedback.append(explanation); }
+    const expected = document.createElement('p'); expected.innerHTML = `Respuesta esperada: <b>${escapeHtml(q.answer)}</b>${q.step ? ` · Tipo correcto: <b>${escapeHtml(q.step.answer)}</b>` : ''}.`; feedback.append(expected);
     $('check-button').hidden = true; $('next-button').hidden = false; $('hint-button').disabled = true;
     $('answer').disabled = true; $('answer-select').disabled = true; $('step').disabled = true;
     renderDeveloper(); $('feedback').scrollIntoView({ block: 'nearest' }); $('next-button').focus({ preventScroll: true });
@@ -410,9 +465,13 @@
       const details = document.createElement('details'), summary = document.createElement('summary'), body = document.createElement('p'), explanation = document.createElement('p');
       summary.textContent = `${x.phase === 'exit' ? 'Comprobación' : 'Práctica'} ${i + 1}: ${x.full ? 'correcto' : 'revisar'}`;
       body.textContent = `${x.q.text.replace(/<[^>]+>/g, '')} ${x.q.step ? `Tipo elegido: ${x.selectedStep || '—'} (${x.step ? 'correcto' : 'revisar'}). ` : ''}Tu respuesta: ${x.entered} (${x.main ? 'cálculo correcto' : 'cálculo por revisar'}). Solución: ${x.q.answer}.${x.q.step ? ` Tipo correcto: ${x.q.step.answer}.` : ''}`;
-      const why = x.q.explanation || `Respuesta: ${x.q.answer}.`;
-      explanation.textContent = `Explicación: ${String(why).replace(/<sup>/g, '^').replace(/<[^>]+>/g, '')}`;
-      details.append(summary, body, explanation); review.append(details);
+      const compoundTable = makeCompoundTable(x.q);
+      if (!compoundTable) {
+        const why = x.q.explanation || `Respuesta: ${x.q.answer}.`;
+        explanation.textContent = `Explicación: ${String(why).replace(/<sup>/g, '^').replace(/<[^>]+>/g, '')}`;
+        details.append(summary, body, explanation);
+      } else details.append(summary, body, compoundTable);
+      review.append(details);
     });
     save();
   }
