@@ -292,7 +292,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
 .hint, .feedback { width: min(100%, 640px); margin: 15px auto 0; padding: 13px 16px; border-radius: 17px; text-align: left; box-shadow: var(--inset); }
 .hint { border: 1px solid #d8dfe8; background: var(--surface); color: #515b67; }
 .feedback { border: 1px solid #b5c5d3; background: var(--surface); }
-.feedback p { margin: 7px 0 0; }
+.feedback p { margin: 7px 0 0; white-space: pre-line; }
 .feedback.good { border-color: #91b4a5; }
 .feedback.review { border-color: #d69ca2; }
 .question-actions { justify-content: center; margin-top: 17px; }
@@ -324,7 +324,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
 .result-list { display: grid; gap: 9px; }
 .result-list details { padding: 10px 14px; border: 1px solid var(--border); border-radius: 15px; background: var(--surface); box-shadow: var(--inset); }
 .result-list summary { cursor: pointer; font-weight: 720; }
-.result-list p { overflow-wrap: anywhere; }
+.result-list p { overflow-wrap: anywhere; white-space: pre-line; }
 .review-drawer { margin-top: 16px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: var(--inset); }
 .review-drawer > summary { cursor: pointer; color: #464e57; font-weight: 750; }
 .review-drawer[open] > summary { margin-bottom: 12px; }
