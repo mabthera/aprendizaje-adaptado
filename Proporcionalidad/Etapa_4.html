@@ -1196,7 +1196,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     $('key-card').hidden = !state.key; $('key-card').style.setProperty('--key-color', cfg.color);
     $('key-card').classList.toggle('is-revealed', !!state.key);
     $('retry').hidden = !!state.key; $('next-stage').hidden = !state.key || stage === 4;
-    if (stage < 4) $('next-stage').href = `Etapa_${stage + 1}.html`;
+    if (stage < 4) $('next-stage').href = `Etapa_${stage + 1}.html?alumno=${encodeURIComponent(learner)}&llave=etapa${stage}`;
     $('diploma').hidden = !(stage === 4 && state.key); $('diploma-name').textContent = learner;
     const review = $('review-list'); review.replaceChildren();
     [...state.history, ...state.exitAnswers].forEach((x, i) => {
@@ -1271,7 +1271,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
   function setLearner(name) {
     learner = cleanName(name); if (!learner) return false;
     developerOpen = false; $('notice').hidden = true;
-    try { localStorage.setItem(`${rootKey}:ultimo-alumno`, learner); } catch { }
+    setJson(`${rootKey}:ultimo-alumno`, learner);
     const saved = getJson(storageKey(learner), null);
     state = saved && Array.isArray(saved.posterior) && saved.posterior.length === 3 ? saved : freshState(0);
     if (state.result && state.syncId && !isStudyUser(learner)) globalThis.ProportionSync?.record({ name: learner, stage, state });
@@ -1303,7 +1303,10 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     document.addEventListener('fullscreenchange', () => { if (!fullscreenStarting && state?.focusMode !== 'windowed' && ['practice', 'exit'].includes(state?.phase) && document.fullscreenElement !== document.documentElement) resetAttempt('Has salido de la pantalla completa.'); });
     document.addEventListener('visibilitychange', () => { if (document.hidden) resetAttempt('Has cambiado de pantalla.'); });
     window.addEventListener('blur', () => { if (!fullscreenStarting) resetAttempt('La aplicación ha dejado de ser la ventana principal.'); });
-    const transfer = new URLSearchParams(location.search), name = transfer.get('alumno') || getJson(`${rootKey}:ultimo-alumno`, '');
+    const transfer = new URLSearchParams(location.search);
+    let lastLearner = getJson(`${rootKey}:ultimo-alumno`, '');
+    if (!lastLearner) { try { lastLearner = localStorage.getItem(`${rootKey}:ultimo-alumno`) || ''; } catch { } }
+    const name = transfer.get('alumno') || lastLearner;
     const previousKey = getJson(`${rootKey}:etapa${stage - 1}:${normalize(name)}`, null)?.key;
     const transferredKey = transfer.get('llave') === `etapa${stage - 1}` && !!cleanName(transfer.get('alumno'));
     const visitedStage = !!getJson(storageKey(name), null);
