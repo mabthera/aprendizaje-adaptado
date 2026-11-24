@@ -653,7 +653,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCn-S93OX699xcHUEh9MguMxAijRNBrXwr3Mb0Ir7iBkmCY-ftWJDc5HfA339vnE7N/exec';
   const RESOURCE = '04Proporcionalidad';
   const QUEUE = 'ud4-proporcionalidad-envios-v1';
-  const DONE = 'ud4-proporcionalidad-confirmados-v1';
+  const DONE = 'ud4-proporcionalidad-confirmados-v2';
   const RETRY_MS = 60 * 60 * 1000;
   let busy = false;
   const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
@@ -701,18 +701,13 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     try {
       const queue = read(QUEUE, []);
       for (const item of Array.isArray(queue) ? queue : []) {
-        if (/^(PRUEBA|TEST)[_ -]/i.test(item.name || '')) {
-          write(QUEUE, read(QUEUE, []).filter(x => x.id !== item.id));
-          continue;
-        }
         let stored = await receipt(item.id);
         if (!stored && (!item.lastPostAt || Date.now() - item.lastPostAt >= RETRY_MS)) {
           try {
             await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(item) });
-            write(QUEUE, read(QUEUE, []).filter(x => x.id !== item.id));
-            const done = read(DONE, []); if (!done.includes(item.id)) write(DONE, [...done, item.id].slice(-500));
-            status('Resultado enviado al profesor.');
-            continue;
+            item.lastPostAt = Date.now();
+            write(QUEUE, read(QUEUE, []).map(x => x.id === item.id ? item : x));
+            stored = await receipt(item.id);
           } catch { /* Se conserva la cola para volver a intentarlo. */ }
         }
         if (!stored) { status('Envío pendiente de confirmación; se reintentará al volver a conectar.'); break; }
@@ -738,9 +733,9 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     window.addEventListener('focus', flush);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) flush(); });
     setTimeout(flush, 1200);
+    setInterval(flush, 60000);
   }
-})(typeof window !== 'undefined' ? window : globalThis);
-</script>
+})(typeof window !== 'undefined' ? window : globalThis);</script>
 <script>/* Motor adaptativo común. build.py lo inserta en cada etapa para uso local autónomo. */
 (function () {
   'use strict';
@@ -1279,6 +1274,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -.03em; }
     try { localStorage.setItem(`${rootKey}:ultimo-alumno`, learner); } catch { }
     const saved = getJson(storageKey(learner), null);
     state = saved && Array.isArray(saved.posterior) && saved.posterior.length === 3 ? saved : freshState(0);
+    if (state.result && state.syncId && !isStudyUser(learner)) globalThis.ProportionSync?.record({ name: learner, stage, state });
     if (['practice', 'exit'].includes(state.phase)) state = freshState(state.attempt, state.key, state.recent || []);
     if (state.key && state.result) renderResult(); else renderTheory();
     return true;
